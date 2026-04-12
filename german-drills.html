@@ -131,11 +131,17 @@ function getProgress(d){
     var data=JSON.parse(raw);
 
     // Declension: catStats — {cat: {c:n, w:n}}
+    // Mastered = category with >=85% accuracy and >=10 attempts
     if(d.storeKey==="gd_stats_v2"){
-      var total=0,correct=0;
-      for(var k in data){if(data.hasOwnProperty(k)){total+=data[k].c+data[k].w;correct+=data[k].c;}}
+      var mastered=0,total=0;
+      for(var k in data){if(data.hasOwnProperty(k)){
+        total++;
+        var s=data[k],att=s.c+s.w;
+        if(att>=10&&s.c/att>=0.85)mastered++;
+      }}
       if(total===0)return null;
-      return {pct:Math.round(correct/total*100),label:correct+" correct of "+total+" answered"};
+      var pct=Math.round(mastered/total*100);
+      return {pct:pct,label:mastered+"/"+total+" categories mastered"};
     }
 
     // Modal Verbs: {session, items:[{box,correct,wrong}]}
@@ -157,11 +163,13 @@ function getProgress(d){
     }
 
     // Pronouns: {cat0: bestPct, cat0_hard: bestPct, ...}
+    // Mastered = category with bestPct >= 85
     if(d.storeKey==="germanDrill_pronouns_v1"){
-      var vals=[];for(var k in data){if(data.hasOwnProperty(k))vals.push(data[k]);}
-      if(!vals.length)return null;
-      var avg=0;for(var i=0;i<vals.length;i++)avg+=vals[i];avg=Math.round(avg/vals.length);
-      return {pct:avg,label:"best avg "+avg+"%"};
+      var mastered=0,total=0;
+      for(var k in data){if(data.hasOwnProperty(k)){total++;if(data[k]>=85)mastered++;}}
+      if(total===0)return null;
+      var pct=Math.round(mastered/total*100);
+      return {pct:pct,label:mastered+"/"+total+" categories mastered"};
     }
 
     // Vocabulary: {boxes:{idx:boxNum,...}, score, streak, total, correct}
@@ -175,28 +183,31 @@ function getProgress(d){
     }
 
     // Chameleon Words: catStats — {word_role: {c:n, w:n}}
+    // Mastered = category with >=85% accuracy and >=10 attempts
     if(d.storeKey==="germanDrill_chameleon_v1"){
-      var total=0,correct=0;
-      for(var k in data){if(data.hasOwnProperty(k)){total+=data[k].c+data[k].w;correct+=data[k].c;}}
+      var mastered=0,total=0;
+      for(var k in data){if(data.hasOwnProperty(k)){
+        total++;
+        var s=data[k],att=s.c+s.w;
+        if(att>=10&&s.c/att>=0.85)mastered++;
+      }}
       if(total===0)return null;
-      return {pct:Math.round(correct/total*100),label:correct+" correct of "+total+" answered"};
+      var pct=Math.round(mastered/total*100);
+      return {pct:pct,label:mastered+"/"+total+" categories mastered"};
     }
   }catch(e){}
   return null;
 }
 
 function getOverallStats(){
-  var pcts=[],weakest=null,weakPct=101;
+  var sumPct=0,weakest=null,weakPct=101;
   for(var i=0;i<DECKS.length;i++){
     var p=getProgress(DECKS[i]);
-    if(p){
-      pcts.push(p.pct);
-      if(p.pct<weakPct){weakPct=p.pct;weakest=DECKS[i].name;}
-    }
+    var pct=p?p.pct:0;
+    sumPct+=pct;
+    if(pct<weakPct){weakPct=pct;weakest=DECKS[i].name;}
   }
-  if(!pcts.length)return null;
-  var sum=0;for(var j=0;j<pcts.length;j++)sum+=pcts[j];
-  return{overallPct:Math.round(sum/pcts.length),weakestName:weakest,deckCount:pcts.length};
+  return{overallPct:Math.round(sumPct/DECKS.length),weakestName:weakest,deckCount:DECKS.length};
 }
 
 function getStreak(storeKey){
