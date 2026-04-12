@@ -313,7 +313,7 @@ function woCheck(card){
     corrDiv.style.cssText='margin-top:8px;color:#f87171;font-size:13px';
     corrDiv.innerHTML='Correct: <strong>'+card.prefix+' '+card.correct+'.</strong>';
     document.getElementById('options').appendChild(corrDiv);
-    if(cur+3<deck.length){
+    if(!card.isRetry&&cur+3<deck.length){
       var retry={};for(var k in card)retry[k]=card[k];
       retry.isRetry=true;
       deck.splice(cur+3+Math.floor(Math.random()*5),0,retry);
@@ -424,6 +424,7 @@ function clearStats(){
 // === Keyboard ===
 document.addEventListener('keydown',function(e){
   if(e.key==='Enter'||e.key===' '){
+    if(document.getElementById('finish-container').style.display!=='none')return;
     var nb=document.getElementById('next-btn');
     if(nb&&nb.style.display!=='none'){e.preventDefault();doAdvance();return}
     var cb=document.getElementById('wo-check');
