@@ -75,6 +75,19 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0e0e1a;color:#e0e0e0;m
   <div id="finish-container"></div>
 </div>
 <script>
+(function(){
+  var SK='germanDrill_chameleon_v1';
+  var streaks=JSON.parse(localStorage.getItem('gd_streaks')||'{}');
+  var today=new Date().toISOString().slice(0,10);
+  var entry=streaks[SK]||{date:'',streak:0};
+  if(entry.date!==today){
+    var yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+    entry.streak=(entry.date===yesterday)?entry.streak+1:1;
+    entry.date=today;
+  }
+  streaks[SK]=entry;
+  localStorage.setItem('gd_streaks',JSON.stringify(streaks));
+})();
 var chameleonEx=[
 // --- nach ---
 {prefix:"Sie sagt, dass",chunks:["sie","nach der Arbeit","einkaufen","geht"],correct:"sie nach der Arbeit einkaufen geht",en:"She says she goes shopping after work.",rule:"nach (after) — temporal phrase in Mittelfeld",word:"nach",role:"after"},
@@ -303,7 +316,7 @@ function woCheck(card){
     if(cur+3<deck.length){
       var retry={};for(var k in card)retry[k]=card[k];
       retry.isRetry=true;
-      deck.splice(cur+3+Math.floor(Math.random()*4),0,retry);
+      deck.splice(cur+3+Math.floor(Math.random()*5),0,retry);
       sessionTotal++;
     }
   }
