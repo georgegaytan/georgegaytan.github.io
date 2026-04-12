@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>German Chameleon Words Drill</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:#0e0e1a;color:#e0e0e0;min-height:100vh;-webkit-tap-highlight-color:transparent}
+.container{max-width:480px;margin:0 auto;padding:16px}
+#session-bar{position:fixed;top:0;left:0;right:0;height:3px;background:#1a1a2e;z-index:100}
+#session-bar-fill{height:100%;background:#2dd4bf;width:0;transition:width 0.3s}
+.header{display:flex;justify-content:space-between;align-items:center;margin:12px 0 16px;font-size:13px;color:#888}
+.header button{background:none;border:1px solid #333;color:#888;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer}
+.header button:hover{border-color:#2dd4bf;color:#2dd4bf}
+.card{background:#16162a;border-radius:14px;padding:20px;margin-bottom:16px;border:1px solid #1e1e2e}
+.case-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:#2dd4bf}
+.question-prompt{font-size:14px;color:#aaa;margin-bottom:6px}
+.wo-prefix{font-size:16px;color:#888;margin-bottom:12px;font-style:italic;display:block}
+.wo-slots{display:flex;flex-wrap:wrap;gap:6px;min-height:44px;padding:10px;background:#16162a;border:2px dashed #2a2a3a;border-radius:10px;margin-bottom:12px}
+.wo-slots.correct{border-color:#4ade80;background:rgba(74,222,128,0.05)}
+.wo-slots.wrong{border-color:#f87171;background:rgba(248,113,113,0.05)}
+.wo-chip{padding:8px 14px;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.15s;user-select:none;-webkit-user-select:none}
+.wo-chip.available{background:#1e1e2e;border:1px solid #2a2a3a;color:#e0e0e0}
+.wo-chip.available:hover{border-color:#555}
+.wo-chip.placed{background:#2dd4bf15;border:1px solid #2dd4bf;color:#2dd4bf}
+.wo-chip.placed:hover{opacity:0.7}
+.wo-check-btn{margin-top:10px;padding:10px 24px;border:none;border-radius:8px;font-size:14px;font-weight:600;color:#fff;background:#2dd4bf;cursor:pointer;width:100%}
+.wo-check-btn:disabled{background:#2a2a2a;color:#555;cursor:default}
+.wo-check-btn:not(:disabled):hover{background:#26b5a3}
+.feedback-box{background:#1a1a2e;border-radius:10px;padding:14px;margin-top:12px;display:none}
+.fb-sentence{font-size:15px;font-weight:600;margin-bottom:4px}
+.fb-sentence.correct-fb{color:#4ade80}
+.fb-sentence.wrong-fb{color:#f87171}
+.fb-english{font-size:13px;color:#aaa;font-style:italic;margin-bottom:6px}
+.fb-rule{font-size:12px;color:#888;background:#0e0e1a;padding:8px;border-radius:6px;border-left:3px solid #2dd4bf}
+.next-btn{width:100%;padding:12px;border:none;border-radius:10px;font-size:15px;font-weight:600;color:#fff;background:#2dd4bf;cursor:pointer;margin-top:12px;display:none}
+.next-btn:hover{background:#26b5a3}
+.hint-rule{font-size:12px;color:#666;margin-top:4px;margin-bottom:8px;font-style:italic}
+#finish-container{display:none;text-align:center;padding:20px 0}
+#finish-container h2{color:#2dd4bf;margin-bottom:16px;font-size:22px}
+.finish-stat{font-size:18px;margin-bottom:20px;color:#ccc}
+.finish-stat strong{color:#2dd4bf}
+#finish-container h3{color:#aaa;font-size:14px;margin-bottom:12px;text-align:left}
+.word-stat{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.word-label{width:50px;font-size:13px;font-weight:600;color:#ccc;text-align:right}
+.word-bar{flex:1;height:8px;background:#1e1e2e;border-radius:4px;overflow:hidden}
+.word-fill{height:100%;background:#2dd4bf;border-radius:4px;transition:width 0.5s}
+.word-pct{width:36px;font-size:12px;color:#888;text-align:right}
+.restart-btn{margin-top:20px;padding:12px 32px;border:none;border-radius:10px;font-size:15px;font-weight:600;color:#fff;background:#2dd4bf;cursor:pointer}
+.restart-btn:hover{background:#26b5a3}
+.reset-btn{margin-top:8px;padding:10px 24px;border:none;border-radius:8px;font-size:13px;color:#888;background:#1e1e2e;cursor:pointer}
+.reset-btn:hover{color:#f87171}
+</style>
+</head>
+<body>
+<div id="session-bar"><div id="session-bar-fill"></div></div>
+<div class="container">
+  <div class="header">
+    <span id="progress">0 / 0</span>
+    <span id="accuracy"></span>
+    <button onclick="startGame()">Restart</button>
+  </div>
+  <div id="game-container">
+    <div class="card">
+      <div class="case-label" id="case-label"></div>
+      <div class="question-prompt" id="prompt">Arrange the words in correct order:</div>
+      <div class="wo-prefix" id="wo-prefix"></div>
+    </div>
+    <div id="options"></div>
+    <div class="feedback-box" id="feedback"></div>
+    <button class="next-btn" id="next-btn" onclick="doAdvance()">Next</button>
+  </div>
+  <div id="finish-container"></div>
+</div>
+<script>
+var chameleonEx=[
+// --- nach ---
+{prefix:"Sie sagt, dass",chunks:["sie","nach der Arbeit","einkaufen","geht"],correct:"sie nach der Arbeit einkaufen geht",en:"She says she goes shopping after work.",rule:"nach (after) — temporal phrase in Mittelfeld",word:"nach",role:"after"},
+{prefix:"Ich weiß, dass",chunks:["er","nach dem Essen","immer","müde","ist"],correct:"er nach dem Essen immer müde ist",en:"I know he's always tired after eating.",rule:"nach (after) — temporal before frequency adverb",word:"nach",role:"after"},
+{prefix:"Er erzählt, dass",chunks:["sie","morgen","nach Berlin","fährt"],correct:"sie morgen nach Berlin fährt",en:"He says she's going to Berlin tomorrow.",rule:"nach (to) — temporal before directional",word:"nach",role:"to"},
+{prefix:"Sie hofft, dass",chunks:["wir","im Sommer","nach Spanien","fahren"],correct:"wir im Sommer nach Spanien fahren",en:"She hopes we'll go to Spain in summer.",rule:"nach (to) — temporal before directional",word:"nach",role:"to"},
+// --- noch ---
+{prefix:"Sie hofft, dass",chunks:["er","noch","in Berlin","wohnt"],correct:"er noch in Berlin wohnt",en:"She hopes he still lives in Berlin.",rule:"noch (still) — before the local phrase",word:"noch",role:"still"},
+{prefix:"Ich weiß, dass",chunks:["du","noch","müde","bist"],correct:"du noch müde bist",en:"I know you're still tired.",rule:"noch (still) — before the predicate",word:"noch",role:"still"},
+{prefix:"Weißt du, ob",chunks:["sie","noch","hier","arbeitet"],correct:"sie noch hier arbeitet",en:"Do you know if she still works here?",rule:"noch (still) — before the local adverb",word:"noch",role:"still"},
+{prefix:"Ich weiß, dass",chunks:["sie","noch nicht","angefangen","hat"],correct:"sie noch nicht angefangen hat",en:"I know she hasn't started yet.",rule:"noch nicht (not yet) — before the participle",word:"noch",role:"not yet"},
+{prefix:"Er sagt, dass",chunks:["er","den Film","noch nicht","gesehen","hat"],correct:"er den Film noch nicht gesehen hat",en:"He says he hasn't seen the movie yet.",rule:"noch nicht (not yet) — after object, before participle",word:"noch",role:"not yet"},
+{prefix:"Er erklärt, dass",chunks:["er","die Aufgabe","noch nicht","erledigt","hat"],correct:"er die Aufgabe noch nicht erledigt hat",en:"He explains he hasn't finished the task yet.",rule:"noch nicht (not yet) — after object, before participle",word:"noch",role:"not yet"},
+{prefix:"Er fragt, ob",chunks:["du","noch","ein Stück Kuchen","möchtest"],correct:"du noch ein Stück Kuchen möchtest",en:"He asks if you'd like another piece of cake.",rule:"noch (another) — before the object",word:"noch",role:"another"},
+{prefix:"Sie findet, dass",chunks:["das Buch","noch","besser","ist"],correct:"das Buch noch besser ist",en:"She thinks the book is even better.",rule:"noch (even) — directly before the comparative",word:"noch",role:"even"},
+// --- schon ---
+{prefix:"Er sagt, dass",chunks:["er","schon","das Essen","gekocht","hat"],correct:"er schon das Essen gekocht hat",en:"He says he has already cooked the food.",rule:"schon (already) — before the object",word:"schon",role:"already"},
+{prefix:"Er fragt, ob",chunks:["du","schon","die Hausaufgaben","gemacht","hast"],correct:"du schon die Hausaufgaben gemacht hast",en:"He asks if you've already done the homework.",rule:"schon (already) — before the object",word:"schon",role:"already"},
+{prefix:"Ich glaube, dass",chunks:["sie","schon","zu Hause","angekommen","ist"],correct:"sie schon zu Hause angekommen ist",en:"I think she has already arrived home.",rule:"schon (already) — before the local phrase",word:"schon",role:"already"},
+{prefix:"Weißt du, ob",chunks:["er","schon","aufgestanden","ist"],correct:"er schon aufgestanden ist",en:"Do you know if he's already gotten up?",rule:"schon (already) — before the participle",word:"schon",role:"already"},
+{prefix:"Er fragt, ob",chunks:["du","schon mal","in Japan","gewesen","bist"],correct:"du schon mal in Japan gewesen bist",en:"He asks if you've ever been to Japan.",rule:"schon mal (ever) — before the local phrase",word:"schon",role:"ever"},
+{prefix:"Sie fragt, ob",chunks:["du","schon mal","nach München","gefahren","bist"],correct:"du schon mal nach München gefahren bist",en:"She asks if you've ever been to Munich.",rule:"schon mal (ever) — before the directional phrase",word:"schon",role:"ever"},
+{prefix:"Ich sehe, dass",chunks:["du","schon wieder","zu spät","gekommen","bist"],correct:"du schon wieder zu spät gekommen bist",en:"I see you've arrived late yet again.",rule:"schon wieder (yet again) — before the manner phrase",word:"schon",role:"yet again"},
+{prefix:"Er merkt, dass",chunks:["er","schon wieder","seinen Schlüssel","vergessen","hat"],correct:"er schon wieder seinen Schlüssel vergessen hat",en:"He notices he's forgotten his key yet again.",rule:"schon wieder (yet again) — before the object",word:"schon",role:"yet again"},
+// --- doch ---
+{prefix:"Sie sagt, dass",chunks:["sie","das","doch","gesagt","hat"],correct:"sie das doch gesagt hat",en:"She says she DID say that.",rule:"doch (insistence) — after object, stresses the verb",word:"doch",role:"insistence"},
+{prefix:"Er weiß, dass",chunks:["ich","ihm","doch","geholfen","habe"],correct:"ich ihm doch geholfen habe",en:"He knows I DID help him.",rule:"doch (insistence) — after dative object",word:"doch",role:"insistence"},
+{prefix:"Sie betont, dass",chunks:["sie","das Buch","doch","gelesen","hat"],correct:"sie das Buch doch gelesen hat",en:"She insists she DID read the book.",rule:"doch (insistence) — after object, before participle",word:"doch",role:"insistence"},
+{prefix:"Ich weiß, dass",chunks:["sie","doch","recht","hat"],correct:"sie doch recht hat",en:"I know she IS right (contrary to what was said).",rule:"doch (insistence) — before the predicate",word:"doch",role:"insistence"},
+{prefix:"Ich merke, dass",chunks:["er","doch","hier","ist"],correct:"er doch hier ist",en:"I notice he IS here after all.",rule:"doch (surprise) — before the local adverb",word:"doch",role:"surprise"},
+{prefix:"Sie sieht, dass",chunks:["es","doch","möglich","ist"],correct:"es doch möglich ist",en:"She sees it IS possible after all.",rule:"doch (surprise) — before the predicate",word:"doch",role:"surprise"},
+// --- mal ---
+{prefix:"Er fragt, ob",chunks:["du","ihm","mal","helfen","kannst"],correct:"du ihm mal helfen kannst",en:"He asks if you could help him.",rule:"mal (softener) — after dative, before infinitive",word:"mal",role:"softener"},
+{prefix:"Sie fragt, ob",chunks:["ich","mal","das Fenster","öffnen","kann"],correct:"ich mal das Fenster öffnen kann",en:"She asks if I could open the window.",rule:"mal (softener) — before the object + infinitive",word:"mal",role:"softener"},
+{prefix:"Sie fragt, ob",chunks:["wir","mal","zusammen","essen","können"],correct:"wir mal zusammen essen können",en:"She asks if we could eat together sometime.",rule:"mal (softener) — before the manner adverb",word:"mal",role:"softener"},
+{prefix:"Er fragt, ob",chunks:["ich","ihm","mal","das Buch","geben","kann"],correct:"ich ihm mal das Buch geben kann",en:"He asks if I could give him the book.",rule:"mal (softener) — after dative, before accusative",word:"mal",role:"softener"},
+{prefix:"Sie bittet, dass",chunks:["ich","das","nochmal","erkläre"],correct:"ich das nochmal erkläre",en:"She asks that I explain it once more.",rule:"nochmal (once more) — after object, before verb",word:"mal",role:"once more"},
+// --- erst ---
+{prefix:"Ich bin müde, weil",chunks:["ich","erst","um 2 Uhr","eingeschlafen","bin"],correct:"ich erst um 2 Uhr eingeschlafen bin",en:"I'm tired because I didn't fall asleep until 2.",rule:"erst (not until) — before the time expression",word:"erst",role:"not until"},
+{prefix:"Er sagt, dass",chunks:["der Zug","erst","um 10 Uhr","abfährt"],correct:"der Zug erst um 10 Uhr abfährt",en:"He says the train doesn't leave until 10.",rule:"erst (not until) — before the time expression",word:"erst",role:"not until"},
+{prefix:"Ich weiß, dass",chunks:["er","erst","nächste Woche","zurückkommt"],correct:"er erst nächste Woche zurückkommt",en:"I know he won't come back until next week.",rule:"erst (not until) — before the time expression",word:"erst",role:"not until"},
+{prefix:"Sie erzählt, dass",chunks:["sie","erst","gestern","angekommen","ist"],correct:"sie erst gestern angekommen ist",en:"She says she only arrived yesterday.",rule:"erst (only just) — before the time adverb",word:"erst",role:"only just"},
+{prefix:"Er sagt, dass",chunks:["er","erst","vor einer Stunde","aufgewacht","ist"],correct:"er erst vor einer Stunde aufgewacht ist",en:"He says he only woke up an hour ago.",rule:"erst (only just) — before the time phrase",word:"erst",role:"only just"},
+{prefix:"Er sagt, dass",chunks:["er","erst","die E-Mail","lesen","muss"],correct:"er erst die E-Mail lesen muss",en:"He says he has to read the email first.",rule:"erst (first) — before the object",word:"erst",role:"first"},
+{prefix:"Er sagt, dass",chunks:["wir","erst mal","einen Plan","brauchen"],correct:"wir erst mal einen Plan brauchen",en:"He says we first need a plan.",rule:"erst mal (first of all) — before the object",word:"erst",role:"first of all"},
+// --- ja ---
+{prefix:"Du weißt, dass",chunks:["er","ja","morgen","kommt"],correct:"er ja morgen kommt",en:"You know he's coming tomorrow (as we know).",rule:"ja (shared knowledge) — after subject, signals 'as you know'",word:"ja",role:"shared knowledge"},
+{prefix:"Ich weiß, dass",chunks:["du","ja","keine Zeit","hast"],correct:"du ja keine Zeit hast",en:"I know you don't have time (as we both know).",rule:"ja (shared knowledge) — after subject",word:"ja",role:"shared knowledge"},
+{prefix:"Er weiß, dass",chunks:["wir","ja","morgen","frei","haben"],correct:"wir ja morgen frei haben",en:"He knows we have tomorrow off (as we all know).",rule:"ja (shared knowledge) — after subject",word:"ja",role:"shared knowledge"},
+{prefix:"Ich sehe, dass",chunks:["du","ja","fertig","bist"],correct:"du ja fertig bist",en:"Oh, I see you're done!",rule:"ja (surprise) — after subject, expresses realization",word:"ja",role:"surprise"},
+{prefix:"Er sagt, dass",chunks:["du","das","ja nicht","vergessen","darfst"],correct:"du das ja nicht vergessen darfst",en:"He says you'd better not forget that.",rule:"ja nicht (warning) — after object, emphatic prohibition",word:"ja",role:"warning"},
+// --- denn ---
+{prefix:"Sie fragt,",chunks:["was","denn","los","ist"],correct:"was denn los ist",en:"She asks what's going on.",rule:"denn (question particle) — after interrogative word",word:"denn",role:"question particle"},
+{prefix:"Er will wissen,",chunks:["wo","du","denn","warst"],correct:"wo du denn warst",en:"He wants to know where you were.",rule:"denn (question particle) — after subject",word:"denn",role:"question particle"},
+{prefix:"Sie möchte wissen,",chunks:["wie","er","denn","heißt"],correct:"wie er denn heißt",en:"She wants to know what his name is.",rule:"denn (question particle) — after subject",word:"denn",role:"question particle"},
+{prefix:"Ich frage mich,",chunks:["warum","er","denn","so spät","kommt"],correct:"warum er denn so spät kommt",en:"I wonder why he's coming so late.",rule:"denn (question particle) — after subject, before adverb",word:"denn",role:"question particle"},
+// --- wohl ---
+{prefix:"Ich glaube, dass",chunks:["er","wohl","keine Zeit","hat"],correct:"er wohl keine Zeit hat",en:"I think he probably doesn't have time.",rule:"wohl (probably) — after subject, expresses assumption",word:"wohl",role:"probably"},
+{prefix:"Sie denkt, dass",chunks:["es","wohl","morgen","regnet"],correct:"es wohl morgen regnet",en:"She thinks it'll probably rain tomorrow.",rule:"wohl (probably) — after subject, before temporal",word:"wohl",role:"probably"},
+{prefix:"Er meint, dass",chunks:["sie","wohl","krank","ist"],correct:"sie wohl krank ist",en:"He thinks she's probably sick.",rule:"wohl (probably) — after subject, before predicate",word:"wohl",role:"probably"},
+{prefix:"Er vermutet, dass",chunks:["der Laden","wohl","geschlossen","ist"],correct:"der Laden wohl geschlossen ist",en:"He suspects the store is probably closed.",rule:"wohl (probably) — after subject, before participle",word:"wohl",role:"probably"},
+{prefix:"Ich finde, dass",chunks:["du","wohl","recht","hast"],correct:"du wohl recht hast",en:"I think you're right, I suppose.",rule:"wohl (hedging) — softens the claim",word:"wohl",role:"hedging"}
+];
+
+// === State ===
+var deck=[],cur=0,cc=0,wc=0,locked=false,woPlaced=[];
+var catStats={};
+var STORE_KEY='germanDrill_chameleon_v1';
+var WORDS=['nach','noch','schon','doch','mal','erst','ja','denn','wohl'];
+var sessionTotal=0,sessionAnswered=0;
+
+// === Utilities ===
+function shuffle(a){
+  var i,j,t;
+  for(i=a.length-1;i>0;i--){
+    j=Math.floor(Math.random()*(i+1));
+    t=a[i];a[i]=a[j];a[j]=t;
+  }
+  return a;
+}
+
+// === Stats ===
+function loadStats(){
+  try{var s=localStorage.getItem(STORE_KEY);if(s)catStats=JSON.parse(s)}
+  catch(e){catStats={}}
+}
+
+function saveStats(){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(catStats))}catch(e){}
+}
+
+function recordStat(card,correct){
+  var k=card.word+'_'+card.role;
+  if(!catStats[k])catStats[k]={c:0,w:0};
+  if(correct)catStats[k].c++;else catStats[k].w++;
+  saveStats();
+}
+
+function hintLevel(card){
+  var k=card.word+'_'+card.role;
+  var s=catStats[k];
+  if(!s)return 0;
+  var total=s.c+s.w;
+  if(total<5)return 0;
+  var acc=s.c/total;
+  if(acc>=0.85&&total>=10)return 2;
+  if(acc>=0.70)return 1;
+  return 0;
+}
+
+function getWeakness(card){
+  var k=card.word+'_'+card.role;
+  var s=catStats[k];
+  if(!s)return 0.5;
+  var total=s.c+s.w;
+  if(total<3)return 0.5;
+  return s.w/total;
+}
+
+function prioritizeWeak(cards){
+  return cards.sort(function(a,b){
+    var wa=getWeakness(a),wb=getWeakness(b);
+    if(wa!==wb)return wb-wa;
+    return Math.random()-0.5;
+  });
+}
+
+// === Rendering ===
+function render(){
+  if(cur>=deck.length){showFinish();return}
+  locked=false;woPlaced=[];
+  var card=deck[cur];
+  var hl=hintLevel(card);
+
+  document.getElementById('case-label').textContent=card.word+' \u2014 '+card.role;
+  document.getElementById('case-label').style.color='#2dd4bf';
+  document.getElementById('prompt').textContent='Arrange the words in correct order:';
+  document.getElementById('wo-prefix').textContent=card.prefix;
+  document.getElementById('feedback').style.display='none';
+  document.getElementById('next-btn').style.display='none';
+
+  renderWordOrder(card,hl);
+  updateStats();
+  updateSessionBar();
+}
+
+function renderWordOrder(card,hl){
+  var optEl=document.getElementById('options');
+  optEl.innerHTML='';
+
+  if(hl<2&&card.rule){
+    var hintDiv=document.createElement('div');
+    hintDiv.className='hint-rule';
+    if(hl===0)hintDiv.textContent=card.rule;
+    else hintDiv.textContent=card.word+' = '+card.role;
+    optEl.appendChild(hintDiv);
+  }
+
+  var slotsDiv=document.createElement('div');
+  slotsDiv.className='wo-slots';
+  slotsDiv.id='wo-slots';
+  optEl.appendChild(slotsDiv);
+
+  var shuffled=shuffle(card.chunks.slice());
+  var chipArea=document.createElement('div');
+  chipArea.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:8px';
+  chipArea.id='wo-chips';
+
+  for(var i=0;i<shuffled.length;i++){
+    var chip=document.createElement('div');
+    chip.className='wo-chip available';
+    chip.textContent=shuffled[i];
+    chip.setAttribute('data-word',shuffled[i]);
+    chip.onclick=(function(c){return function(){woToggle(c)}})(chip);
+    chipArea.appendChild(chip);
+  }
+  optEl.appendChild(chipArea);
+
+  var btn=document.createElement('button');
+  btn.className='wo-check-btn';
+  btn.id='wo-check';
+  btn.textContent='Check order';
+  btn.disabled=true;
+  btn.onclick=function(){woCheck(card)};
+  optEl.appendChild(btn);
+}
+
+function woToggle(chip){
+  if(locked)return;
+  var slots=document.getElementById('wo-slots');
+
+  if(chip.className.indexOf('placed')>=0){
+    chip.className='wo-chip available';
+    var w=chip.getAttribute('data-word');
+    var idx=woPlaced.indexOf(w);
+    if(idx>=0)woPlaced.splice(idx,1);
+    document.getElementById('wo-chips').appendChild(chip);
+  }else{
+    chip.className='wo-chip placed';
+    woPlaced.push(chip.getAttribute('data-word'));
+    slots.appendChild(chip);
+  }
+
+  var btn=document.getElementById('wo-check');
+  if(btn)btn.disabled=(woPlaced.length!==deck[cur].chunks.length);
+}
+
+// === Checking ===
+function woCheck(card){
+  if(locked)return;
+  locked=true;sessionAnswered++;
+  var userAnswer=woPlaced.join(' ');
+  var isCorrect=(userAnswer===card.correct);
+  var slots=document.getElementById('wo-slots');
+
+  if(isCorrect){
+    slots.className='wo-slots correct';
+    cc++;
+  }else{
+    slots.className='wo-slots wrong';
+    wc++;
+    var corrDiv=document.createElement('div');
+    corrDiv.style.cssText='margin-top:8px;color:#f87171;font-size:13px';
+    corrDiv.innerHTML='Correct: <strong>'+card.prefix+' '+card.correct+'.</strong>';
+    document.getElementById('options').appendChild(corrDiv);
+    if(cur+3<deck.length){
+      var retry={};for(var k in card)retry[k]=card[k];
+      retry.isRetry=true;
+      deck.splice(cur+3+Math.floor(Math.random()*4),0,retry);
+      sessionTotal++;
+    }
+  }
+
+  recordStat(card,isCorrect);
+  document.getElementById('wo-check').style.display='none';
+  document.getElementById('wo-chips').style.display='none';
+  showFeedback(card,isCorrect);
+  updateStats();
+  updateSessionBar();
+}
+
+function showFeedback(card,isCorrect){
+  var fb=document.getElementById('feedback');
+  var html='';
+  html+='<div class="fb-sentence '+(isCorrect?'correct-fb':'wrong-fb')+'">';
+  html+=(isCorrect?'\u2713':'\u2717')+' '+card.prefix+' '+card.correct+'.';
+  html+='</div>';
+  html+='<div class="fb-english">'+card.en+'</div>';
+  if(card.rule)html+='<div class="fb-rule">'+card.rule+'</div>';
+  fb.innerHTML=html;
+  fb.style.display='block';
+  document.getElementById('next-btn').style.display='block';
+}
+
+function doAdvance(){
+  cur++;
+  render();
+}
+
+// === Stats Display ===
+function updateStats(){
+  var total=cc+wc;
+  document.getElementById('progress').textContent=(Math.min(cur+1,deck.length))+' / '+deck.length;
+  if(total>0){
+    document.getElementById('accuracy').textContent='Accuracy: '+Math.round(cc/total*100)+'%';
+  }else{
+    document.getElementById('accuracy').textContent='';
+  }
+}
+
+function updateSessionBar(){
+  var pct=sessionTotal>0?(sessionAnswered/sessionTotal)*100:0;
+  document.getElementById('session-bar-fill').style.width=Math.min(pct,100)+'%';
+}
+
+// === Game Flow ===
+function buildGame(){
+  loadStats();
+  var all=chameleonEx.slice();
+  deck=prioritizeWeak(shuffle(all));
+  if(deck.length>30)deck=deck.slice(0,30);
+  cur=0;cc=0;wc=0;
+  sessionTotal=deck.length;sessionAnswered=0;
+  document.getElementById('finish-container').style.display='none';
+  document.getElementById('game-container').style.display='block';
+  render();
+}
+
+function startGame(){buildGame()}
+
+// === Finish Screen ===
+function showFinish(){
+  var total=cc+wc;
+  var pct=total>0?Math.round(cc/total*100):0;
+
+  var wordStats={};
+  for(var k in catStats){
+    var w=k.split('_')[0];
+    if(!wordStats[w])wordStats[w]={c:0,w:0};
+    wordStats[w].c+=catStats[k].c;
+    wordStats[w].w+=catStats[k].w;
+  }
+
+  var html='<h2>Session Complete!</h2>';
+  html+='<div class="finish-stat">Accuracy: <strong>'+pct+'%</strong> ('+cc+'/'+total+')</div>';
+  html+='<h3>All-Time Accuracy by Word</h3>';
+
+  for(var i=0;i<WORDS.length;i++){
+    var w=WORDS[i];
+    var s=wordStats[w]||{c:0,w:0};
+    var t=s.c+s.w;
+    var wpct=t>0?Math.round(s.c/t*100):0;
+    html+='<div class="word-stat">';
+    html+='<span class="word-label">'+w+'</span>';
+    html+='<div class="word-bar"><div class="word-fill" style="width:'+wpct+'%"></div></div>';
+    html+='<span class="word-pct">'+(t>0?wpct+'%':'\u2014')+'</span>';
+    html+='</div>';
+  }
+
+  html+='<button onclick="startGame()" class="restart-btn">Play Again</button>';
+  html+='<br><button onclick="clearStats()" class="reset-btn">Reset Stats</button>';
+
+  document.getElementById('finish-container').innerHTML=html;
+  document.getElementById('finish-container').style.display='block';
+  document.getElementById('game-container').style.display='none';
+}
+
+function clearStats(){
+  if(confirm('Reset all chameleon words stats?')){
+    catStats={};saveStats();startGame();
+  }
+}
+
+// === Keyboard ===
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'||e.key===' '){
+    var nb=document.getElementById('next-btn');
+    if(nb&&nb.style.display!=='none'){e.preventDefault();doAdvance();return}
+    var cb=document.getElementById('wo-check');
+    if(cb&&!cb.disabled){e.preventDefault();woCheck(deck[cur]);return}
+  }
+});
+
+// === Init ===
+startGame();
+</script>
+</body>
+</html>
