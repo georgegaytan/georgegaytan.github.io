@@ -297,8 +297,13 @@ function buildMenu(){
   }
 }
 
+// Navigation state for browser back button
+var navState='menu'; // 'menu', 'deck', 'dashboard'
+
 function openDeck(idx){
   var d=DECKS[idx];
+  navState='deck';
+  history.pushState({screen:'deck'},'');
   document.getElementById("menuScreen").className="menu hidden";
   document.getElementById("drillTitle").textContent=d.name;
   var frame=document.getElementById("drillFrame");
@@ -311,13 +316,16 @@ function openDeck(idx){
 }
 
 function closeDeck(){
+  navState='menu';
   document.getElementById("drillView").className="drill-view";
   document.getElementById("drillFrame").srcdoc="";
   document.getElementById("menuScreen").className="menu";
-  buildMenu(); // refresh progress indicators
+  buildMenu();
 }
 
 function showDashboard(){
+  navState='dashboard';
+  history.pushState({screen:'dashboard'},'');
   document.getElementById("menuScreen").className="menu hidden";
   var stats=getOverallStats();
   document.getElementById("dashPct").textContent=(stats?stats.overallPct:0)+"%";
@@ -362,10 +370,29 @@ function showDashboard(){
 }
 
 function closeDashboard(){
+  navState='menu';
   document.getElementById("dashScreen").className="dashboard";
   document.getElementById("menuScreen").className="menu";
   buildMenu();
 }
+
+// Browser back button handling
+window.addEventListener('popstate',function(e){
+  if(navState==='deck'){
+    closeDeck();
+  } else if(navState==='dashboard'){
+    closeDashboard();
+  } else {
+    // On menu — push state back and confirm exit
+    history.pushState({screen:'menu'},'');
+    if(confirm('Exit German Drills?')){
+      history.back();
+    }
+  }
+});
+
+// Set initial history state so we have something to pop back to
+history.replaceState({screen:'menu'},'');
 
 buildMenu();
 </script>
