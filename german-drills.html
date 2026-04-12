@@ -173,6 +173,14 @@ function getProgress(d){
       var pct=Math.round(mastered/total*100);
       return {pct:pct,label:mastered+"/"+total+" mastered"};
     }
+
+    // Chameleon Words: catStats — {word_role: {c:n, w:n}}
+    if(d.storeKey==="germanDrill_chameleon_v1"){
+      var total=0,correct=0;
+      for(var k in data){if(data.hasOwnProperty(k)){total+=data[k].c+data[k].w;correct+=data[k].c;}}
+      if(total===0)return null;
+      return {pct:Math.round(correct/total*100),label:correct+" correct of "+total+" answered"};
+    }
   }catch(e){}
   return null;
 }
@@ -203,7 +211,7 @@ function getStreak(storeKey){
   }catch(e){return 0;}
 }
 
-var KNOWN_KEYS=['gd_stats_v2','modal-verb-srs','germanDrill_pastfuture_v1','germanDrill_pronouns_v1','vocabDrill_v1','gd_streaks'];
+var KNOWN_KEYS=['gd_stats_v2','modal-verb-srs','germanDrill_pastfuture_v1','germanDrill_pronouns_v1','vocabDrill_v1','germanDrill_chameleon_v1','gd_streaks'];
 
 function exportProgress(){
   var data={};
