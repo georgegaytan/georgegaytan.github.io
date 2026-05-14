@@ -29,6 +29,34 @@
 
   EngineCore.srsUpdate = srsUpdate;
 
+  function normalizeAnswer(s, opts) {
+    opts = opts || {};
+    let out = String(s).trim().replace(/\s+/g, ' ');
+    if (!opts.caseSensitive) out = out.toLowerCase();
+    out = out
+      .replace(/ae/g, 'ä')
+      .replace(/oe/g, 'ö')
+      .replace(/ue/g, 'ü')
+      .replace(/ss/g, 'ß')
+      .replace(/AE/g, 'Ä')
+      .replace(/OE/g, 'Ö')
+      .replace(/UE/g, 'Ü');
+    return out;
+  }
+
+  function answersMatch(input, answer, alts, opts) {
+    alts = alts || [];
+    const candidates = [answer].concat(alts);
+    const normalizedInput = normalizeAnswer(input, opts);
+    for (const c of candidates) {
+      if (normalizeAnswer(c, opts) === normalizedInput) return true;
+    }
+    return false;
+  }
+
+  EngineCore.normalizeAnswer = normalizeAnswer;
+  EngineCore.answersMatch = answersMatch;
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = EngineCore;
   } else {

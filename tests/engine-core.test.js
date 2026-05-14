@@ -57,3 +57,50 @@ test('srsUpdate: throws on unknown outcome', () => {
   const item = { box: 0, ease: 2.5, interval: 0, lapses: 0 };
   assert.throws(() => EngineCore.srsUpdate(item, 'maybe'), /unknown outcome/i);
 });
+
+test('normalizeAnswer: trims and collapses whitespace', () => {
+  assert.strictEqual(EngineCore.normalizeAnswer('  der   Mann  '), 'der mann');
+});
+
+test('normalizeAnswer: lowercases by default', () => {
+  assert.strictEqual(EngineCore.normalizeAnswer('Der Mann'), 'der mann');
+});
+
+test('normalizeAnswer: preserves case when caseSensitive=true', () => {
+  assert.strictEqual(EngineCore.normalizeAnswer('Der Mann', { caseSensitive: true }), 'Der Mann');
+});
+
+test('normalizeAnswer: maps ae→ä, oe→ö, ue→ü, ss→ß', () => {
+  assert.strictEqual(EngineCore.normalizeAnswer('moechte'), 'möchte');
+  assert.strictEqual(EngineCore.normalizeAnswer('Strasse'), 'straße');
+  assert.strictEqual(EngineCore.normalizeAnswer('Aepfel'), 'äpfel');
+  assert.strictEqual(EngineCore.normalizeAnswer('fuer'), 'für');
+});
+
+test('answersMatch: exact match', () => {
+  assert.strictEqual(EngineCore.answersMatch('möchte', 'möchte', []), true);
+});
+
+test('answersMatch: accepts ae/oe/ue/ss variant', () => {
+  assert.strictEqual(EngineCore.answersMatch('moechte', 'möchte', []), true);
+  assert.strictEqual(EngineCore.answersMatch('Strasse', 'Straße', []), true);
+});
+
+test('answersMatch: case-insensitive by default', () => {
+  assert.strictEqual(EngineCore.answersMatch('DER', 'der', []), true);
+});
+
+test('answersMatch: rejects mismatched answer', () => {
+  assert.strictEqual(EngineCore.answersMatch('das', 'der', []), false);
+});
+
+test('answersMatch: accepts any alt', () => {
+  assert.strictEqual(EngineCore.answersMatch('der Apfel', 'Apfel', ['der Apfel']), true);
+});
+
+test('answersMatch: case-sensitive when flag set, rejects wrong case', () => {
+  assert.strictEqual(
+    EngineCore.answersMatch('der', 'Der', [], { caseSensitive: true }),
+    false
+  );
+});
