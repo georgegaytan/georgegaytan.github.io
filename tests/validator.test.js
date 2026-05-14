@@ -251,3 +251,51 @@ test('scaffoldPool: answer not in pool → error', () => {
   const errs = validateDeck(deckWithPools([item], pools));
   assert.ok(errs.some(e => e.code === 'C19' && /not in pool/.test(e.message)));
 });
+
+test('C16: same lemma asserted with different genders → error', () => {
+  const d1 = {
+    id: 'vocab', name: 'Vocab', icon: '📖', color: '#fff', description: 'd', items: [
+      { id: 'v_apfel', kind: 'choice', prompt: 'Apfel', options: ['der','die','das'], answer: 'der', topic: 'gender_m' }
+    ]
+  };
+  const d2 = {
+    id: 'vocab2', name: 'V2', icon: '📖', color: '#fff', description: 'd', items: [
+      { id: 'v2_apfel', kind: 'choice', prompt: 'Apfel', options: ['der','die','das'], answer: 'die', topic: 'gender_f' }
+    ]
+  };
+  const errs = validateDecks([d1, d2]);
+  assert.ok(errs.some(e => e.code === 'C16'));
+});
+
+test('C16: same lemma asserted consistently → no error', () => {
+  const d1 = { id: 'vocab', name: 'V', icon: '📖', color: '#fff', description: 'd', items: [
+    { id: 'v_apfel', kind: 'choice', prompt: 'Apfel', options: ['der','die','das'], answer: 'der', topic: 'gender_m' }
+  ]};
+  const d2 = { id: 'vocab2', name: 'V2', icon: '📖', color: '#fff', description: 'd', items: [
+    { id: 'v2_apfel', kind: 'choice', prompt: 'Apfel', options: ['der','die','das'], answer: 'der', topic: 'gender_m' }
+  ]};
+  const errs = validateDecks([d1, d2]);
+  assert.strictEqual(errs.filter(e => e.code === 'C16').length, 0);
+});
+
+test('C16: implicit gender from indefinite article disagrees with explicit → error', () => {
+  const vocab = { id: 'vocab', name: 'V', icon: '📖', color: '#fff', description: 'd', items: [
+    { id: 'v_apfel', kind: 'choice', prompt: 'Apfel', options: ['der','die','das'], answer: 'der', topic: 'gender_m' }
+  ]};
+  const decl = { id: 'decl', name: 'D', icon: '📐', color: '#fff', description: 'd', items: [
+    { id: 'd_apfel_1', kind: 'cloze', prompt: '{0} Apfel ist rot.', blanks: [{ answer: 'eine', alts: [], topic: 'nom_indef' }] }
+  ]};
+  const errs = validateDecks([vocab, decl]);
+  assert.ok(errs.some(e => e.code === 'C16' && /Apfel/.test(e.message)));
+});
+
+test('C16: implicit gender from definite article agrees → no error', () => {
+  const vocab = { id: 'vocab', name: 'V', icon: '📖', color: '#fff', description: 'd', items: [
+    { id: 'v_apfel', kind: 'choice', prompt: 'Apfel', options: ['der','die','das'], answer: 'der', topic: 'gender_m' }
+  ]};
+  const decl = { id: 'decl', name: 'D', icon: '📐', color: '#fff', description: 'd', items: [
+    { id: 'd_apfel_1', kind: 'cloze', prompt: '{0} Apfel ist rot.', blanks: [{ answer: 'Der', alts: ['der'], topic: 'nom_m_def' }] }
+  ]};
+  const errs = validateDecks([vocab, decl]);
+  assert.strictEqual(errs.filter(e => e.code === 'C16').length, 0);
+});

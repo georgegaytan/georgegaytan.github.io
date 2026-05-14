@@ -250,15 +250,58 @@ function validateDeck(deck) {
   return errs;
 }
 
+const ARTICLE_GENDER_NOM = {
+  'der': 'der', 'die': 'die', 'das': 'das',
+  'eine': 'die', 'einen': 'der',
+  'keine': 'die', 'keinen': 'der',
+};
+
+function collectGenderClaim(item, deck) {
+  if (item.kind === 'choice') {
+    const opts = item.options || (deck.pools && item.pool && deck.pools[item.pool] ? deck.pools[item.pool].items : null);
+    const category = item.pool && deck.pools && deck.pools[item.pool] ? deck.pools[item.pool].category : null;
+    const isGender = (opts && opts.length === 3 && opts.every(o => ['der','die','das'].includes(o)))
+                  || category === 'noun_gender';
+    if (isGender && typeof item.prompt === 'string') {
+      const m = item.prompt.trim().match(/^([A-ZÄÖÜ][a-zäöüß]+)$/);
+      if (m) return { lemma: m[1], gender: item.answer };
+    }
+  }
+  if (item.kind === 'cloze' && Array.isArray(item.blanks)) {
+    const prompt = item.prompt || '';
+    for (let i = 0; i < item.blanks.length; i++) {
+      const re = new RegExp('\\{' + i + '\\}\\s+([A-ZÄÖÜ][a-zäöüß]+)');
+      const m = prompt.match(re);
+      if (!m) continue;
+      const noun = m[1];
+      const ansLower = (item.blanks[i].answer || '').toLowerCase();
+      const implied = ARTICLE_GENDER_NOM[ansLower];
+      if (implied) return { lemma: noun, gender: implied };
+    }
+  }
+  return null;
+}
+
 function validateDecks(decks) {
   const errs = [];
   const seenIds = new Map();
+  const genderClaims = new Map();
+
   for (const deck of decks) {
     for (const item of (deck.items || [])) {
       if (seenIds.has(item.id)) {
         errs.push(err('C1', `duplicate item id "${item.id}" (first in ${seenIds.get(item.id)})`, `${deck.id}:${item.id}`));
       } else {
         seenIds.set(item.id, deck.id);
+      }
+      const claim = collectGenderClaim(item, deck);
+      if (claim) {
+        const prior = genderClaims.get(claim.lemma);
+        if (prior && prior.gender !== claim.gender) {
+          errs.push(err('C16', `gender disagreement for "${claim.lemma}": "${prior.gender}" (in ${prior.loc}) vs "${claim.gender}" (in ${deck.id}:${item.id})`, `${deck.id}:${item.id}`));
+        } else if (!prior) {
+          genderClaims.set(claim.lemma, { gender: claim.gender, loc: `${deck.id}:${item.id}` });
+        }
       }
     }
     errs.push(...validateDeck(deck));
