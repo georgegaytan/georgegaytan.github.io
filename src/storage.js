@@ -14,6 +14,111 @@
     return k === GLOBAL_KEY || k === MIGRATED_MARKER || (typeof k === 'string' && k.startsWith(DECK_KEY_PREFIX));
   }
 
+  function makeIdbBackend() {
+    const DB_NAME = 'gd_storage';
+    const STORE = 'kv';
+    const VERSION = 1;
+    let dbPromise = null;
+
+    function open() {
+      if (dbPromise) return dbPromise;
+      dbPromise = new Promise((resolve, reject) => {
+        let req;
+        try { req = indexedDB.open(DB_NAME, VERSION); } catch (e) { reject(e); return; }
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE);
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+        req.onblocked = () => reject(new Error('indexedDB open blocked'));
+      });
+      return dbPromise;
+    }
+
+    function hydrate() {
+      return open().then(db => new Promise((resolve, reject) => {
+        const map = new Map();
+        const tx = db.transaction(STORE, 'readonly');
+        const store = tx.objectStore(STORE);
+        const req = store.openCursor();
+        req.onsuccess = () => {
+          const c = req.result;
+          if (!c) { resolve(map); return; }
+          try {
+            const v = typeof c.value === 'string' ? JSON.parse(c.value) : c.value;
+            map.set(c.key, v);
+          } catch (err) {
+            console.warn('[gd-storage] malformed value on hydrate, key:', c.key, err);
+          }
+          c.continue();
+        };
+        req.onerror = () => reject(req.error);
+      }));
+    }
+
+    function putOnce(key, value) {
+      return open().then(db => new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error || new Error('transaction aborted'));
+        tx.objectStore(STORE).put(JSON.stringify(value), key);
+      }));
+    }
+
+    function put(key, value) {
+      return putOnce(key, value).catch(err => {
+        console.warn('[gd-storage] idb put failed, retrying in 500ms:', key, err);
+        return new Promise(r => setTimeout(r, 500)).then(() => putOnce(key, value));
+      }).catch(err => {
+        console.warn('[gd-storage] idb put failed after retry:', key, err);
+      });
+    }
+
+    function del(key) {
+      return open().then(db => new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, 'readwrite');
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+        tx.objectStore(STORE).delete(key);
+      })).catch(err => console.warn('[gd-storage] idb del failed:', key, err));
+    }
+
+    return { hydrate, put, del };
+  }
+
+  function makeLocalStorageBackend() {
+    function hydrate() {
+      const m = new Map();
+      const store = ls();
+      if (!store) return Promise.resolve(m);
+      for (let i = 0; i < store.length; i++) {
+        const k = store.key(i);
+        if (!isManagedKey(k)) continue;
+        try { m.set(k, JSON.parse(store.getItem(k))); }
+        catch (err) { console.warn('[gd-storage] localStorage backend: malformed value, key:', k); }
+      }
+      return Promise.resolve(m);
+    }
+    function put(k, v) {
+      try { ls().setItem(k, JSON.stringify(v)); } catch (err) { console.warn('[gd-storage] ls put failed:', k, err); }
+      return Promise.resolve();
+    }
+    function del(k) {
+      try { ls().removeItem(k); } catch (err) { console.warn('[gd-storage] ls del failed:', k, err); }
+      return Promise.resolve();
+    }
+    return { hydrate, put, del };
+  }
+
+  function pickDefaultBackend() {
+    if (typeof indexedDB !== 'undefined') {
+      try { return makeIdbBackend(); } catch (e) { console.warn('[gd-storage] idb constructor threw:', e); }
+    }
+    return makeLocalStorageBackend();
+  }
+
   function safePut(key, value) {
     if (!backend) return;
     try {
@@ -140,13 +245,19 @@
   function init() {
     if (initPromise) return initPromise;
     initPromise = (async () => {
-      if (!backend) return;
+      if (!backend) backend = pickDefaultBackend();
       try {
         storageMap = await backend.hydrate();
       } catch (err) {
-        console.warn('[gd-storage] hydrate failed:', err);
+        console.warn('[gd-storage] primary backend hydrate failed, falling back to localStorage:', err);
         degraded = true;
-        storageMap = new Map();
+        backend = makeLocalStorageBackend();
+        try {
+          storageMap = await backend.hydrate();
+        } catch (err2) {
+          console.warn('[gd-storage] fallback hydrate failed too - starting empty:', err2);
+          storageMap = new Map();
+        }
       }
       if (!storageMap.has(MIGRATED_MARKER)) {
         await migrateLegacyIntoBackend();
