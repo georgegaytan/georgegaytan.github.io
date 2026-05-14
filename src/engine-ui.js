@@ -566,7 +566,9 @@
   // ----- Boot -----
   if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', () => {
-      renderMenu();
+      Storage.init()
+        .catch(err => console.warn('[gd-storage] init degraded:', err))
+        .finally(renderMenu);
     });
     // Browser back button: close any open drill instead of leaving the site.
     window.addEventListener('popstate', () => {
