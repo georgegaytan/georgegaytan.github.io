@@ -195,3 +195,14 @@ test('storage: malformed legacy JSON is skipped, others still migrate', async ()
   assert.ok(backend.data.has('gd_deck_a'), 'sibling still migrated');
   assert.ok(backend.data.has('migrated_to_idb'), 'marker still written');
 });
+
+test('storage: when primary backend hydrate rejects, falls back to localStorage', async () => {
+  const { createFailingBackend } = require('./_helpers/mockBackend.js');
+  global.localStorage = makeShim();
+  global.localStorage.setItem('gd_global', JSON.stringify({ version: 1, streak: { current: 9, lastDay: '2026-05-14' } }));
+  Storage._reset();
+  Storage._setBackend(createFailingBackend('hydrate'));
+  await Storage.init();
+  assert.strictEqual(Storage.isDegraded(), true);
+  assert.strictEqual(Storage.loadGlobal().streak.current, 9);
+});
