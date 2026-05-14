@@ -154,6 +154,7 @@
       lastTopics: [],
       sessionSeen: [],
     };
+    enterDrillView();
     renderDrillMixed();
   }
 
@@ -212,6 +213,24 @@
   // ----- Drill -----
   let DRILL = null;
 
+  function enterDrillView() {
+    document.body.classList.add('drill-open');
+    if (typeof history !== 'undefined' && history.pushState) {
+      // Push a sentinel state so the browser back button returns to the menu
+      // instead of leaving the site. popstate handler below catches it.
+      history.pushState({ drill: true }, '', '#drill');
+    }
+  }
+
+  function exitDrillView() {
+    document.body.classList.remove('drill-open');
+    // If we still have the drill state in history, pop it so a subsequent
+    // back press doesn't fire popstate again on an already-closed drill.
+    if (typeof history !== 'undefined' && history.state && history.state.drill) {
+      history.back();
+    }
+  }
+
   function openDeck(deckId) {
     const deckDef = window.DECKS.find(d => d.id === deckId);
     const state = loadOrInitDeckState(deckId, deckDef);
@@ -232,11 +251,13 @@
       attemptedThisItem: false,
       usedScaffolding: false,
     };
+    enterDrillView();
     renderDrill();
   }
 
   function closeDrill() {
     DRILL = null;
+    exitDrillView();
     renderMenu();
   }
 
@@ -532,6 +553,14 @@
   if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', () => {
       renderMenu();
+    });
+    // Browser back button: close any open drill instead of leaving the site.
+    window.addEventListener('popstate', () => {
+      if (DRILL) {
+        DRILL = null;
+        document.body.classList.remove('drill-open');
+        renderMenu();
+      }
     });
   }
 

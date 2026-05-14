@@ -6,15 +6,20 @@
 <title>German Drills</title>
 <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; overflow: hidden; }
+html, body { min-height: 100%; }
 body {
   font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: #0f0f1a; color: #e0e0e0;
   -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
 }
 
+/* When a drill is open it sits fixed over everything; lock body scroll to
+   prevent rubber-banding behind the overlay. Toggled by engine-ui.js. */
+body.drill-open { overflow: hidden; height: 100vh; }
+
 /* Menu */
-.menu { height: 100%; overflow-y: auto; padding: 0 16px 40px; display: flex; flex-direction: column; align-items: center; }
+.menu { padding: 0 16px 40px; display: flex; flex-direction: column; align-items: center; }
 .menu.hidden { display: none; }
 .logo { margin: 48px 0 8px; font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #666; }
 .title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: #fff; margin-bottom: 6px; }
@@ -33,7 +38,7 @@ body {
 .deck-card .progress-label { font-size: 10px; color: #555; margin-top: 4px; font-family: 'DM Mono', monospace; }
 
 /* Drill view */
-.drill { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #0f0f1a; display: none; flex-direction: column; padding: 16px; }
+.drill { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #0f0f1a; display: none; flex-direction: column; padding: 16px; overscroll-behavior: contain; }
 .drill.active { display: flex; }
 .drill-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #1e1e3a; }
 .drill-back { background: none; border: none; color: #888; cursor: pointer; padding: 6px 10px; font-size: 14px; }
@@ -480,6 +485,7 @@ body {
       lastTopics: [],
       sessionSeen: [],
     };
+    enterDrillView();
     renderDrillMixed();
   }
 
@@ -538,6 +544,24 @@ body {
   // ----- Drill -----
   let DRILL = null;
 
+  function enterDrillView() {
+    document.body.classList.add('drill-open');
+    if (typeof history !== 'undefined' && history.pushState) {
+      // Push a sentinel state so the browser back button returns to the menu
+      // instead of leaving the site. popstate handler below catches it.
+      history.pushState({ drill: true }, '', '#drill');
+    }
+  }
+
+  function exitDrillView() {
+    document.body.classList.remove('drill-open');
+    // If we still have the drill state in history, pop it so a subsequent
+    // back press doesn't fire popstate again on an already-closed drill.
+    if (typeof history !== 'undefined' && history.state && history.state.drill) {
+      history.back();
+    }
+  }
+
   function openDeck(deckId) {
     const deckDef = window.DECKS.find(d => d.id === deckId);
     const state = loadOrInitDeckState(deckId, deckDef);
@@ -558,11 +582,13 @@ body {
       attemptedThisItem: false,
       usedScaffolding: false,
     };
+    enterDrillView();
     renderDrill();
   }
 
   function closeDrill() {
     DRILL = null;
+    exitDrillView();
     renderMenu();
   }
 
@@ -858,6 +884,14 @@ body {
   if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', () => {
       renderMenu();
+    });
+    // Browser back button: close any open drill instead of leaving the site.
+    window.addEventListener('popstate', () => {
+      if (DRILL) {
+        DRILL = null;
+        document.body.classList.remove('drill-open');
+        renderMenu();
+      }
     });
   }
 
