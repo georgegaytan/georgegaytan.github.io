@@ -112,6 +112,20 @@
     return { hydrate, put, del };
   }
 
+  function requestPersistentStorage() {
+    if (typeof navigator === 'undefined') return;
+    if (!navigator.storage || typeof navigator.storage.persist !== 'function') return;
+    try {
+      const p = navigator.storage.persist();
+      if (p && typeof p.then === 'function') {
+        p.then(granted => console.log('[gd-storage] persistent storage:', granted ? 'granted' : 'denied'))
+         .catch(err => console.warn('[gd-storage] persist() rejected:', err));
+      }
+    } catch (err) {
+      console.warn('[gd-storage] persist() threw:', err);
+    }
+  }
+
   function pickDefaultBackend() {
     if (typeof indexedDB !== 'undefined') {
       try { return makeIdbBackend(); } catch (e) { console.warn('[gd-storage] idb constructor threw:', e); }
@@ -262,6 +276,7 @@
       if (!storageMap.has(MIGRATED_MARKER)) {
         await migrateLegacyIntoBackend();
       }
+      requestPersistentStorage();
     })();
     return initPromise;
   }

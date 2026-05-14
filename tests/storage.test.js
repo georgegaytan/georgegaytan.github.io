@@ -206,3 +206,9 @@ test('storage: when primary backend hydrate rejects, falls back to localStorage'
   assert.strictEqual(Storage.isDegraded(), true);
   assert.strictEqual(Storage.loadGlobal().streak.current, 9);
 });
+
+test('storage: init() does not throw when navigator.storage is absent (Node env)', async () => {
+  const { Storage } = setup();
+  await Storage.init();
+  assert.ok(true);
+});
