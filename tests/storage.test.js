@@ -1,52 +1,55 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const { makeShim } = require('./_helpers/localStorageShim.js');
+const { createMockBackend } = require('./_helpers/mockBackend.js');
+const Storage = require('../src/storage.js');
+
+function setup({ legacyData, backendSeed } = {}) {
+  global.localStorage = makeShim();
+  if (legacyData) {
+    for (const [k, v] of Object.entries(legacyData)) {
+      global.localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v));
+    }
+  }
+  Storage._reset();
+  const backend = createMockBackend(backendSeed);
+  Storage._setBackend(backend);
+  return { Storage, backend };
+}
 
 test('storage: loadDeck returns null when no state stored', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   assert.strictEqual(Storage.loadDeck('declension'), null);
 });
 
 test('storage: saveDeck then loadDeck round-trips state', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
-  const state = { deckId: 'declension', version: 1, items: { 'a': { box: 2 } } };
+  const { Storage } = setup();
+  const state = { deckId: 'declension', version: 1, items: { a: { box: 2 } } };
   Storage.saveDeck('declension', state);
   assert.deepStrictEqual(Storage.loadDeck('declension'), state);
 });
 
 test('storage: loadGlobal returns null when nothing stored', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   assert.strictEqual(Storage.loadGlobal(), null);
 });
 
 test('storage: saveGlobal then loadGlobal round-trips', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   const g = { version: 1, streak: { current: 5, lastDay: '2026-05-14' } };
   Storage.saveGlobal(g);
   assert.deepStrictEqual(Storage.loadGlobal(), g);
 });
 
 test('storage: listDeckIds returns ids for stored decks', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   Storage.saveDeck('declension', { items: {} });
   Storage.saveDeck('modal-verbs', { items: {} });
   assert.deepStrictEqual(Storage.listDeckIds().sort(), ['declension', 'modal-verbs']);
 });
 
 test('storage: exportAll captures global + all deck state', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   Storage.saveGlobal({ version: 1, streak: { current: 3, lastDay: '2026-05-14' } });
   Storage.saveDeck('declension', { items: { x: { box: 1 } } });
   const backup = Storage.exportAll();
@@ -57,9 +60,7 @@ test('storage: exportAll captures global + all deck state', () => {
 });
 
 test('storage: importAll restores state, returns true on success', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   const backup = {
     version: 1,
     exported: '2026-05-14T00:00:00Z',
@@ -74,8 +75,6 @@ test('storage: importAll restores state, returns true on success', () => {
 });
 
 test('storage: importAll rejects mismatched version', () => {
-  global.localStorage = makeShim();
-  delete require.cache[require.resolve('../src/storage.js')];
-  const Storage = require('../src/storage.js');
+  const { Storage } = setup();
   assert.strictEqual(Storage.importAll({ version: 99, data: {} }), false);
 });
