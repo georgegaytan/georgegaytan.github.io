@@ -1,0 +1,14 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+
+# Built artifacts that ARE NOT committed (none for now — index.html IS committed)
+
+# Node
+node_modules/
+
+# Working scratch
+scratch/
