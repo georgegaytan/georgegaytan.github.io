@@ -147,3 +147,82 @@ test('selectDistractors: throws if pool too small', () => {
     /pool too small/i
   );
 });
+
+test('selectNextItem: returns null when no items', () => {
+  const state = { items: {} };
+  assert.strictEqual(EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0 }), null);
+});
+
+test('selectNextItem: prefers overdue items first', () => {
+  const state = { items: {
+    'a': { box: 2, due: '2026-05-10', topics: ['t1'] },
+    'b': { box: 0, due: null, topics: ['t2'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0 });
+  assert.strictEqual(id, 'a');
+});
+
+test('selectNextItem: prefers older overdue first', () => {
+  const state = { items: {
+    'a': { box: 2, due: '2026-05-12', topics: ['t1'] },
+    'b': { box: 2, due: '2026-05-10', topics: ['t2'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0 });
+  assert.strictEqual(id, 'b');
+});
+
+test('selectNextItem: low-box-not-seen-today after overdue', () => {
+  const state = { items: {
+    'lo': { box: 1, due: '2026-05-15', topics: ['t1'] },
+    'hi': { box: 4, due: '2026-05-15', topics: ['t2'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0 });
+  assert.strictEqual(id, 'lo');
+});
+
+test('selectNextItem: new items only if newToday < cap', () => {
+  const state = { items: {
+    'n1': { box: 0, due: null, topics: ['t1'] },
+  }};
+  const idAllowed = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0, newCap: 5 });
+  assert.strictEqual(idAllowed, 'n1');
+  const idAtCap = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 5, newCap: 5 });
+  assert.strictEqual(idAtCap, null);
+});
+
+test('selectNextItem: never returns an item whose topics intersect the last item\'s', () => {
+  const state = { items: {
+    'a1': { box: 2, due: '2026-05-10', topics: ['nom_m'] },
+    'a2': { box: 2, due: '2026-05-10', topics: ['nom_m'] },
+    'b1': { box: 2, due: '2026-05-10', topics: ['acc_f'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: ['a1'], lastTopics: ['nom_m'], newToday: 0 });
+  assert.strictEqual(id, 'b1');
+});
+
+test('selectNextItem: multi-topic cloze items respect topic intersection', () => {
+  const state = { items: {
+    'multi': { box: 2, due: '2026-05-10', topics: ['nom_m', 'adj_ending'] },
+    'ok':    { box: 2, due: '2026-05-10', topics: ['gen_f'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], lastTopics: ['adj_ending'], newToday: 0 });
+  assert.strictEqual(id, 'ok');
+});
+
+test('selectNextItem: skips items in sessionSeen', () => {
+  const state = { items: {
+    'a': { box: 2, due: '2026-05-10', topics: ['t1'] },
+    'b': { box: 2, due: '2026-05-10', topics: ['t2'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: ['a'], newToday: 0 });
+  assert.strictEqual(id, 'b');
+});
+
+test('selectNextItem: falls through to new items only after overdue + low-box exhausted', () => {
+  const state = { items: {
+    'overdue': { box: 2, due: '2026-05-10', topics: ['t1'] },
+    'new': { box: 0, due: null, topics: ['t2'] },
+  }};
+  const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0 });
+  assert.strictEqual(id, 'overdue');
+});

@@ -121,6 +121,49 @@
   EngineCore.selectDistractors = selectDistractors;
   EngineCore._levenshtein = levenshtein;
 
+  function selectNextItem(deckState, today, options) {
+    options = options || {};
+    const sessionSeen = new Set(options.sessionSeen || []);
+    const lastTopics = new Set(options.lastTopics || []);
+    const newToday = options.newToday || 0;
+    const newCap = options.newCap == null ? 5 : options.newCap;
+
+    const items = deckState.items || {};
+    const ids = Object.keys(items).filter(id => !sessionSeen.has(id));
+
+    function topicsDisjoint(id) {
+      if (lastTopics.size === 0) return true;
+      const ts = items[id].topics || [];
+      for (const t of ts) if (lastTopics.has(t)) return false;
+      return true;
+    }
+
+    // Tier 1: overdue
+    const overdue = ids
+      .filter(id => items[id].due && items[id].due <= today && items[id].box > 0)
+      .sort((a, b) => items[a].due < items[b].due ? -1 : items[a].due > items[b].due ? 1 : 0);
+    for (const id of overdue) if (topicsDisjoint(id)) return id;
+    if (overdue.length) return overdue[0];
+
+    // Tier 2: low-box not new
+    const lowBox = ids
+      .filter(id => items[id].box > 0 && items[id].box < 4)
+      .sort((a, b) => items[a].box - items[b].box);
+    for (const id of lowBox) if (topicsDisjoint(id)) return id;
+    if (lowBox.length) return lowBox[0];
+
+    // Tier 3: new (box 0)
+    if (newToday < newCap) {
+      const fresh = ids.filter(id => items[id].box === 0);
+      for (const id of fresh) if (topicsDisjoint(id)) return id;
+      if (fresh.length) return fresh[0];
+    }
+
+    return null;
+  }
+
+  EngineCore.selectNextItem = selectNextItem;
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = EngineCore;
   } else {
