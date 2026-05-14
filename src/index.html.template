@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>German Drills</title>
+<style>/*__STYLES__*/</style>
+</head>
+<body>
+<div id="root"></div>
+<script>/*__DECKS__*/</script>
+<script>/*__STORAGE__*/</script>
+<script>/*__ENGINE_CORE__*/</script>
+<script>/*__ENGINE_UI__*/</script>
+</body>
+</html>
