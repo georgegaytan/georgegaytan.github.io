@@ -57,6 +57,25 @@ function validateItem(item, deck) {
     }
   }
 
+  // C5-C6: choice Mode A
+  if (item.kind === 'choice') {
+    const hasOpts = Array.isArray(item.options);
+    const hasPool = typeof item.pool === 'string' && item.pool.length > 0;
+    if (hasOpts === hasPool) {
+      errs.push(err('C5', `choice item must have exactly one of "options" or "pool"`, loc));
+    }
+    if (hasOpts) {
+      if (item.options.length < 2) {
+        errs.push(err('C6', `choice options has <2 entries`, loc));
+      }
+      const dups = item.options.length !== new Set(item.options).size;
+      if (dups) errs.push(err('C6', `choice options has duplicates`, loc));
+      if (item.answer != null && !item.options.includes(item.answer)) {
+        errs.push(err('C6', `choice answer "${item.answer}" not in options`, loc));
+      }
+    }
+  }
+
   return errs;
 }
 

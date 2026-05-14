@@ -56,3 +56,39 @@ test('valid cloze item produces no errors', () => {
   const errs = validateDeck(deck([validClozeItem]));
   assert.strictEqual(errs.filter(e => e.severity === 'error').length, 0);
 });
+
+test('C5: choice with neither options nor pool → error', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', answer: 'x', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C5'));
+});
+
+test('C5: choice with BOTH options AND pool → error', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', options: ['x','y'], pool: 'somepool', answer: 'x', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C5'));
+});
+
+test('C6: choice options has fewer than 2 entries → error', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', options: ['x'], answer: 'x', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C6'));
+});
+
+test('C6: choice options has duplicates → error', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', options: ['x','x','y'], answer: 'x', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C6'));
+});
+
+test('C6: choice answer not in options → error', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', options: ['x','y'], answer: 'z', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C6'));
+});
+
+test('valid Mode A choice item produces no errors', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', options: ['x','y','z'], answer: 'y', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.strictEqual(errs.filter(e => e.severity === 'error').length, 0);
+});
