@@ -104,3 +104,46 @@ test('answersMatch: case-sensitive when flag set, rejects wrong case', () => {
     false
   );
 });
+
+test('selectDistractors: excludes the answer', () => {
+  const pool = ['kann', 'kannst', 'können', 'könnt', 'konnte', 'konnten'];
+  const distractors = EngineCore.selectDistractors(pool, 'können', 0, 3, 42);
+  assert.strictEqual(distractors.includes('können'), false);
+});
+
+test('selectDistractors: returns exactly N distractors', () => {
+  const pool = ['kann', 'kannst', 'können', 'könnt', 'konnte', 'konnten'];
+  assert.strictEqual(EngineCore.selectDistractors(pool, 'können', 0, 3, 42).length, 3);
+});
+
+test('selectDistractors: all distractors unique', () => {
+  const pool = ['kann', 'kannst', 'können', 'könnt', 'konnte', 'konnten'];
+  const d = EngineCore.selectDistractors(pool, 'können', 0, 3, 42);
+  assert.strictEqual(new Set(d).size, d.length);
+});
+
+test('selectDistractors: deterministic given same seed', () => {
+  const pool = ['kann', 'kannst', 'können', 'könnt', 'konnte', 'konnten'];
+  const a = EngineCore.selectDistractors(pool, 'können', 2, 3, 42);
+  const b = EngineCore.selectDistractors(pool, 'können', 2, 3, 42);
+  assert.deepStrictEqual(a, b);
+});
+
+test('selectDistractors: box 0 prefers far distractors (high Levenshtein)', () => {
+  const pool = ['können', 'könnt', 'kann', 'verfassungsmäßig'];
+  const distractors = EngineCore.selectDistractors(pool, 'können', 0, 1, 7);
+  assert.strictEqual(distractors[0], 'verfassungsmäßig');
+});
+
+test('selectDistractors: box 4+ prefers near distractors (adversarial)', () => {
+  const pool = ['können', 'könnt', 'kann', 'verfassungsmäßig'];
+  const distractors = EngineCore.selectDistractors(pool, 'können', 4, 1, 7);
+  assert.strictEqual(distractors[0], 'könnt');
+});
+
+test('selectDistractors: throws if pool too small', () => {
+  assert.throws(
+    () => EngineCore.selectDistractors(['a', 'b'], 'a', 0, 3, 42),
+    /pool too small/i
+  );
+});
