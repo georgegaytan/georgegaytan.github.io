@@ -126,3 +126,13 @@ test('storage: init() returns the same promise on repeated calls', async () => {
   assert.strictEqual(a, b);
   await a;
 });
+
+test('storage: init() with a failing hydrate marks Storage degraded', async () => {
+  const { createFailingBackend } = require('./_helpers/mockBackend.js');
+  global.localStorage = makeShim();
+  Storage._reset();
+  Storage._setBackend(createFailingBackend('hydrate'));
+  await Storage.init();
+  assert.strictEqual(Storage.isDegraded(), true);
+  assert.strictEqual(Storage.loadGlobal(), null);
+});
