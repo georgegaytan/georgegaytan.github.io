@@ -175,3 +175,79 @@ test('C12: well-formed modal_verb_form pool produces no C12 error', () => {
   const errs = validateDeck(deckWithPools([item], pools));
   assert.strictEqual(errs.filter(e => e.code === 'C12').length, 0);
 });
+
+test('C13: cloze blank with empty answer → error', () => {
+  const item = { id: 'a', kind: 'cloze', prompt: '{0}', blanks: [{ answer: '', topic: 't' }] };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C13'));
+});
+
+test('C13: text with empty answer → error', () => {
+  const item = { id: 'a', kind: 'text', prompt: 'p', answer: '', topic: 't' };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C13'));
+});
+
+test('C13: cloze with acceptAny and empty blank answer is OK', () => {
+  const item = {
+    id: 'a', kind: 'cloze', prompt: 'Ich {0} gehen.',
+    blanks: [{ answer: '', topic: 'modal' }],
+    acceptAny: [['kann'], ['muss'], ['will']]
+  };
+  const errs = validateDeck(deck([item]));
+  assert.strictEqual(errs.filter(e => e.code === 'C13').length, 0);
+});
+
+test('C14: missing case-flipped alt at sentence start → warning', () => {
+  const item = { id: 'a', kind: 'cloze', prompt: '{0} Mann liest.', blanks: [{ answer: 'Der', alts: [], topic: 'nom_m_def' }] };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C14' && e.severity === 'warning'));
+});
+
+test('C14: mid-sentence answer does NOT trigger spurious case-flip warning', () => {
+  const item = { id: 'a', kind: 'cloze', prompt: 'Der Hund {0} schnell.', blanks: [{ answer: 'läuft', alts: [], topic: 'verb' }] };
+  const errs = validateDeck(deck([item]));
+  const caseFlipWarns = errs.filter(e => e.code === 'C14' && /Läuft/.test(e.message));
+  assert.strictEqual(caseFlipWarns.length, 0);
+});
+
+test('C14: missing ae/oe/ue/ss variant → warning (regardless of position)', () => {
+  const item = { id: 'a', kind: 'cloze', prompt: 'Ich {0} Deutsch lernen.', blanks: [{ answer: 'möchte', alts: [], topic: 'modal_m' }] };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C14' && /moechte/.test(e.message)));
+});
+
+test('C15: cloze translation missing → warning only', () => {
+  const item = { id: 'a', kind: 'cloze', prompt: '{0} Mann liest.', blanks: [{ answer: 'Der', alts: ['der'], topic: 'nom_m_def' }] };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C15' && e.severity === 'warning'));
+});
+
+test('scaffoldPool: blank references undeclared pool → error', () => {
+  const item = {
+    id: 'a', kind: 'cloze', prompt: '{0} Mann',
+    blanks: [{ answer: 'Der', alts: ['der'], topic: 'nom_m_def', scaffoldPool: 'ghost' }]
+  };
+  const errs = validateDeck(deckWithPools([item], {}));
+  assert.ok(errs.some(e => e.code === 'C19' && /ghost/.test(e.message)));
+});
+
+test('scaffoldPool: blank references valid pool → no error', () => {
+  const pools = { p1: { category: 'definite_article', items: ['der','die','das','den'] } };
+  const item = {
+    id: 'a', kind: 'cloze', prompt: '{0} Mann',
+    blanks: [{ answer: 'Der', alts: ['der'], topic: 'nom_m_def', scaffoldPool: 'p1' }]
+  };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.strictEqual(errs.filter(e => e.code === 'C19').length, 0);
+});
+
+test('scaffoldPool: answer not in pool → error', () => {
+  const pools = { p1: { category: 'definite_article', items: ['der','die','das','den'] } };
+  const item = {
+    id: 'a', kind: 'cloze', prompt: '{0} Mann',
+    blanks: [{ answer: 'Mann', alts: [], topic: 'noun', scaffoldPool: 'p1' }]
+  };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C19' && /not in pool/.test(e.message)));
+});

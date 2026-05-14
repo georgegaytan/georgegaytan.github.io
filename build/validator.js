@@ -93,6 +93,103 @@ function validateItem(item, deck) {
     }
   }
 
+  // C13: non-empty answers (escape hatch: cloze with acceptAny covers blanks)
+  const hasAcceptAny = item.kind === 'cloze' && Array.isArray(item.acceptAny) && item.acceptAny.length > 0;
+  if (item.kind === 'cloze' && !hasAcceptAny) {
+    for (let i = 0; i < (item.blanks || []).length; i++) {
+      const a = item.blanks[i].answer;
+      if (typeof a !== 'string' || a.length === 0) {
+        errs.push(err('C13', `cloze blank ${i} has empty answer (set acceptAny if multiple combos are valid)`, loc));
+      }
+    }
+  } else if (item.kind === 'text') {
+    if (typeof item.answer !== 'string' || item.answer.length === 0) {
+      errs.push(err('C13', `text answer is empty`, loc));
+    }
+  }
+  if (hasAcceptAny) {
+    const blanksLen = (item.blanks || []).length;
+    for (let i = 0; i < item.acceptAny.length; i++) {
+      const combo = item.acceptAny[i];
+      if (!Array.isArray(combo) || combo.length !== blanksLen) {
+        errs.push(err('C13', `acceptAny[${i}] must be an array of ${blanksLen} string(s)`, loc));
+      }
+    }
+  }
+
+  // C14: warn on missing common alts (position-aware for case-flip)
+  function digraphVariant(ans) {
+    const umlautMap = [['ä','ae'],['ö','oe'],['ü','ue'],['ß','ss'],['Ä','Ae'],['Ö','Oe'],['Ü','Ue']];
+    let withDigraphs = ans;
+    for (const [u, d] of umlautMap) withDigraphs = withDigraphs.split(u).join(d);
+    return withDigraphs !== ans ? withDigraphs : null;
+  }
+  function caseFlippedFirst(ans) {
+    if (!ans || !ans.length) return null;
+    const flipped = (ans[0] === ans[0].toUpperCase())
+      ? ans[0].toLowerCase() + ans.slice(1)
+      : ans[0].toUpperCase() + ans.slice(1);
+    return flipped !== ans ? flipped : null;
+  }
+  function isSentenceStart(prompt, blankIndex) {
+    if (typeof prompt !== 'string') return false;
+    const re = new RegExp('\\{' + blankIndex + '\\}');
+    const m = prompt.match(re);
+    if (!m) return false;
+    const before = prompt.slice(0, m.index).replace(/\s+$/, '');
+    return before === '' || /[.!?]$/.test(before);
+  }
+
+  function checkAlts(answer, alts, label, allowCaseFlip) {
+    const have = new Set(alts || []);
+    if (allowCaseFlip) {
+      const flipped = caseFlippedFirst(answer);
+      if (flipped && !have.has(flipped)) {
+        errs.push(warn('C14', `${label} answer "${answer}" missing expected alt "${flipped}"`, loc));
+      }
+    }
+    const digraph = digraphVariant(answer);
+    if (digraph && !have.has(digraph)) {
+      errs.push(warn('C14', `${label} answer "${answer}" missing expected alt "${digraph}"`, loc));
+    }
+  }
+
+  if (item.kind === 'cloze') {
+    for (let i = 0; i < (item.blanks || []).length; i++) {
+      const atStart = isSentenceStart(item.prompt, i);
+      checkAlts(item.blanks[i].answer || '', item.blanks[i].alts || [], `blank ${i}`, atStart);
+    }
+  } else if (item.kind === 'text') {
+    checkAlts(item.answer || '', item.alts || [], 'text', true);
+  }
+
+  // C15: translation reminder on cloze
+  if (item.kind === 'cloze' && !item.translation) {
+    errs.push(warn('C15', `cloze item has no translation field`, loc));
+  }
+
+  // C19: scaffoldPool on cloze blanks must exist and contain the blank's answer
+  if (item.kind === 'cloze') {
+    const deckPools = deck.pools || {};
+    for (let i = 0; i < (item.blanks || []).length; i++) {
+      const b = item.blanks[i];
+      if (b.scaffoldPool) {
+        const p = deckPools[b.scaffoldPool];
+        if (!p) {
+          errs.push(err('C19', `blank ${i} scaffoldPool "${b.scaffoldPool}" not defined in deck.pools`, loc));
+        } else if (b.answer) {
+          // Case-insensitive membership: at sentence start the answer may be capitalized
+          // while the pool holds the lemma form.
+          const ansLower = b.answer.toLowerCase();
+          const inPool = p.items.some(it => it.toLowerCase() === ansLower);
+          if (!inPool) {
+            errs.push(err('C19', `blank ${i} answer "${b.answer}" not in pool "${b.scaffoldPool}"`, loc));
+          }
+        }
+      }
+    }
+  }
+
   // C5-C6: choice Mode A
   if (item.kind === 'choice') {
     const hasOpts = Array.isArray(item.options);
