@@ -136,3 +136,62 @@ test('storage: init() with a failing hydrate marks Storage degraded', async () =
   assert.strictEqual(Storage.isDegraded(), true);
   assert.strictEqual(Storage.loadGlobal(), null);
 });
+
+test('storage: init() migrates legacy localStorage keys when backend empty', async () => {
+  const { Storage, backend } = setup({
+    legacyData: {
+      gd_global: { version: 1, streak: { current: 5, lastDay: '2026-05-14' } },
+      gd_deck_declension: { items: { x: { box: 2 } } },
+    },
+  });
+  await Storage.init();
+  assert.ok(backend.data.has('gd_global'), 'gd_global copied to backend');
+  assert.ok(backend.data.has('gd_deck_declension'), 'deck copied to backend');
+  assert.ok(backend.data.has('migrated_to_idb'), 'migration marker written');
+  assert.strictEqual(Storage.loadGlobal().streak.current, 5);
+  assert.strictEqual(Storage.loadDeck('declension').items.x.box, 2);
+});
+
+test('storage: migration clears legacy localStorage keys after copy', async () => {
+  const { Storage } = setup({
+    legacyData: {
+      gd_global: { version: 1 },
+      gd_deck_a: { items: {} },
+      gd_deck_b: { items: {} },
+      unrelated_key: 'should stay',
+    },
+  });
+  await Storage.init();
+  assert.strictEqual(global.localStorage.getItem('gd_global'), null);
+  assert.strictEqual(global.localStorage.getItem('gd_deck_a'), null);
+  assert.strictEqual(global.localStorage.getItem('gd_deck_b'), null);
+  assert.strictEqual(global.localStorage.getItem('unrelated_key'), 'should stay');
+});
+
+test('storage: migration is idempotent - second init does not re-migrate', async () => {
+  const { Storage, backend } = setup({
+    legacyData: { gd_deck_x: { items: {} } },
+  });
+  await Storage.init();
+  global.localStorage.setItem('gd_deck_y', JSON.stringify({ items: { y: { box: 1 } } }));
+  Storage._reset();
+  Storage._setBackend({
+    data: backend.data,
+    hydrate() { return Promise.resolve(new Map(backend.data)); },
+    put(k, v) { backend.data.set(k, v); return Promise.resolve(); },
+    del(k) { backend.data.delete(k); return Promise.resolve(); },
+  });
+  await Storage.init();
+  assert.strictEqual(backend.data.has('gd_deck_y'), false, 'second init must not migrate gd_deck_y');
+  assert.ok(global.localStorage.getItem('gd_deck_y') !== null, 'gd_deck_y still in localStorage (not migrated)');
+});
+
+test('storage: malformed legacy JSON is skipped, others still migrate', async () => {
+  const { Storage, backend } = setup();
+  global.localStorage.setItem('gd_global', '{invalid');
+  global.localStorage.setItem('gd_deck_a', JSON.stringify({ items: { a: { box: 1 } } }));
+  await Storage.init();
+  assert.strictEqual(backend.data.has('gd_global'), false, 'malformed key skipped');
+  assert.ok(backend.data.has('gd_deck_a'), 'sibling still migrated');
+  assert.ok(backend.data.has('migrated_to_idb'), 'marker still written');
+});

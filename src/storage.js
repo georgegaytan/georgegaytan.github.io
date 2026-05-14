@@ -83,6 +83,60 @@
 
   function isDegraded() { return degraded; }
 
+  function readLegacyLocalStorageEntries() {
+    const out = [];
+    const store = ls();
+    if (!store) return out;
+    const keysToCheck = [];
+    for (let i = 0; i < store.length; i++) {
+      const k = store.key(i);
+      if (k === GLOBAL_KEY || (typeof k === 'string' && k.startsWith(DECK_KEY_PREFIX))) {
+        keysToCheck.push(k);
+      }
+    }
+    for (const k of keysToCheck) {
+      const raw = store.getItem(k);
+      try {
+        out.push({ key: k, value: JSON.parse(raw) });
+      } catch (err) {
+        console.warn('[gd-storage] malformed legacy key, skipping:', k);
+      }
+    }
+    return out;
+  }
+
+  function clearLegacyLocalStorageKeys() {
+    const store = ls();
+    if (!store) return;
+    const keys = [];
+    for (let i = 0; i < store.length; i++) {
+      const k = store.key(i);
+      if (k === GLOBAL_KEY || (typeof k === 'string' && k.startsWith(DECK_KEY_PREFIX))) {
+        keys.push(k);
+      }
+    }
+    for (const k of keys) store.removeItem(k);
+  }
+
+  async function migrateLegacyIntoBackend() {
+    const entries = readLegacyLocalStorageEntries();
+    if (entries.length === 0) {
+      const marker = { at: new Date().toISOString(), count: 0 };
+      storageMap.set(MIGRATED_MARKER, marker);
+      try { await backend.put(MIGRATED_MARKER, marker); } catch (err) { console.warn('[gd-storage] marker put failed:', err); }
+      return;
+    }
+    for (const { key, value } of entries) {
+      storageMap.set(key, value);
+      try { await backend.put(key, value); } catch (err) { console.warn('[gd-storage] migrate put failed:', key, err); }
+    }
+    const marker = { at: new Date().toISOString(), count: entries.length };
+    storageMap.set(MIGRATED_MARKER, marker);
+    try { await backend.put(MIGRATED_MARKER, marker); } catch (err) { console.warn('[gd-storage] marker put failed:', err); }
+    clearLegacyLocalStorageKeys();
+    console.log('[gd-storage] migrated', entries.length, 'legacy key(s) from localStorage');
+  }
+
   function init() {
     if (initPromise) return initPromise;
     initPromise = (async () => {
@@ -93,6 +147,9 @@
         console.warn('[gd-storage] hydrate failed:', err);
         degraded = true;
         storageMap = new Map();
+      }
+      if (!storageMap.has(MIGRATED_MARKER)) {
+        await migrateLegacyIntoBackend();
       }
     })();
     return initPromise;
