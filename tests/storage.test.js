@@ -78,3 +78,32 @@ test('storage: importAll rejects mismatched version', () => {
   const { Storage } = setup();
   assert.strictEqual(Storage.importAll({ version: 99, data: {} }), false);
 });
+
+test('storage: saveDeck writes through to the backend', async () => {
+  const { Storage, backend } = setup();
+  Storage.saveDeck('declension', { items: { a: { box: 1 } } });
+  await new Promise(r => setImmediate(r));
+  assert.deepStrictEqual(backend.data.get('gd_deck_declension'), { items: { a: { box: 1 } } });
+});
+
+test('storage: saveGlobal writes through to the backend', async () => {
+  const { Storage, backend } = setup();
+  Storage.saveGlobal({ version: 1, streak: { current: 1, lastDay: '2026-05-14' } });
+  await new Promise(r => setImmediate(r));
+  assert.strictEqual(backend.data.get('gd_global').streak.current, 1);
+});
+
+test('storage: importAll writes through every restored key', async () => {
+  const { Storage, backend } = setup();
+  Storage.importAll({
+    version: 1,
+    exported: '2026-05-14T00:00:00Z',
+    data: {
+      gd_global: { version: 1, streak: { current: 7, lastDay: '2026-05-14' } },
+      gd_deck_declension: { items: { foo: { box: 4 } } },
+    },
+  });
+  await new Promise(r => setImmediate(r));
+  assert.ok(backend.data.has('gd_global'));
+  assert.ok(backend.data.has('gd_deck_declension'));
+});
