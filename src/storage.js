@@ -85,7 +85,16 @@
 
   function init() {
     if (initPromise) return initPromise;
-    initPromise = Promise.resolve();
+    initPromise = (async () => {
+      if (!backend) return;
+      try {
+        storageMap = await backend.hydrate();
+      } catch (err) {
+        console.warn('[gd-storage] hydrate failed:', err);
+        degraded = true;
+        storageMap = new Map();
+      }
+    })();
     return initPromise;
   }
 

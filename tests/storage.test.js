@@ -107,3 +107,22 @@ test('storage: importAll writes through every restored key', async () => {
   assert.ok(backend.data.has('gd_global'));
   assert.ok(backend.data.has('gd_deck_declension'));
 });
+
+test('storage: init() hydrates the map from a non-empty backend', async () => {
+  const seed = new Map([
+    ['gd_global', { version: 1, streak: { current: 3, lastDay: '2026-05-14' } }],
+    ['gd_deck_declension', { items: { foo: { box: 4 } } }],
+  ]);
+  const { Storage } = setup({ backendSeed: seed });
+  await Storage.init();
+  assert.strictEqual(Storage.loadGlobal().streak.current, 3);
+  assert.deepStrictEqual(Storage.loadDeck('declension').items.foo, { box: 4 });
+});
+
+test('storage: init() returns the same promise on repeated calls', async () => {
+  const { Storage } = setup();
+  const a = Storage.init();
+  const b = Storage.init();
+  assert.strictEqual(a, b);
+  await a;
+});
