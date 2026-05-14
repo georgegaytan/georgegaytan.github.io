@@ -30,7 +30,8 @@
       "blanks": [
         { "answer": "Der", "alts": ["der"], "topic": "nom_m_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "The dog sleeps in the garden."
+      "translation": "The dog sleeps in the garden.",
+      "explanation": "Nominative subject. The masculine definite article is *der*."
     },
     {
       "id": "decl_nom_f_def_001",
@@ -39,7 +40,8 @@
       "blanks": [
         { "answer": "Die", "alts": ["die"], "topic": "nom_f_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "The woman sings very beautifully."
+      "translation": "The woman sings very beautifully.",
+      "explanation": "Nominative subject. The feminine definite article is *die*."
     },
     {
       "id": "decl_nom_n_def_001",
@@ -48,7 +50,8 @@
       "blanks": [
         { "answer": "Das", "alts": ["das"], "topic": "nom_n_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "The child plays in the park."
+      "translation": "The child plays in the park.",
+      "explanation": "Nominative subject. The neuter definite article is *das*."
     },
     {
       "id": "decl_nom_pl_def_001",
@@ -57,7 +60,8 @@
       "blanks": [
         { "answer": "Die", "alts": ["die"], "topic": "nom_pl_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "The children laugh loudly."
+      "translation": "The children laugh loudly.",
+      "explanation": "Nominative subject. Plural definite article is always *die*, regardless of gender."
     },
     {
       "id": "decl_acc_m_def_001",
@@ -66,7 +70,8 @@
       "blanks": [
         { "answer": "den", "alts": ["Den"], "topic": "acc_m_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "I see the man on the street."
+      "translation": "I see the man on the street.",
+      "explanation": "Accusative direct object of *sehen*. Masculine *der* shifts to *den*; feminine, neuter, and plural stay the same."
     },
     {
       "id": "decl_acc_f_def_001",
@@ -75,7 +80,8 @@
       "blanks": [
         { "answer": "die", "alts": ["Die"], "topic": "acc_f_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "We are visiting the teacher tomorrow."
+      "translation": "We are visiting the teacher tomorrow.",
+      "explanation": "Accusative direct object of *besuchen*. Feminine *die* stays *die* in the accusative."
     },
     {
       "id": "decl_acc_n_def_001",
@@ -84,7 +90,8 @@
       "blanks": [
         { "answer": "das", "alts": ["Das"], "topic": "acc_n_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "I am reading the book tonight."
+      "translation": "I am reading the book tonight.",
+      "explanation": "Accusative direct object of *lesen*. Neuter *das* stays *das* in the accusative."
     },
     {
       "id": "decl_acc_pl_def_001",
@@ -93,7 +100,8 @@
       "blanks": [
         { "answer": "die", "alts": ["Die"], "topic": "acc_pl_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "He is buying the rolls for us."
+      "translation": "He is buying the rolls for us.",
+      "explanation": "Accusative direct object of *kaufen*. Plural *die* stays *die* in the accusative."
     },
     {
       "id": "decl_dat_m_def_001",
@@ -102,7 +110,8 @@
       "blanks": [
         { "answer": "dem", "alts": ["Dem"], "topic": "dat_m_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "I am speaking with the teacher."
+      "translation": "I am speaking with the teacher.",
+      "explanation": "Dative triggered by *mit*. Masculine *der* → *dem*."
     },
     {
       "id": "decl_dat_f_def_001",
@@ -111,7 +120,8 @@
       "blanks": [
         { "answer": "der", "alts": ["Der"], "topic": "dat_f_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "I gladly help the young woman."
+      "translation": "I gladly help the young woman.",
+      "explanation": "Dative because *helfen* takes a dative object. Feminine *die* → *der*."
     },
     {
       "id": "decl_dat_n_def_001",
@@ -120,7 +130,8 @@
       "blanks": [
         { "answer": "dem", "alts": ["Dem"], "topic": "dat_n_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "She plays with the child in the garden."
+      "translation": "She plays with the child in the garden.",
+      "explanation": "Dative triggered by *mit*. Neuter *das* → *dem*."
     },
     {
       "id": "decl_dat_pl_def_001",
@@ -129,7 +140,8 @@
       "blanks": [
         { "answer": "den", "alts": ["Den"], "topic": "dat_pl_def", "scaffoldPool": "definite_articles" }
       ],
-      "translation": "We are driving with the children into the city."
+      "translation": "We are driving with the children into the city.",
+      "explanation": "Dative triggered by *mit*. Dative plural always uses *den*, and the noun gets an *-n* (here *Kindern*)."
     },
     {
       "id": "decl_nom_m_indef_001",
@@ -138,7 +150,8 @@
       "blanks": [
         { "answer": "Ein", "alts": ["ein"], "topic": "nom_m_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "A brother lives in Berlin."
+      "translation": "A brother lives in Berlin.",
+      "explanation": "Indefinite nominative; masculine and neuter share *ein*."
     },
     {
       "id": "decl_nom_f_indef_001",
@@ -147,7 +160,8 @@
       "blanks": [
         { "answer": "Eine", "alts": ["eine"], "topic": "nom_f_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "A cat sits on the chair."
+      "translation": "A cat sits on the chair.",
+      "explanation": "Indefinite nominative feminine takes *eine*."
     },
     {
       "id": "decl_nom_n_indef_001",
@@ -156,7 +170,8 @@
       "blanks": [
         { "answer": "Ein", "alts": ["ein"], "topic": "nom_n_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "A bicycle stands in front of the house."
+      "translation": "A bicycle stands in front of the house.",
+      "explanation": "Indefinite nominative; masculine and neuter share *ein*."
     },
     {
       "id": "decl_acc_m_indef_001",
@@ -165,7 +180,8 @@
       "blanks": [
         { "answer": "einen", "alts": ["Einen"], "topic": "acc_m_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "She has a brother in Munich."
+      "translation": "She has a brother in Munich.",
+      "explanation": "Accusative direct object of *haben*. Masculine *ein* → *einen*."
     },
     {
       "id": "decl_acc_f_indef_001",
@@ -174,7 +190,8 @@
       "blanks": [
         { "answer": "eine", "alts": ["Eine"], "topic": "acc_f_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "I need a new lamp."
+      "translation": "I need a new lamp.",
+      "explanation": "Accusative feminine indefinite is *eine* — feminine articles don't change between nominative and accusative."
     },
     {
       "id": "decl_acc_n_indef_001",
@@ -183,7 +200,8 @@
       "blanks": [
         { "answer": "ein", "alts": ["Ein"], "topic": "acc_n_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "He buys a bread in the morning."
+      "translation": "He buys a bread in the morning.",
+      "explanation": "Accusative direct object of *kaufen*. Neuter *ein* stays *ein* in the accusative."
     },
     {
       "id": "decl_dat_m_indef_001",
@@ -192,7 +210,8 @@
       "blanks": [
         { "answer": "einem", "alts": ["Einem"], "topic": "dat_m_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "We are living with a teacher."
+      "translation": "We are living with a teacher.",
+      "explanation": "Dative triggered by *bei*. Masculine *ein* → *einem*."
     },
     {
       "id": "decl_dat_f_indef_001",
@@ -201,7 +220,8 @@
       "blanks": [
         { "answer": "einer", "alts": ["Einer"], "topic": "dat_f_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "I give a sister the present."
+      "translation": "I give a sister the present.",
+      "explanation": "Dative indirect object of *geben* (the recipient). Feminine *eine* → *einer*."
     },
     {
       "id": "decl_dat_n_indef_001",
@@ -210,7 +230,8 @@
       "blanks": [
         { "answer": "einem", "alts": ["Einem"], "topic": "dat_n_indef", "scaffoldPool": "indefinite_articles" }
       ],
-      "translation": "She helps a child with learning."
+      "translation": "She helps a child with learning.",
+      "explanation": "Dative because *helfen* takes a dative object. Neuter *ein* → *einem*."
     },
     {
       "id": "decl_nom_m_neg_001",
@@ -219,7 +240,8 @@
       "blanks": [
         { "answer": "Kein", "alts": ["kein"], "topic": "nom_m_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "No father is at home today."
+      "translation": "No father is at home today.",
+      "explanation": "Negative article *kein* takes the same endings as *ein*. Nominative masculine is *kein*."
     },
     {
       "id": "decl_nom_f_neg_001",
@@ -228,7 +250,8 @@
       "blanks": [
         { "answer": "Keine", "alts": ["keine"], "topic": "nom_f_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "No lamp is on the table."
+      "translation": "No lamp is on the table.",
+      "explanation": "Negative article *kein* takes the same endings as *ein*. Nominative feminine is *keine*."
     },
     {
       "id": "decl_nom_n_neg_001",
@@ -237,7 +260,8 @@
       "blanks": [
         { "answer": "Kein", "alts": ["kein"], "topic": "nom_n_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "No car is in front of the house."
+      "translation": "No car is in front of the house.",
+      "explanation": "Negative article *kein* takes the same endings as *ein*. Nominative neuter is *kein*."
     },
     {
       "id": "decl_nom_pl_neg_001",
@@ -246,7 +270,8 @@
       "blanks": [
         { "answer": "Keine", "alts": ["keine"], "topic": "nom_pl_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "No animals live in this city."
+      "translation": "No animals live in this city.",
+      "explanation": "*kein* has plural forms even though *ein* does not. Nominative plural is *keine*."
     },
     {
       "id": "decl_acc_m_neg_001",
@@ -255,7 +280,8 @@
       "blanks": [
         { "answer": "keinen", "alts": ["Keinen"], "topic": "acc_m_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "I have no dog at home."
+      "translation": "I have no dog at home.",
+      "explanation": "Accusative direct object of *haben*. Masculine *kein* → *keinen* (same endings as *ein*)."
     },
     {
       "id": "decl_acc_f_neg_001",
@@ -264,7 +290,8 @@
       "blanks": [
         { "answer": "keine", "alts": ["Keine"], "topic": "acc_f_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "He drinks no milk for breakfast."
+      "translation": "He drinks no milk for breakfast.",
+      "explanation": "Accusative direct object of *trinken*. Feminine *keine* stays *keine* in the accusative."
     },
     {
       "id": "decl_acc_n_neg_001",
@@ -273,7 +300,8 @@
       "blanks": [
         { "answer": "kein", "alts": ["Kein"], "topic": "acc_n_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "She reads no book during the holidays."
+      "translation": "She reads no book during the holidays.",
+      "explanation": "Accusative direct object of *lesen*. Neuter *kein* stays *kein* in the accusative."
     },
     {
       "id": "decl_acc_pl_neg_001",
@@ -282,7 +310,8 @@
       "blanks": [
         { "answer": "keine", "alts": ["Keine"], "topic": "acc_pl_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "We have no more rolls."
+      "translation": "We have no more rolls.",
+      "explanation": "Accusative direct object of *haben*. Plural *keine* stays *keine* in the accusative."
     },
     {
       "id": "decl_dat_m_neg_001",
@@ -291,7 +320,8 @@
       "blanks": [
         { "answer": "keinem", "alts": ["Keinem"], "topic": "dat_m_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "She lives with no brother."
+      "translation": "She lives with no brother.",
+      "explanation": "Dative triggered by *bei*. Masculine *kein* → *keinem* (same endings as *ein*)."
     },
     {
       "id": "decl_dat_f_neg_001",
@@ -300,7 +330,8 @@
       "blanks": [
         { "answer": "keiner", "alts": ["Keiner"], "topic": "dat_f_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "I help no lazy sister."
+      "translation": "I help no lazy sister.",
+      "explanation": "Dative because *helfen* takes a dative object. Feminine *keine* → *keiner*."
     },
     {
       "id": "decl_dat_n_neg_001",
@@ -309,7 +340,8 @@
       "blanks": [
         { "answer": "keinem", "alts": ["Keinem"], "topic": "dat_n_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "She speaks with no child in the class."
+      "translation": "She speaks with no child in the class.",
+      "explanation": "Dative triggered by *mit*. Neuter *kein* → *keinem*."
     },
     {
       "id": "decl_dat_pl_neg_001",
@@ -318,7 +350,8 @@
       "blanks": [
         { "answer": "keinen", "alts": ["Keinen"], "topic": "dat_pl_neg", "scaffoldPool": "negative_articles" }
       ],
-      "translation": "He plays with no animals in the park."
+      "translation": "He plays with no animals in the park.",
+      "explanation": "Dative triggered by *mit*. Dative plural is *keinen*, and the noun gets an *-n* (here *Tieren*)."
     },
     {
       "id": "decl_nom_m_indef_adj_001",
@@ -328,7 +361,8 @@
         { "answer": "Ein", "alts": ["ein"], "topic": "nom_m_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "er", "alts": [], "topic": "adj_ending_strong_nom_m", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "A small dog is sleeping here."
+      "translation": "A small dog is sleeping here.",
+      "explanation": "Indefinite + adjective: *ein* doesn't show gender here, so the adjective takes the strong masculine nominative ending *-er* (*kleiner*)."
     },
     {
       "id": "decl_nom_f_indef_adj_001",
@@ -338,7 +372,8 @@
         { "answer": "Eine", "alts": ["eine"], "topic": "nom_f_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "e", "alts": [], "topic": "adj_ending_strong_nom_f", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "A young daughter is laughing loudly."
+      "translation": "A young daughter is laughing loudly.",
+      "explanation": "Nominative feminine with *eine*; the adjective takes *-e* (*junge*) since *eine* already marks the gender."
     },
     {
       "id": "decl_nom_n_indef_adj_001",
@@ -348,7 +383,8 @@
         { "answer": "Ein", "alts": ["ein"], "topic": "nom_n_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "es", "alts": [], "topic": "adj_ending_strong_nom_n", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "A new bicycle is in the yard."
+      "translation": "A new bicycle is in the yard.",
+      "explanation": "Indefinite + adjective: *ein* doesn't show gender here, so the adjective takes the strong neuter nominative ending *-es* (*neues*)."
     },
     {
       "id": "decl_acc_m_indef_adj_001",
@@ -358,7 +394,8 @@
         { "answer": "einen", "alts": ["Einen"], "topic": "acc_m_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "en", "alts": [], "topic": "adj_ending_strong_acc_m", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "We are looking for an old key."
+      "translation": "We are looking for an old key.",
+      "explanation": "Accusative masculine direct object of *suchen*: *ein* → *einen*; the adjective then takes *-en* (*alten*)."
     },
     {
       "id": "decl_acc_f_indef_adj_001",
@@ -368,7 +405,8 @@
         { "answer": "eine", "alts": ["Eine"], "topic": "acc_f_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "e", "alts": [], "topic": "adj_ending_strong_acc_f", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "She needs a red flower."
+      "translation": "She needs a red flower.",
+      "explanation": "Accusative feminine direct object of *brauchen*: *eine* stays *eine*, and the adjective takes *-e* (*rote*)."
     },
     {
       "id": "decl_acc_n_indef_adj_001",
@@ -378,7 +416,8 @@
         { "answer": "ein", "alts": ["Ein"], "topic": "acc_n_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "es", "alts": [], "topic": "adj_ending_strong_acc_n", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "We are drinking a cold beer."
+      "translation": "We are drinking a cold beer.",
+      "explanation": "Accusative neuter direct object of *trinken*: *ein* stays *ein*, so the adjective takes the strong neuter ending *-es* (*kaltes*)."
     },
     {
       "id": "decl_dat_m_indef_adj_001",
@@ -388,7 +427,8 @@
         { "answer": "einem", "alts": ["Einem"], "topic": "dat_m_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "en", "alts": [], "topic": "adj_ending_strong_dat_m", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "We are living with a nice teacher."
+      "translation": "We are living with a nice teacher.",
+      "explanation": "Dative triggered by *bei*: masculine *ein* → *einem*; the adjective takes *-en* (*netten*) after a marked article."
     },
     {
       "id": "decl_dat_f_indef_adj_001",
@@ -398,7 +438,8 @@
         { "answer": "einer", "alts": ["Einer"], "topic": "dat_f_indef", "scaffoldPool": "indefinite_articles" },
         { "answer": "en", "alts": [], "topic": "adj_ending_strong_dat_f", "scaffoldPool": "adj_endings_strong" }
       ],
-      "translation": "She plays with a little sister."
+      "translation": "She plays with a little sister.",
+      "explanation": "Dative triggered by *mit*: feminine *eine* → *einer*; the adjective takes *-en* (*kleinen*) after a marked article."
     }
   ]
 }

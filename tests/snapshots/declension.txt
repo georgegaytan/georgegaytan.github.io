@@ -1,41 +1,41 @@
-[decl_nom_m_def_001] kind=cloze prompt="{0} Hund schläft im Garten." blanks=["Der"]
-[decl_nom_f_def_001] kind=cloze prompt="{0} Frau singt sehr schön." blanks=["Die"]
-[decl_nom_n_def_001] kind=cloze prompt="{0} Kind spielt im Park." blanks=["Das"]
-[decl_nom_pl_def_001] kind=cloze prompt="{0} Kinder lachen laut." blanks=["Die"]
-[decl_acc_m_def_001] kind=cloze prompt="Ich sehe {0} Mann auf der Straße." blanks=["den"]
-[decl_acc_f_def_001] kind=cloze prompt="Wir besuchen {0} Lehrerin morgen." blanks=["die"]
-[decl_acc_n_def_001] kind=cloze prompt="Ich lese {0} Buch heute Abend." blanks=["das"]
-[decl_acc_pl_def_001] kind=cloze prompt="Er kauft {0} Brötchen für uns." blanks=["die"]
-[decl_dat_m_def_001] kind=cloze prompt="Ich spreche mit {0} Lehrer." blanks=["dem"]
-[decl_dat_f_def_001] kind=cloze prompt="Ich helfe {0} jungen Frau gerne." blanks=["der"]
-[decl_dat_n_def_001] kind=cloze prompt="Sie spielt mit {0} Kind im Garten." blanks=["dem"]
-[decl_dat_pl_def_001] kind=cloze prompt="Wir fahren mit {0} Kindern in die Stadt." blanks=["den"]
-[decl_nom_m_indef_001] kind=cloze prompt="{0} Bruder wohnt in Berlin." blanks=["Ein"]
-[decl_nom_f_indef_001] kind=cloze prompt="{0} Katze sitzt auf dem Stuhl." blanks=["Eine"]
-[decl_nom_n_indef_001] kind=cloze prompt="{0} Fahrrad steht vor dem Haus." blanks=["Ein"]
-[decl_acc_m_indef_001] kind=cloze prompt="Sie hat {0} Bruder in München." blanks=["einen"]
-[decl_acc_f_indef_001] kind=cloze prompt="Ich brauche {0} neue Lampe." blanks=["eine"]
-[decl_acc_n_indef_001] kind=cloze prompt="Er kauft {0} Brot am Morgen." blanks=["ein"]
-[decl_dat_m_indef_001] kind=cloze prompt="Wir wohnen bei {0} Lehrer." blanks=["einem"]
-[decl_dat_f_indef_001] kind=cloze prompt="Ich gebe {0} Schwester das Geschenk." blanks=["einer"]
-[decl_dat_n_indef_001] kind=cloze prompt="Sie hilft {0} Kind beim Lernen." blanks=["einem"]
-[decl_nom_m_neg_001] kind=cloze prompt="{0} Vater ist heute zu Hause." blanks=["Kein"]
-[decl_nom_f_neg_001] kind=cloze prompt="{0} Lampe steht auf dem Tisch." blanks=["Keine"]
-[decl_nom_n_neg_001] kind=cloze prompt="{0} Auto steht vor dem Haus." blanks=["Kein"]
-[decl_nom_pl_neg_001] kind=cloze prompt="{0} Tiere leben in dieser Stadt." blanks=["Keine"]
-[decl_acc_m_neg_001] kind=cloze prompt="Ich habe {0} Hund zu Hause." blanks=["keinen"]
-[decl_acc_f_neg_001] kind=cloze prompt="Er trinkt {0} Milch zum Frühstück." blanks=["keine"]
-[decl_acc_n_neg_001] kind=cloze prompt="Sie liest {0} Buch in den Ferien." blanks=["kein"]
-[decl_acc_pl_neg_001] kind=cloze prompt="Wir haben {0} Brötchen mehr." blanks=["keine"]
-[decl_dat_m_neg_001] kind=cloze prompt="Sie wohnt bei {0} Bruder." blanks=["keinem"]
-[decl_dat_f_neg_001] kind=cloze prompt="Ich helfe {0} faulen Schwester." blanks=["keiner"]
-[decl_dat_n_neg_001] kind=cloze prompt="Sie spricht mit {0} Kind in der Klasse." blanks=["keinem"]
-[decl_dat_pl_neg_001] kind=cloze prompt="Er spielt mit {0} Tieren im Park." blanks=["keinen"]
-[decl_nom_m_indef_adj_001] kind=cloze prompt="{0} klein{1} Hund schläft hier." blanks=["Ein","er"]
-[decl_nom_f_indef_adj_001] kind=cloze prompt="{0} jung{1} Tochter lacht laut." blanks=["Eine","e"]
-[decl_nom_n_indef_adj_001] kind=cloze prompt="{0} neu{1} Fahrrad steht im Hof." blanks=["Ein","es"]
-[decl_acc_m_indef_adj_001] kind=cloze prompt="Wir suchen {0} alt{1} Schlüssel." blanks=["einen","en"]
-[decl_acc_f_indef_adj_001] kind=cloze prompt="Sie braucht {0} rot{1} Blume." blanks=["eine","e"]
-[decl_acc_n_indef_adj_001] kind=cloze prompt="Wir trinken {0} kalt{1} Bier." blanks=["ein","es"]
-[decl_dat_m_indef_adj_001] kind=cloze prompt="Wir wohnen bei {0} nett{1} Lehrer." blanks=["einem","en"]
-[decl_dat_f_indef_adj_001] kind=cloze prompt="Sie spielt mit {0} klein{1} Schwester." blanks=["einer","en"]
+[decl_nom_m_def_001] kind=cloze prompt="{0} Hund schläft im Garten." blanks=["Der"] explanation="Nominative subject. The masculine definite article is *der*."
+[decl_nom_f_def_001] kind=cloze prompt="{0} Frau singt sehr schön." blanks=["Die"] explanation="Nominative subject. The feminine definite article is *die*."
+[decl_nom_n_def_001] kind=cloze prompt="{0} Kind spielt im Park." blanks=["Das"] explanation="Nominative subject. The neuter definite article is *das*."
+[decl_nom_pl_def_001] kind=cloze prompt="{0} Kinder lachen laut." blanks=["Die"] explanation="Nominative subject. Plural definite article is always *die*, regardless of gender."
+[decl_acc_m_def_001] kind=cloze prompt="Ich sehe {0} Mann auf der Straße." blanks=["den"] explanation="Accusative direct object of *sehen*. Masculine *der* shifts to *den*; feminine, neuter, and plural stay the same."
+[decl_acc_f_def_001] kind=cloze prompt="Wir besuchen {0} Lehrerin morgen." blanks=["die"] explanation="Accusative direct object of *besuchen*. Feminine *die* stays *die* in the accusative."
+[decl_acc_n_def_001] kind=cloze prompt="Ich lese {0} Buch heute Abend." blanks=["das"] explanation="Accusative direct object of *lesen*. Neuter *das* stays *das* in the accusative."
+[decl_acc_pl_def_001] kind=cloze prompt="Er kauft {0} Brötchen für uns." blanks=["die"] explanation="Accusative direct object of *kaufen*. Plural *die* stays *die* in the accusative."
+[decl_dat_m_def_001] kind=cloze prompt="Ich spreche mit {0} Lehrer." blanks=["dem"] explanation="Dative triggered by *mit*. Masculine *der* → *dem*."
+[decl_dat_f_def_001] kind=cloze prompt="Ich helfe {0} jungen Frau gerne." blanks=["der"] explanation="Dative because *helfen* takes a dative object. Feminine *die* → *der*."
+[decl_dat_n_def_001] kind=cloze prompt="Sie spielt mit {0} Kind im Garten." blanks=["dem"] explanation="Dative triggered by *mit*. Neuter *das* → *dem*."
+[decl_dat_pl_def_001] kind=cloze prompt="Wir fahren mit {0} Kindern in die Stadt." blanks=["den"] explanation="Dative triggered by *mit*. Dative plural always uses *den*, and the noun gets an *-n* (here *Kindern*)."
+[decl_nom_m_indef_001] kind=cloze prompt="{0} Bruder wohnt in Berlin." blanks=["Ein"] explanation="Indefinite nominative; masculine and neuter share *ein*."
+[decl_nom_f_indef_001] kind=cloze prompt="{0} Katze sitzt auf dem Stuhl." blanks=["Eine"] explanation="Indefinite nominative feminine takes *eine*."
+[decl_nom_n_indef_001] kind=cloze prompt="{0} Fahrrad steht vor dem Haus." blanks=["Ein"] explanation="Indefinite nominative; masculine and neuter share *ein*."
+[decl_acc_m_indef_001] kind=cloze prompt="Sie hat {0} Bruder in München." blanks=["einen"] explanation="Accusative direct object of *haben*. Masculine *ein* → *einen*."
+[decl_acc_f_indef_001] kind=cloze prompt="Ich brauche {0} neue Lampe." blanks=["eine"] explanation="Accusative feminine indefinite is *eine* — feminine articles don't change between nominative and accusative."
+[decl_acc_n_indef_001] kind=cloze prompt="Er kauft {0} Brot am Morgen." blanks=["ein"] explanation="Accusative direct object of *kaufen*. Neuter *ein* stays *ein* in the accusative."
+[decl_dat_m_indef_001] kind=cloze prompt="Wir wohnen bei {0} Lehrer." blanks=["einem"] explanation="Dative triggered by *bei*. Masculine *ein* → *einem*."
+[decl_dat_f_indef_001] kind=cloze prompt="Ich gebe {0} Schwester das Geschenk." blanks=["einer"] explanation="Dative indirect object of *geben* (the recipient). Feminine *eine* → *einer*."
+[decl_dat_n_indef_001] kind=cloze prompt="Sie hilft {0} Kind beim Lernen." blanks=["einem"] explanation="Dative because *helfen* takes a dative object. Neuter *ein* → *einem*."
+[decl_nom_m_neg_001] kind=cloze prompt="{0} Vater ist heute zu Hause." blanks=["Kein"] explanation="Negative article *kein* takes the same endings as *ein*. Nominative masculine is *kein*."
+[decl_nom_f_neg_001] kind=cloze prompt="{0} Lampe steht auf dem Tisch." blanks=["Keine"] explanation="Negative article *kein* takes the same endings as *ein*. Nominative feminine is *keine*."
+[decl_nom_n_neg_001] kind=cloze prompt="{0} Auto steht vor dem Haus." blanks=["Kein"] explanation="Negative article *kein* takes the same endings as *ein*. Nominative neuter is *kein*."
+[decl_nom_pl_neg_001] kind=cloze prompt="{0} Tiere leben in dieser Stadt." blanks=["Keine"] explanation="*kein* has plural forms even though *ein* does not. Nominative plural is *keine*."
+[decl_acc_m_neg_001] kind=cloze prompt="Ich habe {0} Hund zu Hause." blanks=["keinen"] explanation="Accusative direct object of *haben*. Masculine *kein* → *keinen* (same endings as *ein*)."
+[decl_acc_f_neg_001] kind=cloze prompt="Er trinkt {0} Milch zum Frühstück." blanks=["keine"] explanation="Accusative direct object of *trinken*. Feminine *keine* stays *keine* in the accusative."
+[decl_acc_n_neg_001] kind=cloze prompt="Sie liest {0} Buch in den Ferien." blanks=["kein"] explanation="Accusative direct object of *lesen*. Neuter *kein* stays *kein* in the accusative."
+[decl_acc_pl_neg_001] kind=cloze prompt="Wir haben {0} Brötchen mehr." blanks=["keine"] explanation="Accusative direct object of *haben*. Plural *keine* stays *keine* in the accusative."
+[decl_dat_m_neg_001] kind=cloze prompt="Sie wohnt bei {0} Bruder." blanks=["keinem"] explanation="Dative triggered by *bei*. Masculine *kein* → *keinem* (same endings as *ein*)."
+[decl_dat_f_neg_001] kind=cloze prompt="Ich helfe {0} faulen Schwester." blanks=["keiner"] explanation="Dative because *helfen* takes a dative object. Feminine *keine* → *keiner*."
+[decl_dat_n_neg_001] kind=cloze prompt="Sie spricht mit {0} Kind in der Klasse." blanks=["keinem"] explanation="Dative triggered by *mit*. Neuter *kein* → *keinem*."
+[decl_dat_pl_neg_001] kind=cloze prompt="Er spielt mit {0} Tieren im Park." blanks=["keinen"] explanation="Dative triggered by *mit*. Dative plural is *keinen*, and the noun gets an *-n* (here *Tieren*)."
+[decl_nom_m_indef_adj_001] kind=cloze prompt="{0} klein{1} Hund schläft hier." blanks=["Ein","er"] explanation="Indefinite + adjective: *ein* doesn't show gender here, so the adjective takes the strong masculine nominative ending *-er* (*kleiner*)."
+[decl_nom_f_indef_adj_001] kind=cloze prompt="{0} jung{1} Tochter lacht laut." blanks=["Eine","e"] explanation="Nominative feminine with *eine*; the adjective takes *-e* (*junge*) since *eine* already marks the gender."
+[decl_nom_n_indef_adj_001] kind=cloze prompt="{0} neu{1} Fahrrad steht im Hof." blanks=["Ein","es"] explanation="Indefinite + adjective: *ein* doesn't show gender here, so the adjective takes the strong neuter nominative ending *-es* (*neues*)."
+[decl_acc_m_indef_adj_001] kind=cloze prompt="Wir suchen {0} alt{1} Schlüssel." blanks=["einen","en"] explanation="Accusative masculine direct object of *suchen*: *ein* → *einen*; the adjective then takes *-en* (*alten*)."
+[decl_acc_f_indef_adj_001] kind=cloze prompt="Sie braucht {0} rot{1} Blume." blanks=["eine","e"] explanation="Accusative feminine direct object of *brauchen*: *eine* stays *eine*, and the adjective takes *-e* (*rote*)."
+[decl_acc_n_indef_adj_001] kind=cloze prompt="Wir trinken {0} kalt{1} Bier." blanks=["ein","es"] explanation="Accusative neuter direct object of *trinken*: *ein* stays *ein*, so the adjective takes the strong neuter ending *-es* (*kaltes*)."
+[decl_dat_m_indef_adj_001] kind=cloze prompt="Wir wohnen bei {0} nett{1} Lehrer." blanks=["einem","en"] explanation="Dative triggered by *bei*: masculine *ein* → *einem*; the adjective takes *-en* (*netten*) after a marked article."
+[decl_dat_f_indef_adj_001] kind=cloze prompt="Sie spielt mit {0} klein{1} Schwester." blanks=["einer","en"] explanation="Dative triggered by *mit*: feminine *eine* → *einer*; the adjective takes *-en* (*kleinen*) after a marked article."

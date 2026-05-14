@@ -17,7 +17,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "She goes shopping after work."
+      "translation": "She goes shopping after work.",
+      "explanation": "*nach* + dative for *after* (time): *nach der Arbeit* = *after work*."
     },
     {
       "id": "cham_nach_to_001",
@@ -31,7 +32,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "We're going to Spain in summer."
+      "translation": "We're going to Spain in summer.",
+      "explanation": "*nach* before a country name (no article) means *to*: *nach Spanien* = *to Spain*."
     },
     {
       "id": "cham_nach_according_to_001",
@@ -47,7 +49,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "In my opinion, he drives too fast."
+      "translation": "In my opinion, he drives too fast.",
+      "explanation": "*nach* + dative meaning *according to*; common with *Meinung*: *nach meiner Meinung* = *in my opinion*."
     },
     {
       "id": "cham_nach_meaning_001",
@@ -60,7 +63,8 @@
         "still"
       ],
       "answer": "after",
-      "topic": "nach_after"
+      "topic": "nach_after",
+      "explanation": "*nach dem Sport* = *after sport*: *nach* + dative for time/sequence, not direction."
     },
     {
       "id": "cham_nach_meaning_002",
@@ -73,7 +77,8 @@
         "yet again"
       ],
       "answer": "to (a place)",
-      "topic": "nach_to"
+      "topic": "nach_to",
+      "explanation": "*nach Kanada* — *nach* before a country (no article) marks direction *to*."
     },
     {
       "id": "cham_noch_still_001",
@@ -87,7 +92,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "He still lives in Berlin."
+      "translation": "He still lives in Berlin.",
+      "explanation": "*noch* meaning *still* — the living-in-Berlin continues at the time of speaking."
     },
     {
       "id": "cham_noch_not_yet_001",
@@ -101,7 +107,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "She hasn't seen the movie yet."
+      "translation": "She hasn't seen the movie yet.",
+      "explanation": "*noch nicht* = *not yet*; the *noch* extends a negation forward in time."
     },
     {
       "id": "cham_noch_another_001",
@@ -115,7 +122,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "Would you like another piece of cake?"
+      "translation": "Would you like another piece of cake?",
+      "explanation": "*noch* asking for *another* (more of the same): *noch ein Stück* = *one more piece*."
     },
     {
       "id": "cham_noch_even_001",
@@ -129,7 +137,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "The book is even better than the film."
+      "translation": "The book is even better than the film.",
+      "explanation": "*noch* intensifying a comparative: *noch besser* = *even better*."
     },
     {
       "id": "cham_noch_meaning_001",
@@ -142,7 +151,8 @@
         "even (intensifier)"
       ],
       "answer": "still",
-      "topic": "noch_still"
+      "topic": "noch_still",
+      "explanation": "*noch* meaning *still* — the boss's sitting in the office is ongoing at the moment of speaking."
     },
     {
       "id": "cham_noch_meaning_002",
@@ -155,7 +165,8 @@
         "even (intensifier)"
       ],
       "answer": "even (intensifier)",
-      "topic": "noch_even"
+      "topic": "noch_even",
+      "explanation": "*noch* intensifying the comparative *interessanter*: *even more interesting*."
     },
     {
       "id": "cham_schon_already_001",
@@ -169,7 +180,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "I have already read the book."
+      "translation": "I have already read the book.",
+      "explanation": "*schon* = *already*; the reading happened earlier than the listener might expect."
     },
     {
       "id": "cham_schon_ever_001",
@@ -183,7 +195,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "Have you ever been to Japan?"
+      "translation": "Have you ever been to Japan?",
+      "explanation": "*schon* with a perfect-tense question asks *ever* / *yet*: *Warst du schon …?* = *Have you ever been …?*"
     },
     {
       "id": "cham_schon_yet_again_001",
@@ -197,7 +210,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "You arrived late yet again."
+      "translation": "You arrived late yet again.",
+      "explanation": "*schon wieder* = *yet again*, expressing mild exasperation at a repeat occurrence."
     },
     {
       "id": "cham_schon_reassurance_001",
@@ -211,7 +225,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "We'll manage it, no worries."
+      "translation": "We'll manage it, no worries.",
+      "explanation": "Modal-particle *schon* reassuring the listener: *wir werden das schon schaffen* = *it'll work out*."
     },
     {
       "id": "cham_schon_meaning_001",
@@ -224,7 +239,8 @@
         "reassurance (don't worry)"
       ],
       "answer": "already",
-      "topic": "schon_already"
+      "topic": "schon_already",
+      "explanation": "*schon* with the perfect *haben geschlafen* = *already slept*; the event is complete sooner than expected."
     },
     {
       "id": "cham_schon_meaning_002",
@@ -237,7 +253,8 @@
         "reassurance (don't worry)"
       ],
       "answer": "reassurance (don't worry)",
-      "topic": "schon_reassurance"
+      "topic": "schon_reassurance",
+      "explanation": "Modal-particle *schon* in *es wird schon klappen* reassures: *it'll work out*."
     },
     {
       "id": "cham_doch_insistence_001",
@@ -251,7 +268,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "I DID help him!"
+      "translation": "I DID help him!",
+      "explanation": "Modal-particle *doch* insisting against a contrary assumption: *I DID help him* (despite what you think)."
     },
     {
       "id": "cham_doch_surprise_001",
@@ -265,7 +283,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "She came after all!"
+      "translation": "She came after all!",
+      "explanation": "*doch* expressing surprise / contradiction of an assumption — she came contrary to what was expected."
     },
     {
       "id": "cham_doch_encouragement_001",
@@ -279,7 +298,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "Just come along!"
+      "translation": "Just come along!",
+      "explanation": "*doch* in an imperative softens it into encouragement: *go ahead and come along*."
     },
     {
       "id": "cham_doch_meaning_001",
@@ -292,7 +312,8 @@
         "however"
       ],
       "answer": "insistence (DID do it)",
-      "topic": "doch_insistence"
+      "topic": "doch_insistence",
+      "explanation": "Modal-particle *doch* insisting against a contrary assumption: *she DID say that*."
     },
     {
       "id": "cham_doch_meaning_002",
@@ -305,7 +326,8 @@
         "frustration"
       ],
       "answer": "after all (surprise)",
-      "topic": "doch_surprise"
+      "topic": "doch_surprise",
+      "explanation": "*doch* expressing surprise / contradiction: *he's here after all*, contrary to what was assumed."
     },
     {
       "id": "cham_mal_softener_001",
@@ -319,7 +341,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "Could you help me?"
+      "translation": "Could you help me?",
+      "explanation": "Modal-particle *mal* softening a request — *could you help me real quick*."
     },
     {
       "id": "cham_mal_once_more_001",
@@ -333,7 +356,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "Can you explain it once more?"
+      "translation": "Can you explain it once more?",
+      "explanation": "*noch mal* = *once more* (one additional time); *mal* here carries the repetition sense."
     },
     {
       "id": "cham_mal_meaning_001",
@@ -346,7 +370,8 @@
         "probably"
       ],
       "answer": "request softener",
-      "topic": "mal_softener"
+      "topic": "mal_softener",
+      "explanation": "Modal-particle *mal* softening the request *open the window* — informal and brief."
     },
     {
       "id": "cham_erst_not_until_001",
@@ -360,7 +385,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "The train doesn't leave until 10."
+      "translation": "The train doesn't leave until 10.",
+      "explanation": "*erst* with a time expression means *not until*: the departure is later than expected."
     },
     {
       "id": "cham_erst_only_just_001",
@@ -374,7 +400,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "She only arrived yesterday."
+      "translation": "She only arrived yesterday.",
+      "explanation": "*erst* meaning *only just*: emphasis that her arrival happened only recently."
     },
     {
       "id": "cham_erst_first_001",
@@ -388,7 +415,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "I have to read the email first."
+      "translation": "I have to read the email first.",
+      "explanation": "*erst* meaning *first* in sequence — read the email before doing anything else."
     },
     {
       "id": "cham_erst_meaning_001",
@@ -401,7 +429,8 @@
         "already"
       ],
       "answer": "not until (later than expected)",
-      "topic": "erst_not_until"
+      "topic": "erst_not_until",
+      "explanation": "*erst nächste Woche* = *not until next week*: *erst* with a time expression pushes the event later than expected."
     },
     {
       "id": "cham_erst_meaning_002",
@@ -414,7 +443,8 @@
         "still"
       ],
       "answer": "only just (recently)",
-      "topic": "erst_only_just"
+      "topic": "erst_only_just",
+      "explanation": "*erst vor einer Stunde* = *only an hour ago*: *erst* stresses that the waking happened only recently."
     },
     {
       "id": "cham_ja_shared_knowledge_001",
@@ -428,7 +458,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "He's coming tomorrow, as we know."
+      "translation": "He's coming tomorrow, as we know.",
+      "explanation": "Modal-particle *ja* appealing to information the listener already knows — *as we both know*."
     },
     {
       "id": "cham_ja_warning_001",
@@ -442,7 +473,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "You'd better not forget that!"
+      "translation": "You'd better not forget that!",
+      "explanation": "*ja* in a warning intensifies it: *make sure you don't forget that!*"
     },
     {
       "id": "cham_ja_meaning_001",
@@ -455,7 +487,8 @@
         "yes"
       ],
       "answer": "as we both know (shared knowledge)",
-      "topic": "ja_shared_knowledge"
+      "topic": "ja_shared_knowledge",
+      "explanation": "Modal-particle *ja* appealing to shared knowledge: *as we both know, you have no time*."
     },
     {
       "id": "cham_ja_meaning_002",
@@ -468,7 +501,8 @@
         "probably"
       ],
       "answer": "emphatic warning",
-      "topic": "ja_warning"
+      "topic": "ja_warning",
+      "explanation": "*ja* in a negative imperative sharpens the warning: *make sure not to forget that!*"
     },
     {
       "id": "cham_denn_question_001",
@@ -482,7 +516,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "What's going on?"
+      "translation": "What's going on?",
+      "explanation": "*denn* as a modal particle softens the question and signals curiosity — not the conjunction *because*."
     },
     {
       "id": "cham_denn_question_002",
@@ -496,7 +531,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "Where were you?"
+      "translation": "Where were you?",
+      "explanation": "*denn* as a modal particle in a question signals curiosity or mild impatience — distinct from the conjunction *because*."
     },
     {
       "id": "cham_denn_meaning_001",
@@ -509,7 +545,8 @@
         "still"
       ],
       "answer": "question softener (curiosity/impatience)",
-      "topic": "denn_question_particle"
+      "topic": "denn_question_particle",
+      "explanation": "*denn* in a *warum*-question softens it and signals curiosity or mild impatience — not the conjunction *because*."
     },
     {
       "id": "cham_wohl_probably_001",
@@ -523,7 +560,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "He probably doesn't have time."
+      "translation": "He probably doesn't have time.",
+      "explanation": "*wohl* meaning *probably*; a speaker's hedged guess about his availability."
     },
     {
       "id": "cham_wohl_hedging_001",
@@ -537,7 +575,8 @@
           "scaffoldPool": "chameleon_particles"
         }
       ],
-      "translation": "You're right, I suppose."
+      "translation": "You're right, I suppose.",
+      "explanation": "*wohl* hedging a claim — *I suppose*; paired with *denke ich* it softens the assertion further."
     },
     {
       "id": "cham_wohl_meaning_001",
@@ -550,7 +589,8 @@
         "well-being (adjective)"
       ],
       "answer": "probably (assumption)",
-      "topic": "wohl_probably"
+      "topic": "wohl_probably",
+      "explanation": "*wohl* meaning *probably*; the speaker's hedged forecast about the rain."
     },
     {
       "id": "cham_wohl_meaning_002",
@@ -563,7 +603,8 @@
         "softener for requests"
       ],
       "answer": "ironic disbelief",
-      "topic": "wohl_disbelief"
+      "topic": "wohl_disbelief",
+      "explanation": "*wohl* in a question expresses incredulity / disbelief — *can she really mean that seriously?*"
     }
   ],
   "pools": {

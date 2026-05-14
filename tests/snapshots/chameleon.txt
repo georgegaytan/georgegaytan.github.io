@@ -1,41 +1,41 @@
-[cham_nach_after_001] kind=cloze prompt="Sie geht {0} der Arbeit einkaufen." blanks=["nach"]
-[cham_nach_to_001] kind=cloze prompt="Wir fahren im Sommer {0} Spanien." blanks=["nach"]
-[cham_nach_according_to_001] kind=cloze prompt="{0} meiner Meinung fährt er zu schnell." blanks=["Nach"]
-[cham_nach_meaning_001] kind=choice prompt="Er ist müde nach dem Sport. (Was bedeutet hier das Partikel?)" answer="after" box0_options=["after","to (a place)","according to","still"]
-[cham_nach_meaning_002] kind=choice prompt="Seine Familie wandert bald nach Kanada aus. (Was bedeutet hier das Partikel?)" answer="to (a place)" box0_options=["after","to (a place)","according to","yet again"]
-[cham_noch_still_001] kind=cloze prompt="Er wohnt {0} in Berlin." blanks=["noch"]
-[cham_noch_not_yet_001] kind=cloze prompt="Sie hat den Film {0} nicht gesehen." blanks=["noch"]
-[cham_noch_another_001] kind=cloze prompt="Möchtest du {0} ein Stück Kuchen?" blanks=["noch"]
-[cham_noch_even_001] kind=cloze prompt="Das Buch ist {0} besser als der Film." blanks=["noch"]
-[cham_noch_meaning_001] kind=choice prompt="Der Chef sitzt noch im Büro. (Was bedeutet hier das Partikel?)" answer="still" box0_options=["still","not yet","another (additional)","even (intensifier)"]
-[cham_noch_meaning_002] kind=choice prompt="Das wäre noch interessanter. (Was bedeutet hier das Partikel?)" answer="even (intensifier)" box0_options=["still","not yet","another (additional)","even (intensifier)"]
-[cham_schon_already_001] kind=cloze prompt="Ich habe das Buch {0} gelesen." blanks=["schon"]
-[cham_schon_ever_001] kind=cloze prompt="Bist du {0} mal in Japan gewesen?" blanks=["schon"]
-[cham_schon_yet_again_001] kind=cloze prompt="Du bist {0} wieder zu spät gekommen." blanks=["schon"]
-[cham_schon_reassurance_001] kind=cloze prompt="Wir werden das {0} schaffen, keine Sorge." blanks=["schon"]
-[cham_schon_meaning_001] kind=choice prompt="Die Kinder haben schon geschlafen. (Was bedeutet hier das Partikel?)" answer="already" box0_options=["already","ever (at any time)","yet again","reassurance (don't worry)"]
-[cham_schon_meaning_002] kind=choice prompt="Es wird schon klappen. (Was bedeutet hier das Partikel?)" answer="reassurance (don't worry)" box0_options=["already","ever (at any time)","yet again","reassurance (don't worry)"]
-[cham_doch_insistence_001] kind=cloze prompt="Ich habe ihm {0} geholfen!" blanks=["doch"]
-[cham_doch_surprise_001] kind=cloze prompt="Sie ist {0} gekommen!" blanks=["doch"]
-[cham_doch_encouragement_001] kind=cloze prompt="Komm {0} einfach mit!" blanks=["doch"]
-[cham_doch_meaning_001] kind=choice prompt="Sie hat das doch gesagt! (Was bedeutet hier das Partikel?)" answer="insistence (DID do it)" box0_options=["insistence (DID do it)","after all (surprise)","soft encouragement","however"]
-[cham_doch_meaning_002] kind=choice prompt="Er ist doch hier! (Was bedeutet hier das Partikel?)" answer="after all (surprise)" box0_options=["insistence (DID do it)","after all (surprise)","soft encouragement","frustration"]
-[cham_mal_softener_001] kind=cloze prompt="Kannst du mir {0} helfen?" blanks=["mal"]
-[cham_mal_once_more_001] kind=cloze prompt="Kannst du das noch{0} erklären?" blanks=["mal"]
-[cham_mal_meaning_001] kind=choice prompt="Kannst du das Fenster mal öffnen? (Was bedeutet hier das Partikel?)" answer="request softener" box0_options=["request softener","once more (repetition)","after all","probably"]
-[cham_erst_not_until_001] kind=cloze prompt="Der Zug fährt {0} um 10 Uhr ab." blanks=["erst"]
-[cham_erst_only_just_001] kind=cloze prompt="Sie ist {0} gestern angekommen." blanks=["erst"]
-[cham_erst_first_001] kind=cloze prompt="Ich muss {0} die E-Mail lesen." blanks=["erst"]
-[cham_erst_meaning_001] kind=choice prompt="Er kommt erst nächste Woche zurück. (Was bedeutet hier das Partikel?)" answer="not until (later than expected)" box0_options=["not until (later than expected)","only just (recently)","first (before something else)","already"]
-[cham_erst_meaning_002] kind=choice prompt="Er ist erst vor einer Stunde aufgewacht. (Was bedeutet hier das Partikel?)" answer="only just (recently)" box0_options=["not until (later than expected)","only just (recently)","first (before something else)","still"]
-[cham_ja_shared_knowledge_001] kind=cloze prompt="Er kommt {0} morgen, wie wir wissen." blanks=["ja"]
-[cham_ja_warning_001] kind=cloze prompt="Du darfst das {0} nicht vergessen!" blanks=["ja"]
-[cham_ja_meaning_001] kind=choice prompt="Du hast ja keine Zeit. (Was bedeutet hier das Partikel?)" answer="as we both know (shared knowledge)" box0_options=["as we both know (shared knowledge)","emphatic warning","expression of surprise","yes"]
-[cham_ja_meaning_002] kind=choice prompt="Vergiss das ja nicht! (Was bedeutet hier das Partikel?)" answer="emphatic warning" box0_options=["as we both know (shared knowledge)","emphatic warning","expression of surprise","probably"]
-[cham_denn_question_001] kind=cloze prompt="Was ist {0} los?" blanks=["denn"]
-[cham_denn_question_002] kind=cloze prompt="Wo warst du {0}?" blanks=["denn"]
-[cham_denn_meaning_001] kind=choice prompt="Warum kommt er denn so spät? (Was bedeutet hier das Partikel?)" answer="question softener (curiosity/impatience)" box0_options=["question softener (curiosity/impatience)","because (conjunction)","after all","still"]
-[cham_wohl_probably_001] kind=cloze prompt="Er hat {0} keine Zeit." blanks=["wohl"]
-[cham_wohl_hedging_001] kind=cloze prompt="Du hast {0} recht, denke ich." blanks=["wohl"]
-[cham_wohl_meaning_001] kind=choice prompt="Es regnet wohl morgen. (Was bedeutet hier das Partikel?)" answer="probably (assumption)" box0_options=["probably (assumption)","hedging (I suppose)","ironic disbelief","well-being (adjective)"]
-[cham_wohl_meaning_002] kind=choice prompt="Meint sie das wohl ernst? (Was bedeutet hier das Partikel?)" answer="ironic disbelief" box0_options=["probably (assumption)","hedging (I suppose)","ironic disbelief","softener for requests"]
+[cham_nach_after_001] kind=cloze prompt="Sie geht {0} der Arbeit einkaufen." blanks=["nach"] explanation="*nach* + dative for *after* (time): *nach der Arbeit* = *after work*."
+[cham_nach_to_001] kind=cloze prompt="Wir fahren im Sommer {0} Spanien." blanks=["nach"] explanation="*nach* before a country name (no article) means *to*: *nach Spanien* = *to Spain*."
+[cham_nach_according_to_001] kind=cloze prompt="{0} meiner Meinung fährt er zu schnell." blanks=["Nach"] explanation="*nach* + dative meaning *according to*; common with *Meinung*: *nach meiner Meinung* = *in my opinion*."
+[cham_nach_meaning_001] kind=choice prompt="Er ist müde nach dem Sport. (Was bedeutet hier das Partikel?)" answer="after" box0_options=["after","to (a place)","according to","still"] explanation="*nach dem Sport* = *after sport*: *nach* + dative for time/sequence, not direction."
+[cham_nach_meaning_002] kind=choice prompt="Seine Familie wandert bald nach Kanada aus. (Was bedeutet hier das Partikel?)" answer="to (a place)" box0_options=["after","to (a place)","according to","yet again"] explanation="*nach Kanada* — *nach* before a country (no article) marks direction *to*."
+[cham_noch_still_001] kind=cloze prompt="Er wohnt {0} in Berlin." blanks=["noch"] explanation="*noch* meaning *still* — the living-in-Berlin continues at the time of speaking."
+[cham_noch_not_yet_001] kind=cloze prompt="Sie hat den Film {0} nicht gesehen." blanks=["noch"] explanation="*noch nicht* = *not yet*; the *noch* extends a negation forward in time."
+[cham_noch_another_001] kind=cloze prompt="Möchtest du {0} ein Stück Kuchen?" blanks=["noch"] explanation="*noch* asking for *another* (more of the same): *noch ein Stück* = *one more piece*."
+[cham_noch_even_001] kind=cloze prompt="Das Buch ist {0} besser als der Film." blanks=["noch"] explanation="*noch* intensifying a comparative: *noch besser* = *even better*."
+[cham_noch_meaning_001] kind=choice prompt="Der Chef sitzt noch im Büro. (Was bedeutet hier das Partikel?)" answer="still" box0_options=["still","not yet","another (additional)","even (intensifier)"] explanation="*noch* meaning *still* — the boss's sitting in the office is ongoing at the moment of speaking."
+[cham_noch_meaning_002] kind=choice prompt="Das wäre noch interessanter. (Was bedeutet hier das Partikel?)" answer="even (intensifier)" box0_options=["still","not yet","another (additional)","even (intensifier)"] explanation="*noch* intensifying the comparative *interessanter*: *even more interesting*."
+[cham_schon_already_001] kind=cloze prompt="Ich habe das Buch {0} gelesen." blanks=["schon"] explanation="*schon* = *already*; the reading happened earlier than the listener might expect."
+[cham_schon_ever_001] kind=cloze prompt="Bist du {0} mal in Japan gewesen?" blanks=["schon"] explanation="*schon* with a perfect-tense question asks *ever* / *yet*: *Warst du schon …?* = *Have you ever been …?*"
+[cham_schon_yet_again_001] kind=cloze prompt="Du bist {0} wieder zu spät gekommen." blanks=["schon"] explanation="*schon wieder* = *yet again*, expressing mild exasperation at a repeat occurrence."
+[cham_schon_reassurance_001] kind=cloze prompt="Wir werden das {0} schaffen, keine Sorge." blanks=["schon"] explanation="Modal-particle *schon* reassuring the listener: *wir werden das schon schaffen* = *it'll work out*."
+[cham_schon_meaning_001] kind=choice prompt="Die Kinder haben schon geschlafen. (Was bedeutet hier das Partikel?)" answer="already" box0_options=["already","ever (at any time)","yet again","reassurance (don't worry)"] explanation="*schon* with the perfect *haben geschlafen* = *already slept*; the event is complete sooner than expected."
+[cham_schon_meaning_002] kind=choice prompt="Es wird schon klappen. (Was bedeutet hier das Partikel?)" answer="reassurance (don't worry)" box0_options=["already","ever (at any time)","yet again","reassurance (don't worry)"] explanation="Modal-particle *schon* in *es wird schon klappen* reassures: *it'll work out*."
+[cham_doch_insistence_001] kind=cloze prompt="Ich habe ihm {0} geholfen!" blanks=["doch"] explanation="Modal-particle *doch* insisting against a contrary assumption: *I DID help him* (despite what you think)."
+[cham_doch_surprise_001] kind=cloze prompt="Sie ist {0} gekommen!" blanks=["doch"] explanation="*doch* expressing surprise / contradiction of an assumption — she came contrary to what was expected."
+[cham_doch_encouragement_001] kind=cloze prompt="Komm {0} einfach mit!" blanks=["doch"] explanation="*doch* in an imperative softens it into encouragement: *go ahead and come along*."
+[cham_doch_meaning_001] kind=choice prompt="Sie hat das doch gesagt! (Was bedeutet hier das Partikel?)" answer="insistence (DID do it)" box0_options=["insistence (DID do it)","after all (surprise)","soft encouragement","however"] explanation="Modal-particle *doch* insisting against a contrary assumption: *she DID say that*."
+[cham_doch_meaning_002] kind=choice prompt="Er ist doch hier! (Was bedeutet hier das Partikel?)" answer="after all (surprise)" box0_options=["insistence (DID do it)","after all (surprise)","soft encouragement","frustration"] explanation="*doch* expressing surprise / contradiction: *he's here after all*, contrary to what was assumed."
+[cham_mal_softener_001] kind=cloze prompt="Kannst du mir {0} helfen?" blanks=["mal"] explanation="Modal-particle *mal* softening a request — *could you help me real quick*."
+[cham_mal_once_more_001] kind=cloze prompt="Kannst du das noch{0} erklären?" blanks=["mal"] explanation="*noch mal* = *once more* (one additional time); *mal* here carries the repetition sense."
+[cham_mal_meaning_001] kind=choice prompt="Kannst du das Fenster mal öffnen? (Was bedeutet hier das Partikel?)" answer="request softener" box0_options=["request softener","once more (repetition)","after all","probably"] explanation="Modal-particle *mal* softening the request *open the window* — informal and brief."
+[cham_erst_not_until_001] kind=cloze prompt="Der Zug fährt {0} um 10 Uhr ab." blanks=["erst"] explanation="*erst* with a time expression means *not until*: the departure is later than expected."
+[cham_erst_only_just_001] kind=cloze prompt="Sie ist {0} gestern angekommen." blanks=["erst"] explanation="*erst* meaning *only just*: emphasis that her arrival happened only recently."
+[cham_erst_first_001] kind=cloze prompt="Ich muss {0} die E-Mail lesen." blanks=["erst"] explanation="*erst* meaning *first* in sequence — read the email before doing anything else."
+[cham_erst_meaning_001] kind=choice prompt="Er kommt erst nächste Woche zurück. (Was bedeutet hier das Partikel?)" answer="not until (later than expected)" box0_options=["not until (later than expected)","only just (recently)","first (before something else)","already"] explanation="*erst nächste Woche* = *not until next week*: *erst* with a time expression pushes the event later than expected."
+[cham_erst_meaning_002] kind=choice prompt="Er ist erst vor einer Stunde aufgewacht. (Was bedeutet hier das Partikel?)" answer="only just (recently)" box0_options=["not until (later than expected)","only just (recently)","first (before something else)","still"] explanation="*erst vor einer Stunde* = *only an hour ago*: *erst* stresses that the waking happened only recently."
+[cham_ja_shared_knowledge_001] kind=cloze prompt="Er kommt {0} morgen, wie wir wissen." blanks=["ja"] explanation="Modal-particle *ja* appealing to information the listener already knows — *as we both know*."
+[cham_ja_warning_001] kind=cloze prompt="Du darfst das {0} nicht vergessen!" blanks=["ja"] explanation="*ja* in a warning intensifies it: *make sure you don't forget that!*"
+[cham_ja_meaning_001] kind=choice prompt="Du hast ja keine Zeit. (Was bedeutet hier das Partikel?)" answer="as we both know (shared knowledge)" box0_options=["as we both know (shared knowledge)","emphatic warning","expression of surprise","yes"] explanation="Modal-particle *ja* appealing to shared knowledge: *as we both know, you have no time*."
+[cham_ja_meaning_002] kind=choice prompt="Vergiss das ja nicht! (Was bedeutet hier das Partikel?)" answer="emphatic warning" box0_options=["as we both know (shared knowledge)","emphatic warning","expression of surprise","probably"] explanation="*ja* in a negative imperative sharpens the warning: *make sure not to forget that!*"
+[cham_denn_question_001] kind=cloze prompt="Was ist {0} los?" blanks=["denn"] explanation="*denn* as a modal particle softens the question and signals curiosity — not the conjunction *because*."
+[cham_denn_question_002] kind=cloze prompt="Wo warst du {0}?" blanks=["denn"] explanation="*denn* as a modal particle in a question signals curiosity or mild impatience — distinct from the conjunction *because*."
+[cham_denn_meaning_001] kind=choice prompt="Warum kommt er denn so spät? (Was bedeutet hier das Partikel?)" answer="question softener (curiosity/impatience)" box0_options=["question softener (curiosity/impatience)","because (conjunction)","after all","still"] explanation="*denn* in a *warum*-question softens it and signals curiosity or mild impatience — not the conjunction *because*."
+[cham_wohl_probably_001] kind=cloze prompt="Er hat {0} keine Zeit." blanks=["wohl"] explanation="*wohl* meaning *probably*; a speaker's hedged guess about his availability."
+[cham_wohl_hedging_001] kind=cloze prompt="Du hast {0} recht, denke ich." blanks=["wohl"] explanation="*wohl* hedging a claim — *I suppose*; paired with *denke ich* it softens the assertion further."
+[cham_wohl_meaning_001] kind=choice prompt="Es regnet wohl morgen. (Was bedeutet hier das Partikel?)" answer="probably (assumption)" box0_options=["probably (assumption)","hedging (I suppose)","ironic disbelief","well-being (adjective)"] explanation="*wohl* meaning *probably*; the speaker's hedged forecast about the rain."
+[cham_wohl_meaning_002] kind=choice prompt="Meint sie das wohl ernst? (Was bedeutet hier das Partikel?)" answer="ironic disbelief" box0_options=["probably (assumption)","hedging (I suppose)","ironic disbelief","softener for requests"] explanation="*wohl* in a question expresses incredulity / disbelief — *can she really mean that seriously?*"

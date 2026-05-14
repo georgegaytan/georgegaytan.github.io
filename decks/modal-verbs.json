@@ -40,245 +40,280 @@
       "kind": "cloze",
       "prompt": "Ich {0} gut schwimmen.",
       "blanks": [{ "answer": "kann", "alts": [], "topic": "koennen_1sg_pres", "scaffoldPool": "können_all_forms" }],
-      "translation": "I can swim well."
+      "translation": "I can swim well.",
+      "explanation": "*können* in the 1st-person singular present is *kann*; modal singulars drop the *-e* ending and often vowel-shift."
     },
     {
       "id": "modal_können_2sg_pres_001",
       "kind": "cloze",
       "prompt": "Du {0} sehr schnell laufen.",
       "blanks": [{ "answer": "kannst", "alts": [], "topic": "koennen_2sg_pres", "scaffoldPool": "können_all_forms" }],
-      "translation": "You can run very fast."
+      "translation": "You can run very fast.",
+      "explanation": "*können* → 2nd-singular *kannst*: ich/er stem *kann-* + standard *-st* ending."
     },
     {
       "id": "modal_können_3pl_pres_001",
       "kind": "cloze",
       "prompt": "Wir {0} morgen kommen.",
       "blanks": [{ "answer": "können", "alts": ["koennen"], "topic": "koennen_1pl_pres", "scaffoldPool": "können_all_forms" }],
-      "translation": "We can come tomorrow."
+      "translation": "We can come tomorrow.",
+      "explanation": "1st-person plural keeps the infinitive form *können*."
     },
     {
       "id": "modal_können_2pl_pres_001",
       "kind": "cloze",
       "prompt": "Ihr {0} das Problem lösen.",
       "blanks": [{ "answer": "könnt", "alts": ["koennt"], "topic": "koennen_2pl_pres", "scaffoldPool": "können_all_forms" }],
-      "translation": "You (pl.) can solve the problem."
+      "translation": "You (pl.) can solve the problem.",
+      "explanation": "2nd-person plural *ihr* takes infinitive stem *könn-* + *-t*: *könnt*."
     },
     {
       "id": "modal_können_1sg_pret_001",
       "kind": "cloze",
       "prompt": "Ich {0} gestern nicht schlafen.",
       "blanks": [{ "answer": "konnte", "alts": [], "topic": "koennen_1sg_pret", "scaffoldPool": "können_all_forms" }],
-      "translation": "I couldn't sleep yesterday."
+      "translation": "I couldn't sleep yesterday.",
+      "explanation": "*können* in the Präteritum drops the umlaut and adds *-te*: *konnte* (1st/3rd singular)."
     },
     {
       "id": "modal_können_1pl_pret_001",
       "kind": "cloze",
       "prompt": "Wir {0} das Spiel nicht sehen.",
       "blanks": [{ "answer": "konnten", "alts": [], "topic": "koennen_1pl_pret", "scaffoldPool": "können_all_forms" }],
-      "translation": "We couldn't watch the game."
+      "translation": "We couldn't watch the game.",
+      "explanation": "Präteritum plural of *können* drops the umlaut: stem *konn-* + *-ten* → *konnten*."
     },
     {
       "id": "modal_können_3pl_kii_001",
       "kind": "cloze",
       "prompt": "{0} Sie mir bitte helfen?",
       "blanks": [{ "answer": "Könnten", "alts": ["könnten", "Koennten", "koennten"], "topic": "koennen_3pl_kii", "scaffoldPool": "können_all_forms" }],
-      "translation": "Could you please help me?"
+      "translation": "Could you please help me?",
+      "explanation": "Konjunktiv II of *können* uses umlauted Präteritum stem + *-en*: *könnten* (would be able)."
     },
     {
       "id": "modal_müssen_1sg_pres_001",
       "kind": "cloze",
       "prompt": "Ich {0} heute arbeiten.",
       "blanks": [{ "answer": "muss", "alts": [], "topic": "muessen_1sg_pres", "scaffoldPool": "müssen_all_forms" }],
-      "translation": "I have to work today."
+      "translation": "I have to work today.",
+      "explanation": "*müssen* loses its umlaut in the singular: *muss / musst / muss*."
     },
     {
       "id": "modal_müssen_2sg_pres_001",
       "kind": "cloze",
       "prompt": "Du {0} mehr Wasser trinken.",
       "blanks": [{ "answer": "musst", "alts": [], "topic": "muessen_2sg_pres", "scaffoldPool": "müssen_all_forms" }],
-      "translation": "You must drink more water."
+      "translation": "You must drink more water.",
+      "explanation": "*müssen* in 2nd-singular: umlaut drops and *-st* attaches to singular stem *muss-* → *musst*."
     },
     {
       "id": "modal_müssen_2pl_pres_001",
       "kind": "cloze",
       "prompt": "Ihr {0} leiser sein.",
       "blanks": [{ "answer": "müsst", "alts": ["muesst"], "topic": "muessen_2pl_pres", "scaffoldPool": "müssen_all_forms" }],
-      "translation": "You (pl.) must be quieter."
+      "translation": "You (pl.) must be quieter.",
+      "explanation": "*ihr*-form keeps the umlaut of the infinitive: *müss-* + *-t* → *müsst*."
     },
     {
       "id": "modal_müssen_3pl_pres_001",
       "kind": "cloze",
       "prompt": "Die Studenten {0} viel lernen.",
       "blanks": [{ "answer": "müssen", "alts": ["muessen"], "topic": "muessen_3pl_pres", "scaffoldPool": "müssen_all_forms" }],
-      "translation": "The students have to study a lot."
+      "translation": "The students have to study a lot.",
+      "explanation": "3rd-person plural is identical to the infinitive *müssen*."
     },
     {
       "id": "modal_müssen_1sg_pret_001",
       "kind": "cloze",
       "prompt": "Ich {0} gestern lange arbeiten.",
       "blanks": [{ "answer": "musste", "alts": [], "topic": "muessen_1sg_pret", "scaffoldPool": "müssen_all_forms" }],
-      "translation": "I had to work late yesterday."
+      "translation": "I had to work late yesterday.",
+      "explanation": "Präteritum of *müssen* drops the umlaut and adds *-te*: *musste* (1st/3rd singular)."
     },
     {
       "id": "modal_müssen_3sg_kii_001",
       "kind": "cloze",
       "prompt": "Er {0} eigentlich pünktlich sein.",
       "blanks": [{ "answer": "müsste", "alts": ["muesste"], "topic": "muessen_3sg_kii", "scaffoldPool": "müssen_all_forms" }],
-      "translation": "He really ought to be on time."
+      "translation": "He really ought to be on time.",
+      "explanation": "Konjunktiv II of *müssen* re-adds the umlaut to the Präteritum: *müsste* (would have to / ought to)."
     },
     {
       "id": "modal_dürfen_1sg_pres_001",
       "kind": "cloze",
       "prompt": "Ich {0} hier nicht rauchen.",
       "blanks": [{ "answer": "darf", "alts": [], "topic": "duerfen_1sg_pres", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "I'm not allowed to smoke here."
+      "translation": "I'm not allowed to smoke here.",
+      "explanation": "*dürfen* in the singular drops the umlaut and shifts ü→a: *darf / darfst / darf*."
     },
     {
       "id": "modal_dürfen_2sg_pres_001",
       "kind": "cloze",
       "prompt": "Du {0} das Auto nehmen.",
       "blanks": [{ "answer": "darfst", "alts": [], "topic": "duerfen_2sg_pres", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "You may take the car."
+      "translation": "You may take the car.",
+      "explanation": "*dürfen* → 2nd-singular *darfst*: singular stem *darf-* + standard *-st* ending."
     },
     {
       "id": "modal_dürfen_1pl_pres_001",
       "kind": "cloze",
       "prompt": "Wir {0} morgen frei nehmen.",
       "blanks": [{ "answer": "dürfen", "alts": ["duerfen"], "topic": "duerfen_1pl_pres", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "We are allowed to take tomorrow off."
+      "translation": "We are allowed to take tomorrow off.",
+      "explanation": "1st-person plural keeps the infinitive form *dürfen*."
     },
     {
       "id": "modal_dürfen_2pl_pres_001",
       "kind": "cloze",
       "prompt": "Ihr {0} den Raum jetzt betreten.",
       "blanks": [{ "answer": "dürft", "alts": ["duerft"], "topic": "duerfen_2pl_pres", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "You (pl.) may enter the room now."
+      "translation": "You (pl.) may enter the room now.",
+      "explanation": "*ihr*-form keeps the umlaut of the infinitive: *dürf-* + *-t* → *dürft*."
     },
     {
       "id": "modal_dürfen_1sg_pret_001",
       "kind": "cloze",
       "prompt": "Als Kind {0} ich kein Eis essen.",
       "blanks": [{ "answer": "durfte", "alts": [], "topic": "duerfen_1sg_pret", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "As a child I wasn't allowed to eat ice cream."
+      "translation": "As a child I wasn't allowed to eat ice cream.",
+      "explanation": "Präteritum of *dürfen* drops the umlaut and adds *-te*: *durfte* (1st/3rd singular)."
     },
     {
       "id": "modal_dürfen_3pl_pret_001",
       "kind": "cloze",
       "prompt": "Die Schüler {0} keinen Kaugummi kauen.",
       "blanks": [{ "answer": "durften", "alts": [], "topic": "duerfen_3pl_pret", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "The students weren't allowed to chew gum."
+      "translation": "The students weren't allowed to chew gum.",
+      "explanation": "Präteritum plural of *dürfen* drops the umlaut: stem *durf-* + *-ten* → *durften*."
     },
     {
       "id": "modal_dürfen_2sg_kii_001",
       "kind": "cloze",
       "prompt": "Du {0} ruhig ehrlich sein.",
       "blanks": [{ "answer": "dürftest", "alts": ["duerftest"], "topic": "duerfen_2sg_kii", "scaffoldPool": "dürfen_all_forms" }],
-      "translation": "You may well be honest."
+      "translation": "You may well be honest.",
+      "explanation": "Konjunktiv II of *dürfen* re-adds the umlaut to the Präteritum: *dürftest* (would be allowed)."
     },
     {
       "id": "modal_sollen_1sg_pres_001",
       "kind": "cloze",
       "prompt": "Ich {0} mehr Sport machen.",
       "blanks": [{ "answer": "soll", "alts": [], "topic": "sollen_1sg_pres", "scaffoldPool": "sollen_all_forms" }],
-      "translation": "I should do more exercise."
+      "translation": "I should do more exercise.",
+      "explanation": "*sollen* keeps the same vowel throughout: 1st-singular present is *soll*."
     },
     {
       "id": "modal_sollen_2pl_pres_001",
       "kind": "cloze",
       "prompt": "Ihr {0} eure Hausaufgaben machen.",
       "blanks": [{ "answer": "sollt", "alts": [], "topic": "sollen_2pl_pres", "scaffoldPool": "sollen_all_forms" }],
-      "translation": "You (pl.) should do your homework."
+      "translation": "You (pl.) should do your homework.",
+      "explanation": "*ihr*-form of *sollen*: stem *soll-* + *-t* → *sollt*."
     },
     {
       "id": "modal_sollen_1pl_pret_001",
       "kind": "cloze",
       "prompt": "Wir {0} den Vertrag unterschreiben.",
       "blanks": [{ "answer": "sollten", "alts": [], "topic": "sollen_1pl_pret", "scaffoldPool": "sollen_all_forms" }],
-      "translation": "We were supposed to sign the contract."
+      "translation": "We were supposed to sign the contract.",
+      "explanation": "Präteritum of *sollen* adds *-te*: stem *soll-* + *-ten* → *sollten* (no vowel change since *sollen* has no umlaut)."
     },
     {
       "id": "modal_sollen_2sg_kii_001",
       "kind": "cloze",
       "prompt": "Du {0} vielleicht mal zum Zahnarzt gehen.",
       "blanks": [{ "answer": "solltest", "alts": [], "topic": "sollen_2sg_kii", "scaffoldPool": "sollen_all_forms" }],
-      "translation": "You should perhaps go to the dentist."
+      "translation": "You should perhaps go to the dentist.",
+      "explanation": "Konjunktiv II of *sollen* expresses softened obligation: *du solltest* = *you should* (no umlaut, identical to Präteritum)."
     },
     {
       "id": "modal_wollen_1sg_pres_001",
       "kind": "cloze",
       "prompt": "Ich {0} nach Berlin fahren.",
       "blanks": [{ "answer": "will", "alts": [], "topic": "wollen_1sg_pres", "scaffoldPool": "wollen_all_forms" }],
-      "translation": "I want to go to Berlin."
+      "translation": "I want to go to Berlin.",
+      "explanation": "*wollen* (to want) in the 1st singular is *will* — false friend for English speakers."
     },
     {
       "id": "modal_wollen_3sg_pres_001",
       "kind": "cloze",
       "prompt": "Er {0} Ingenieur werden.",
       "blanks": [{ "answer": "will", "alts": [], "topic": "wollen_3sg_pres", "scaffoldPool": "wollen_all_forms" }],
-      "translation": "He wants to become an engineer."
+      "translation": "He wants to become an engineer.",
+      "explanation": "*wollen* in 1st and 3rd singular share the form *will*; modal singulars drop the *-e* ending."
     },
     {
       "id": "modal_wollen_1pl_pres_001",
       "kind": "cloze",
       "prompt": "Wir {0} ein Haus kaufen.",
       "blanks": [{ "answer": "wollen", "alts": [], "topic": "wollen_1pl_pres", "scaffoldPool": "wollen_all_forms" }],
-      "translation": "We want to buy a house."
+      "translation": "We want to buy a house.",
+      "explanation": "1st-person plural keeps the infinitive form *wollen*."
     },
     {
       "id": "modal_wollen_2sg_pret_001",
       "kind": "cloze",
       "prompt": "{0} du nicht mitkommen?",
       "blanks": [{ "answer": "Wolltest", "alts": ["wolltest"], "topic": "wollen_2sg_pret", "scaffoldPool": "wollen_all_forms" }],
-      "translation": "Didn't you want to come along?"
+      "translation": "Didn't you want to come along?",
+      "explanation": "Präteritum of *wollen* uses stem *woll-* + *-test*: *du wolltest* (no vowel change)."
     },
     {
       "id": "modal_wollen_1pl_pret_001",
       "kind": "cloze",
       "prompt": "Wir {0} gestern ins Museum gehen.",
       "blanks": [{ "answer": "wollten", "alts": [], "topic": "wollen_1pl_pret", "scaffoldPool": "wollen_all_forms" }],
-      "translation": "We wanted to go to the museum yesterday."
+      "translation": "We wanted to go to the museum yesterday.",
+      "explanation": "Präteritum plural of *wollen*: stem *woll-* + *-ten* → *wollten* (no umlaut to add)."
     },
     {
       "id": "modal_mögen_1sg_pres_001",
       "kind": "cloze",
       "prompt": "Ich {0} Schokolade sehr gern.",
       "blanks": [{ "answer": "mag", "alts": [], "topic": "moegen_1sg_pres", "scaffoldPool": "mögen_all_forms" }],
-      "translation": "I like chocolate very much."
+      "translation": "I like chocolate very much.",
+      "explanation": "*mögen* in the singular drops the umlaut and shifts ö→a: *mag / magst / mag*."
     },
     {
       "id": "modal_mögen_2sg_pres_001",
       "kind": "cloze",
       "prompt": "{0} du Oliven?",
       "blanks": [{ "answer": "Magst", "alts": ["magst"], "topic": "moegen_2sg_pres", "scaffoldPool": "mögen_all_forms" }],
-      "translation": "Do you like olives?"
+      "translation": "Do you like olives?",
+      "explanation": "*mögen* → 2nd-singular *magst*: singular stem *mag-* + standard *-st* ending."
     },
     {
       "id": "modal_mögen_1pl_pres_001",
       "kind": "cloze",
       "prompt": "Wir {0} die neue Wohnung.",
       "blanks": [{ "answer": "mögen", "alts": ["moegen"], "topic": "moegen_1pl_pres", "scaffoldPool": "mögen_all_forms" }],
-      "translation": "We like the new apartment."
+      "translation": "We like the new apartment.",
+      "explanation": "1st-person plural keeps the infinitive form *mögen*."
     },
     {
       "id": "modal_mögen_1sg_pret_001",
       "kind": "cloze",
       "prompt": "Ich {0} die Suppe nicht.",
       "blanks": [{ "answer": "mochte", "alts": [], "topic": "moegen_1sg_pret", "scaffoldPool": "mögen_all_forms" }],
-      "translation": "I didn't like the soup."
+      "translation": "I didn't like the soup.",
+      "explanation": "Präteritum of *mögen* drops the umlaut and shifts to *o*: *mochte* (1st/3rd singular)."
     },
     {
       "id": "modal_mögen_1sg_kii_001",
       "kind": "cloze",
       "prompt": "Ich {0} einen Kaffee, bitte.",
       "blanks": [{ "answer": "möchte", "alts": ["moechte"], "topic": "moegen_1sg_kii", "scaffoldPool": "mögen_all_forms" }],
-      "translation": "I would like a coffee, please."
+      "translation": "I would like a coffee, please.",
+      "explanation": "Konjunktiv II of *mögen* re-adds the umlaut to the Präteritum stem: *möchte* — the standard polite 'would like'."
     },
     {
       "id": "modal_mögen_1pl_kii_001",
       "kind": "cloze",
       "prompt": "Wir {0} gern länger bleiben.",
       "blanks": [{ "answer": "möchten", "alts": ["moechten"], "topic": "moegen_1pl_kii", "scaffoldPool": "mögen_all_forms" }],
-      "translation": "We would like to stay longer."
+      "translation": "We would like to stay longer.",
+      "explanation": "Konjunktiv II plural of *mögen*: umlauted Präteritum stem + *-en* → *möchten* ('would like')."
     },
     {
       "id": "modal_lemma_ability_001",
@@ -286,7 +321,8 @@
       "prompt": "Ich ___ drei Sprachen sprechen. (ability)",
       "pool": "modal_lemmas",
       "answer": "können",
-      "topic": "modal_lemma_ability"
+      "topic": "modal_lemma_ability",
+      "explanation": "Ability ('be able to') is *können*. Compare *dürfen* = permission, *müssen* = necessity."
     },
     {
       "id": "modal_lemma_necessity_001",
@@ -294,7 +330,8 @@
       "prompt": "Ich ___ jetzt nach Hause gehen. (necessity)",
       "pool": "modal_lemmas",
       "answer": "müssen",
-      "topic": "modal_lemma_necessity"
+      "topic": "modal_lemma_necessity",
+      "explanation": "Necessity ('have to / must') is *müssen*. Compare *sollen* = expectation from others, *dürfen* = permission."
     },
     {
       "id": "modal_lemma_permission_001",
@@ -302,7 +339,8 @@
       "prompt": "Wir ___ heute frei nehmen. (permission)",
       "pool": "modal_lemmas",
       "answer": "dürfen",
-      "topic": "modal_lemma_permission"
+      "topic": "modal_lemma_permission",
+      "explanation": "Permission ('be allowed to') is *dürfen*. Compare *können* = ability, *müssen* = necessity."
     },
     {
       "id": "modal_lemma_obligation_001",
@@ -310,7 +348,8 @@
       "prompt": "Du ___ deine Hausaufgaben machen. (expectation / advice)",
       "pool": "modal_lemmas",
       "answer": "sollen",
-      "topic": "modal_lemma_obligation"
+      "topic": "modal_lemma_obligation",
+      "explanation": "Expectation or advice from someone else ('should / be supposed to') is *sollen*. Distinct from *müssen*, which is internal necessity."
     },
     {
       "id": "modal_lemma_desire_001",
@@ -318,7 +357,8 @@
       "prompt": "Sie ___ Medizin studieren. (intention / desire)",
       "pool": "modal_lemmas",
       "answer": "wollen",
-      "topic": "modal_lemma_desire"
+      "topic": "modal_lemma_desire",
+      "explanation": "Intention or desire ('want to') is *wollen*. Stronger than *mögen*/*möchten*, which express preference or polite wish."
     },
     {
       "id": "modal_lemma_preference_001",
@@ -326,7 +366,8 @@
       "prompt": "Ich ___ klassische Musik. (liking / preference)",
       "pool": "modal_lemmas",
       "answer": "mögen",
-      "topic": "modal_lemma_preference"
+      "topic": "modal_lemma_preference",
+      "explanation": "Liking or preference ('to like') is *mögen*. Its Konjunktiv II *möchte* is the polite 'would like'."
     },
     {
       "id": "modal_lemma_hearsay_001",
@@ -334,7 +375,8 @@
       "prompt": "Er ___ angeblich sehr reich sein. (hearsay / rumor)",
       "pool": "modal_lemmas",
       "answer": "sollen",
-      "topic": "modal_lemma_hearsay"
+      "topic": "modal_lemma_hearsay",
+      "explanation": "*sollen* can express hearsay ('is said to'). Distinct from its core meaning of obligation."
     }
   ]
 }

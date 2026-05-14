@@ -1,56 +1,56 @@
-[modal_können_1sg_pres_001] kind=cloze prompt="Ich {0} gut schwimmen." blanks=["kann"]
-[modal_können_2sg_pres_001] kind=cloze prompt="Du {0} sehr schnell laufen." blanks=["kannst"]
-[modal_können_3pl_pres_001] kind=cloze prompt="Wir {0} morgen kommen." blanks=["können"]
-[modal_können_2pl_pres_001] kind=cloze prompt="Ihr {0} das Problem lösen." blanks=["könnt"]
-[modal_können_1sg_pret_001] kind=cloze prompt="Ich {0} gestern nicht schlafen." blanks=["konnte"]
-[modal_können_1pl_pret_001] kind=cloze prompt="Wir {0} das Spiel nicht sehen." blanks=["konnten"]
-[modal_können_3pl_kii_001] kind=cloze prompt="{0} Sie mir bitte helfen?" blanks=["Könnten"]
-[modal_müssen_1sg_pres_001] kind=cloze prompt="Ich {0} heute arbeiten." blanks=["muss"]
-[modal_müssen_2sg_pres_001] kind=cloze prompt="Du {0} mehr Wasser trinken." blanks=["musst"]
-[modal_müssen_2pl_pres_001] kind=cloze prompt="Ihr {0} leiser sein." blanks=["müsst"]
-[modal_müssen_3pl_pres_001] kind=cloze prompt="Die Studenten {0} viel lernen." blanks=["müssen"]
-[modal_müssen_1sg_pret_001] kind=cloze prompt="Ich {0} gestern lange arbeiten." blanks=["musste"]
-[modal_müssen_3sg_kii_001] kind=cloze prompt="Er {0} eigentlich pünktlich sein." blanks=["müsste"]
-[modal_dürfen_1sg_pres_001] kind=cloze prompt="Ich {0} hier nicht rauchen." blanks=["darf"]
-[modal_dürfen_2sg_pres_001] kind=cloze prompt="Du {0} das Auto nehmen." blanks=["darfst"]
-[modal_dürfen_1pl_pres_001] kind=cloze prompt="Wir {0} morgen frei nehmen." blanks=["dürfen"]
-[modal_dürfen_2pl_pres_001] kind=cloze prompt="Ihr {0} den Raum jetzt betreten." blanks=["dürft"]
-[modal_dürfen_1sg_pret_001] kind=cloze prompt="Als Kind {0} ich kein Eis essen." blanks=["durfte"]
-[modal_dürfen_3pl_pret_001] kind=cloze prompt="Die Schüler {0} keinen Kaugummi kauen." blanks=["durften"]
-[modal_dürfen_2sg_kii_001] kind=cloze prompt="Du {0} ruhig ehrlich sein." blanks=["dürftest"]
-[modal_sollen_1sg_pres_001] kind=cloze prompt="Ich {0} mehr Sport machen." blanks=["soll"]
-[modal_sollen_2pl_pres_001] kind=cloze prompt="Ihr {0} eure Hausaufgaben machen." blanks=["sollt"]
-[modal_sollen_1pl_pret_001] kind=cloze prompt="Wir {0} den Vertrag unterschreiben." blanks=["sollten"]
-[modal_sollen_2sg_kii_001] kind=cloze prompt="Du {0} vielleicht mal zum Zahnarzt gehen." blanks=["solltest"]
-[modal_wollen_1sg_pres_001] kind=cloze prompt="Ich {0} nach Berlin fahren." blanks=["will"]
-[modal_wollen_3sg_pres_001] kind=cloze prompt="Er {0} Ingenieur werden." blanks=["will"]
-[modal_wollen_1pl_pres_001] kind=cloze prompt="Wir {0} ein Haus kaufen." blanks=["wollen"]
-[modal_wollen_2sg_pret_001] kind=cloze prompt="{0} du nicht mitkommen?" blanks=["Wolltest"]
-[modal_wollen_1pl_pret_001] kind=cloze prompt="Wir {0} gestern ins Museum gehen." blanks=["wollten"]
-[modal_mögen_1sg_pres_001] kind=cloze prompt="Ich {0} Schokolade sehr gern." blanks=["mag"]
-[modal_mögen_2sg_pres_001] kind=cloze prompt="{0} du Oliven?" blanks=["Magst"]
-[modal_mögen_1pl_pres_001] kind=cloze prompt="Wir {0} die neue Wohnung." blanks=["mögen"]
-[modal_mögen_1sg_pret_001] kind=cloze prompt="Ich {0} die Suppe nicht." blanks=["mochte"]
-[modal_mögen_1sg_kii_001] kind=cloze prompt="Ich {0} einen Kaffee, bitte." blanks=["möchte"]
-[modal_mögen_1pl_kii_001] kind=cloze prompt="Wir {0} gern länger bleiben." blanks=["möchten"]
-[modal_lemma_ability_001] kind=choice prompt="Ich ___ drei Sprachen sprechen. (ability)" answer="können" box0_options=["können","sollen","wollen","müssen"]
-[modal_lemma_ability_001] kind=choice prompt="Ich ___ drei Sprachen sprechen. (ability)" answer="können" box2_options=["können","sollen","wollen","müssen"]
-[modal_lemma_ability_001] kind=choice prompt="Ich ___ drei Sprachen sprechen. (ability)" answer="können" box4_options=["können","mögen","sollen","wollen"]
-[modal_lemma_necessity_001] kind=choice prompt="Ich ___ jetzt nach Hause gehen. (necessity)" answer="müssen" box0_options=["müssen","sollen","können","wollen"]
-[modal_lemma_necessity_001] kind=choice prompt="Ich ___ jetzt nach Hause gehen. (necessity)" answer="müssen" box2_options=["müssen","sollen","können","mögen"]
-[modal_lemma_necessity_001] kind=choice prompt="Ich ___ jetzt nach Hause gehen. (necessity)" answer="müssen" box4_options=["müssen","mögen","dürfen","sollen"]
-[modal_lemma_permission_001] kind=choice prompt="Wir ___ heute frei nehmen. (permission)" answer="dürfen" box0_options=["dürfen","mögen","sollen","können"]
-[modal_lemma_permission_001] kind=choice prompt="Wir ___ heute frei nehmen. (permission)" answer="dürfen" box2_options=["dürfen","mögen","sollen","können"]
-[modal_lemma_permission_001] kind=choice prompt="Wir ___ heute frei nehmen. (permission)" answer="dürfen" box4_options=["dürfen","müssen","mögen","sollen"]
-[modal_lemma_obligation_001] kind=choice prompt="Du ___ deine Hausaufgaben machen. (expectation / advice)" answer="sollen" box0_options=["sollen","können","mögen","dürfen"]
-[modal_lemma_obligation_001] kind=choice prompt="Du ___ deine Hausaufgaben machen. (expectation / advice)" answer="sollen" box2_options=["sollen","können","mögen","dürfen"]
-[modal_lemma_obligation_001] kind=choice prompt="Du ___ deine Hausaufgaben machen. (expectation / advice)" answer="sollen" box4_options=["sollen","wollen","können","mögen"]
-[modal_lemma_desire_001] kind=choice prompt="Sie ___ Medizin studieren. (intention / desire)" answer="wollen" box0_options=["wollen","müssen","können","dürfen"]
-[modal_lemma_desire_001] kind=choice prompt="Sie ___ Medizin studieren. (intention / desire)" answer="wollen" box2_options=["wollen","müssen","können","dürfen"]
-[modal_lemma_desire_001] kind=choice prompt="Sie ___ Medizin studieren. (intention / desire)" answer="wollen" box4_options=["wollen","sollen","müssen","können"]
-[modal_lemma_preference_001] kind=choice prompt="Ich ___ klassische Musik. (liking / preference)" answer="mögen" box0_options=["mögen","dürfen","sollen","wollen"]
-[modal_lemma_preference_001] kind=choice prompt="Ich ___ klassische Musik. (liking / preference)" answer="mögen" box2_options=["mögen","müssen","können","dürfen"]
-[modal_lemma_preference_001] kind=choice prompt="Ich ___ klassische Musik. (liking / preference)" answer="mögen" box4_options=["mögen","müssen","können","dürfen"]
-[modal_lemma_hearsay_001] kind=choice prompt="Er ___ angeblich sehr reich sein. (hearsay / rumor)" answer="sollen" box0_options=["sollen","dürfen","können","mögen"]
-[modal_lemma_hearsay_001] kind=choice prompt="Er ___ angeblich sehr reich sein. (hearsay / rumor)" answer="sollen" box2_options=["sollen","dürfen","können","wollen"]
-[modal_lemma_hearsay_001] kind=choice prompt="Er ___ angeblich sehr reich sein. (hearsay / rumor)" answer="sollen" box4_options=["sollen","wollen","dürfen","können"]
+[modal_können_1sg_pres_001] kind=cloze prompt="Ich {0} gut schwimmen." blanks=["kann"] explanation="*können* in the 1st-person singular present is *kann*; modal singulars drop the *-e* ending and often vowel-shift."
+[modal_können_2sg_pres_001] kind=cloze prompt="Du {0} sehr schnell laufen." blanks=["kannst"] explanation="*können* → 2nd-singular *kannst*: ich/er stem *kann-* + standard *-st* ending."
+[modal_können_3pl_pres_001] kind=cloze prompt="Wir {0} morgen kommen." blanks=["können"] explanation="1st-person plural keeps the infinitive form *können*."
+[modal_können_2pl_pres_001] kind=cloze prompt="Ihr {0} das Problem lösen." blanks=["könnt"] explanation="2nd-person plural *ihr* takes infinitive stem *könn-* + *-t*: *könnt*."
+[modal_können_1sg_pret_001] kind=cloze prompt="Ich {0} gestern nicht schlafen." blanks=["konnte"] explanation="*können* in the Präteritum drops the umlaut and adds *-te*: *konnte* (1st/3rd singular)."
+[modal_können_1pl_pret_001] kind=cloze prompt="Wir {0} das Spiel nicht sehen." blanks=["konnten"] explanation="Präteritum plural of *können* drops the umlaut: stem *konn-* + *-ten* → *konnten*."
+[modal_können_3pl_kii_001] kind=cloze prompt="{0} Sie mir bitte helfen?" blanks=["Könnten"] explanation="Konjunktiv II of *können* uses umlauted Präteritum stem + *-en*: *könnten* (would be able)."
+[modal_müssen_1sg_pres_001] kind=cloze prompt="Ich {0} heute arbeiten." blanks=["muss"] explanation="*müssen* loses its umlaut in the singular: *muss / musst / muss*."
+[modal_müssen_2sg_pres_001] kind=cloze prompt="Du {0} mehr Wasser trinken." blanks=["musst"] explanation="*müssen* in 2nd-singular: umlaut drops and *-st* attaches to singular stem *muss-* → *musst*."
+[modal_müssen_2pl_pres_001] kind=cloze prompt="Ihr {0} leiser sein." blanks=["müsst"] explanation="*ihr*-form keeps the umlaut of the infinitive: *müss-* + *-t* → *müsst*."
+[modal_müssen_3pl_pres_001] kind=cloze prompt="Die Studenten {0} viel lernen." blanks=["müssen"] explanation="3rd-person plural is identical to the infinitive *müssen*."
+[modal_müssen_1sg_pret_001] kind=cloze prompt="Ich {0} gestern lange arbeiten." blanks=["musste"] explanation="Präteritum of *müssen* drops the umlaut and adds *-te*: *musste* (1st/3rd singular)."
+[modal_müssen_3sg_kii_001] kind=cloze prompt="Er {0} eigentlich pünktlich sein." blanks=["müsste"] explanation="Konjunktiv II of *müssen* re-adds the umlaut to the Präteritum: *müsste* (would have to / ought to)."
+[modal_dürfen_1sg_pres_001] kind=cloze prompt="Ich {0} hier nicht rauchen." blanks=["darf"] explanation="*dürfen* in the singular drops the umlaut and shifts ü→a: *darf / darfst / darf*."
+[modal_dürfen_2sg_pres_001] kind=cloze prompt="Du {0} das Auto nehmen." blanks=["darfst"] explanation="*dürfen* → 2nd-singular *darfst*: singular stem *darf-* + standard *-st* ending."
+[modal_dürfen_1pl_pres_001] kind=cloze prompt="Wir {0} morgen frei nehmen." blanks=["dürfen"] explanation="1st-person plural keeps the infinitive form *dürfen*."
+[modal_dürfen_2pl_pres_001] kind=cloze prompt="Ihr {0} den Raum jetzt betreten." blanks=["dürft"] explanation="*ihr*-form keeps the umlaut of the infinitive: *dürf-* + *-t* → *dürft*."
+[modal_dürfen_1sg_pret_001] kind=cloze prompt="Als Kind {0} ich kein Eis essen." blanks=["durfte"] explanation="Präteritum of *dürfen* drops the umlaut and adds *-te*: *durfte* (1st/3rd singular)."
+[modal_dürfen_3pl_pret_001] kind=cloze prompt="Die Schüler {0} keinen Kaugummi kauen." blanks=["durften"] explanation="Präteritum plural of *dürfen* drops the umlaut: stem *durf-* + *-ten* → *durften*."
+[modal_dürfen_2sg_kii_001] kind=cloze prompt="Du {0} ruhig ehrlich sein." blanks=["dürftest"] explanation="Konjunktiv II of *dürfen* re-adds the umlaut to the Präteritum: *dürftest* (would be allowed)."
+[modal_sollen_1sg_pres_001] kind=cloze prompt="Ich {0} mehr Sport machen." blanks=["soll"] explanation="*sollen* keeps the same vowel throughout: 1st-singular present is *soll*."
+[modal_sollen_2pl_pres_001] kind=cloze prompt="Ihr {0} eure Hausaufgaben machen." blanks=["sollt"] explanation="*ihr*-form of *sollen*: stem *soll-* + *-t* → *sollt*."
+[modal_sollen_1pl_pret_001] kind=cloze prompt="Wir {0} den Vertrag unterschreiben." blanks=["sollten"] explanation="Präteritum of *sollen* adds *-te*: stem *soll-* + *-ten* → *sollten* (no vowel change since *sollen* has no umlaut)."
+[modal_sollen_2sg_kii_001] kind=cloze prompt="Du {0} vielleicht mal zum Zahnarzt gehen." blanks=["solltest"] explanation="Konjunktiv II of *sollen* expresses softened obligation: *du solltest* = *you should* (no umlaut, identical to Präteritum)."
+[modal_wollen_1sg_pres_001] kind=cloze prompt="Ich {0} nach Berlin fahren." blanks=["will"] explanation="*wollen* (to want) in the 1st singular is *will* — false friend for English speakers."
+[modal_wollen_3sg_pres_001] kind=cloze prompt="Er {0} Ingenieur werden." blanks=["will"] explanation="*wollen* in 1st and 3rd singular share the form *will*; modal singulars drop the *-e* ending."
+[modal_wollen_1pl_pres_001] kind=cloze prompt="Wir {0} ein Haus kaufen." blanks=["wollen"] explanation="1st-person plural keeps the infinitive form *wollen*."
+[modal_wollen_2sg_pret_001] kind=cloze prompt="{0} du nicht mitkommen?" blanks=["Wolltest"] explanation="Präteritum of *wollen* uses stem *woll-* + *-test*: *du wolltest* (no vowel change)."
+[modal_wollen_1pl_pret_001] kind=cloze prompt="Wir {0} gestern ins Museum gehen." blanks=["wollten"] explanation="Präteritum plural of *wollen*: stem *woll-* + *-ten* → *wollten* (no umlaut to add)."
+[modal_mögen_1sg_pres_001] kind=cloze prompt="Ich {0} Schokolade sehr gern." blanks=["mag"] explanation="*mögen* in the singular drops the umlaut and shifts ö→a: *mag / magst / mag*."
+[modal_mögen_2sg_pres_001] kind=cloze prompt="{0} du Oliven?" blanks=["Magst"] explanation="*mögen* → 2nd-singular *magst*: singular stem *mag-* + standard *-st* ending."
+[modal_mögen_1pl_pres_001] kind=cloze prompt="Wir {0} die neue Wohnung." blanks=["mögen"] explanation="1st-person plural keeps the infinitive form *mögen*."
+[modal_mögen_1sg_pret_001] kind=cloze prompt="Ich {0} die Suppe nicht." blanks=["mochte"] explanation="Präteritum of *mögen* drops the umlaut and shifts to *o*: *mochte* (1st/3rd singular)."
+[modal_mögen_1sg_kii_001] kind=cloze prompt="Ich {0} einen Kaffee, bitte." blanks=["möchte"] explanation="Konjunktiv II of *mögen* re-adds the umlaut to the Präteritum stem: *möchte* — the standard polite 'would like'."
+[modal_mögen_1pl_kii_001] kind=cloze prompt="Wir {0} gern länger bleiben." blanks=["möchten"] explanation="Konjunktiv II plural of *mögen*: umlauted Präteritum stem + *-en* → *möchten* ('would like')."
+[modal_lemma_ability_001] kind=choice prompt="Ich ___ drei Sprachen sprechen. (ability)" answer="können" box0_options=["können","sollen","wollen","müssen"] explanation="Ability ('be able to') is *können*. Compare *dürfen* = permission, *müssen* = necessity."
+[modal_lemma_ability_001] kind=choice prompt="Ich ___ drei Sprachen sprechen. (ability)" answer="können" box2_options=["können","sollen","wollen","müssen"] explanation="Ability ('be able to') is *können*. Compare *dürfen* = permission, *müssen* = necessity."
+[modal_lemma_ability_001] kind=choice prompt="Ich ___ drei Sprachen sprechen. (ability)" answer="können" box4_options=["können","mögen","sollen","wollen"] explanation="Ability ('be able to') is *können*. Compare *dürfen* = permission, *müssen* = necessity."
+[modal_lemma_necessity_001] kind=choice prompt="Ich ___ jetzt nach Hause gehen. (necessity)" answer="müssen" box0_options=["müssen","sollen","können","wollen"] explanation="Necessity ('have to / must') is *müssen*. Compare *sollen* = expectation from others, *dürfen* = permission."
+[modal_lemma_necessity_001] kind=choice prompt="Ich ___ jetzt nach Hause gehen. (necessity)" answer="müssen" box2_options=["müssen","sollen","können","mögen"] explanation="Necessity ('have to / must') is *müssen*. Compare *sollen* = expectation from others, *dürfen* = permission."
+[modal_lemma_necessity_001] kind=choice prompt="Ich ___ jetzt nach Hause gehen. (necessity)" answer="müssen" box4_options=["müssen","mögen","dürfen","sollen"] explanation="Necessity ('have to / must') is *müssen*. Compare *sollen* = expectation from others, *dürfen* = permission."
+[modal_lemma_permission_001] kind=choice prompt="Wir ___ heute frei nehmen. (permission)" answer="dürfen" box0_options=["dürfen","mögen","sollen","können"] explanation="Permission ('be allowed to') is *dürfen*. Compare *können* = ability, *müssen* = necessity."
+[modal_lemma_permission_001] kind=choice prompt="Wir ___ heute frei nehmen. (permission)" answer="dürfen" box2_options=["dürfen","mögen","sollen","können"] explanation="Permission ('be allowed to') is *dürfen*. Compare *können* = ability, *müssen* = necessity."
+[modal_lemma_permission_001] kind=choice prompt="Wir ___ heute frei nehmen. (permission)" answer="dürfen" box4_options=["dürfen","müssen","mögen","sollen"] explanation="Permission ('be allowed to') is *dürfen*. Compare *können* = ability, *müssen* = necessity."
+[modal_lemma_obligation_001] kind=choice prompt="Du ___ deine Hausaufgaben machen. (expectation / advice)" answer="sollen" box0_options=["sollen","können","mögen","dürfen"] explanation="Expectation or advice from someone else ('should / be supposed to') is *sollen*. Distinct from *müssen*, which is internal necessity."
+[modal_lemma_obligation_001] kind=choice prompt="Du ___ deine Hausaufgaben machen. (expectation / advice)" answer="sollen" box2_options=["sollen","können","mögen","dürfen"] explanation="Expectation or advice from someone else ('should / be supposed to') is *sollen*. Distinct from *müssen*, which is internal necessity."
+[modal_lemma_obligation_001] kind=choice prompt="Du ___ deine Hausaufgaben machen. (expectation / advice)" answer="sollen" box4_options=["sollen","wollen","können","mögen"] explanation="Expectation or advice from someone else ('should / be supposed to') is *sollen*. Distinct from *müssen*, which is internal necessity."
+[modal_lemma_desire_001] kind=choice prompt="Sie ___ Medizin studieren. (intention / desire)" answer="wollen" box0_options=["wollen","müssen","können","dürfen"] explanation="Intention or desire ('want to') is *wollen*. Stronger than *mögen*/*möchten*, which express preference or polite wish."
+[modal_lemma_desire_001] kind=choice prompt="Sie ___ Medizin studieren. (intention / desire)" answer="wollen" box2_options=["wollen","müssen","können","dürfen"] explanation="Intention or desire ('want to') is *wollen*. Stronger than *mögen*/*möchten*, which express preference or polite wish."
+[modal_lemma_desire_001] kind=choice prompt="Sie ___ Medizin studieren. (intention / desire)" answer="wollen" box4_options=["wollen","sollen","müssen","können"] explanation="Intention or desire ('want to') is *wollen*. Stronger than *mögen*/*möchten*, which express preference or polite wish."
+[modal_lemma_preference_001] kind=choice prompt="Ich ___ klassische Musik. (liking / preference)" answer="mögen" box0_options=["mögen","dürfen","sollen","wollen"] explanation="Liking or preference ('to like') is *mögen*. Its Konjunktiv II *möchte* is the polite 'would like'."
+[modal_lemma_preference_001] kind=choice prompt="Ich ___ klassische Musik. (liking / preference)" answer="mögen" box2_options=["mögen","müssen","können","dürfen"] explanation="Liking or preference ('to like') is *mögen*. Its Konjunktiv II *möchte* is the polite 'would like'."
+[modal_lemma_preference_001] kind=choice prompt="Ich ___ klassische Musik. (liking / preference)" answer="mögen" box4_options=["mögen","müssen","können","dürfen"] explanation="Liking or preference ('to like') is *mögen*. Its Konjunktiv II *möchte* is the polite 'would like'."
+[modal_lemma_hearsay_001] kind=choice prompt="Er ___ angeblich sehr reich sein. (hearsay / rumor)" answer="sollen" box0_options=["sollen","dürfen","können","mögen"] explanation="*sollen* can express hearsay ('is said to'). Distinct from its core meaning of obligation."
+[modal_lemma_hearsay_001] kind=choice prompt="Er ___ angeblich sehr reich sein. (hearsay / rumor)" answer="sollen" box2_options=["sollen","dürfen","können","wollen"] explanation="*sollen* can express hearsay ('is said to'). Distinct from its core meaning of obligation."
+[modal_lemma_hearsay_001] kind=choice prompt="Er ___ angeblich sehr reich sein. (hearsay / rumor)" answer="sollen" box4_options=["sollen","wollen","dürfen","können"] explanation="*sollen* can express hearsay ('is said to'). Distinct from its core meaning of obligation."

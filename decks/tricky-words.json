@@ -11,7 +11,8 @@
       "prompt": "Ich schreibe damit einen Brief. (damit means…)",
       "options": ["with it", "so that", "therefore"],
       "answer": "with it",
-      "topic": "damit_with_it"
+      "topic": "damit_with_it",
+      "explanation": "Here *damit* is a pronominal adverb meaning *with it* — referring back to the writing instrument. Compare *damit* as a conjunction meaning *so that*."
     },
     {
       "id": "tricky_damit_so_that_001",
@@ -19,7 +20,8 @@
       "prompt": "Ich lerne Deutsch, damit ich in Zürich arbeiten kann. (damit means…)",
       "options": ["with it", "so that", "because"],
       "answer": "so that",
-      "topic": "damit_so_that"
+      "topic": "damit_so_that",
+      "explanation": "*damit* introducing a purpose clause = *so that*. Different from pronominal *damit* = *with it/that*."
     },
     {
       "id": "tricky_damit_with_it_002",
@@ -27,7 +29,8 @@
       "prompt": "Was willst du damit sagen? (damit means…)",
       "options": ["so that", "by that", "about it"],
       "answer": "by that",
-      "topic": "damit_with_it"
+      "topic": "damit_with_it",
+      "explanation": "Pronominal *damit* = *by that* — referring back to the prior statement. Different from conjunction *damit* = *so that*."
     },
     {
       "id": "tricky_damit_so_that_002",
@@ -35,7 +38,8 @@
       "prompt": "Er spart Geld, damit er reisen kann. (damit means…)",
       "options": ["with it", "so that", "although"],
       "answer": "so that",
-      "topic": "damit_so_that"
+      "topic": "damit_so_that",
+      "explanation": "*damit* as a purpose conjunction = *so that*, sending the verb to the end. Different from pronominal *damit* = *with it*."
     },
     {
       "id": "tricky_dafuer_for_it_001",
@@ -43,7 +47,8 @@
       "prompt": "Wie viel hast du dafür bezahlt? (dafür means…)",
       "options": ["for it", "in return", "instead"],
       "answer": "for it",
-      "topic": "dafuer_for_it"
+      "topic": "dafuer_for_it",
+      "explanation": "Pronominal *dafür* = *for it* — the price paid for the thing referenced. Different from contrastive *dafür* = *on the other hand*."
     },
     {
       "id": "tricky_dafuer_in_return_001",
@@ -51,7 +56,8 @@
       "prompt": "Er ist streng, dafür ist er fair. (dafür means…)",
       "options": ["for it", "on the other hand", "so that"],
       "answer": "on the other hand",
-      "topic": "dafuer_in_return"
+      "topic": "dafuer_in_return",
+      "explanation": "Contrastive *dafür* = *on the other hand / to make up for it* — balancing a negative with a positive. Different from literal *dafür* = *for it*."
     },
     {
       "id": "tricky_dafuer_in_favor_001",
@@ -59,7 +65,8 @@
       "prompt": "Ich bin dafür. (dafür means…)",
       "options": ["against it", "in favor of it", "ready for it"],
       "answer": "in favor of it",
-      "topic": "dafuer_in_favor"
+      "topic": "dafuer_in_favor",
+      "explanation": "*dafür sein* = *to be in favor of it* — the standard pro/contra idiom. Different from compensatory *dafür* = *on the other hand*."
     },
     {
       "id": "tricky_dafuer_not_my_fault_001",
@@ -67,7 +74,8 @@
       "prompt": "Dafür kann ich nichts. (dafür means…)",
       "options": ["in return", "about that / for that", "because"],
       "answer": "about that / for that",
-      "topic": "dafuer_not_my_fault"
+      "topic": "dafuer_not_my_fault",
+      "explanation": "Idiomatic *dafür kann ich nichts* = *I can't help it / it's not my fault about that*. Different from literal *dafür* = *for it (in exchange)*."
     },
     {
       "id": "tricky_dazu_about_that_001",
@@ -75,7 +83,8 @@
       "prompt": "Was sagst du dazu? (dazu means…)",
       "options": ["about that", "in addition", "because of that"],
       "answer": "about that",
-      "topic": "dazu_about_that"
+      "topic": "dazu_about_that",
+      "explanation": "Pronominal *dazu* = *about that* — referring back to a topic just raised. Different from additive *dazu* = *in addition*."
     },
     {
       "id": "tricky_dazu_in_addition_001",
@@ -83,7 +92,8 @@
       "prompt": "Er kocht gut, und dazu singt er auch. (dazu means…)",
       "options": ["about it", "in addition", "for that purpose"],
       "answer": "in addition",
-      "topic": "dazu_in_addition"
+      "topic": "dazu_in_addition",
+      "explanation": "Additive *dazu* = *in addition / on top of that*, stacking another quality. Different from *dazu* = *about that* (reference) or *for that purpose*."
     },
     {
       "id": "tricky_dazu_for_purpose_001",
@@ -91,7 +101,8 @@
       "prompt": "Dazu brauche ich mehr Zeit. (dazu means…)",
       "options": ["in addition", "about it", "for that purpose"],
       "answer": "for that purpose",
-      "topic": "dazu_for_purpose"
+      "topic": "dazu_for_purpose",
+      "explanation": "*dazu* = *for that purpose / to do that* — referring to a task to accomplish. Different from additive *dazu* = *in addition*."
     },
     {
       "id": "tricky_dazu_about_that_002",
@@ -99,7 +110,8 @@
       "prompt": "Ich habe keine Lust dazu. (dazu means…)",
       "options": ["to do that", "in addition", "instead of that"],
       "answer": "to do that",
-      "topic": "dazu_about_that"
+      "topic": "dazu_about_that",
+      "explanation": "*Lust dazu* — *dazu* refers back to the activity: *no desire to do that*. Different from additive *dazu* = *in addition*."
     },
     {
       "id": "tricky_schon_already_001",
@@ -107,7 +119,8 @@
       "prompt": "Bist du schon fertig? (schon means…)",
       "options": ["already", "still", "only just"],
       "answer": "already",
-      "topic": "schon_already"
+      "topic": "schon_already",
+      "explanation": "*schon* meaning *already* (sooner than expected). Different from modal-particle *schon* reassuring the listener."
     },
     {
       "id": "tricky_schon_reassurance_001",
@@ -115,7 +128,8 @@
       "prompt": "Das wird schon klappen. (schon means…)",
       "options": ["already", "surely / don't worry", "just"],
       "answer": "surely / don't worry",
-      "topic": "schon_reassurance"
+      "topic": "schon_reassurance",
+      "explanation": "Modal-particle *schon* in a future statement = *surely / don't worry, it'll work out*. Different from temporal *schon* = *already*."
     },
     {
       "id": "tricky_schon_already_002",
@@ -123,7 +137,8 @@
       "prompt": "Ich habe schon drei Mal angerufen. (schon means…)",
       "options": ["only just", "already", "even"],
       "answer": "already",
-      "topic": "schon_already"
+      "topic": "schon_already",
+      "explanation": "*schon* = *already*, marking that an action has occurred more times than expected. Different from reassuring *schon* = *don't worry*."
     },
     {
       "id": "tricky_schon_softener_001",
@@ -131,7 +146,8 @@
       "prompt": "Das ist schon okay. (schon means…)",
       "options": ["already", "it's fine / alright", "still"],
       "answer": "it's fine / alright",
-      "topic": "schon_softener"
+      "topic": "schon_softener",
+      "explanation": "Modal-particle *schon* softens the statement = *it's alright / fine really*. Different from temporal *schon* = *already*."
     },
     {
       "id": "tricky_noch_still_001",
@@ -139,7 +155,8 @@
       "prompt": "Er schläft noch. (noch means…)",
       "options": ["already", "still", "again"],
       "answer": "still",
-      "topic": "noch_still"
+      "topic": "noch_still",
+      "explanation": "*noch* meaning *still* (the action continues). Compare *noch ein* = *another*, *noch nicht* = *not yet*."
     },
     {
       "id": "tricky_noch_another_001",
@@ -147,7 +164,8 @@
       "prompt": "Noch ein Bier, bitte! (noch means…)",
       "options": ["still", "another", "even"],
       "answer": "another",
-      "topic": "noch_another"
+      "topic": "noch_another",
+      "explanation": "*noch ein* = *another / one more*. Different from *noch* = *still* (continuing action) or *noch* = *even* (intensifier)."
     },
     {
       "id": "tricky_noch_even_001",
@@ -155,7 +173,8 @@
       "prompt": "Das ist noch besser als das erste. (noch means…)",
       "options": ["still", "already", "even"],
       "answer": "even",
-      "topic": "noch_even"
+      "topic": "noch_even",
+      "explanation": "*noch* before a comparative = *even (better)*, intensifying the comparison. Different from *noch* = *still* (continuing)."
     },
     {
       "id": "tricky_noch_any_more_001",
@@ -163,7 +182,8 @@
       "prompt": "Hast du noch Fragen? (noch means…)",
       "options": ["any more", "already", "only"],
       "answer": "any more",
-      "topic": "noch_any_more"
+      "topic": "noch_any_more",
+      "explanation": "*noch* in a question = *any more / further* — checking for remaining items. Different from *noch* = *still* (continuing action)."
     },
     {
       "id": "tricky_erst_not_until_001",
@@ -171,7 +191,8 @@
       "prompt": "Er kommt erst morgen. (erst means…)",
       "options": ["already tomorrow", "not until tomorrow", "first tomorrow"],
       "answer": "not until tomorrow",
-      "topic": "erst_not_until"
+      "topic": "erst_not_until",
+      "explanation": "Temporal *erst* = *not until* — later than expected. Opposite of *schon* = *already*. Different from sequential *erst* = *first*."
     },
     {
       "id": "tricky_erst_just_now_001",
@@ -179,7 +200,8 @@
       "prompt": "Ich bin erst angekommen. (erst means…)",
       "options": ["only just / just now", "already", "finally"],
       "answer": "only just / just now",
-      "topic": "erst_just_now"
+      "topic": "erst_just_now",
+      "explanation": "*erst* = *only just / just now* — emphasising how recent the action is. Different from sequential *erst* = *first*."
     },
     {
       "id": "tricky_erst_first_001",
@@ -187,7 +209,8 @@
       "prompt": "Erst denken, dann handeln. (erst means…)",
       "options": ["only", "first", "not until"],
       "answer": "first",
-      "topic": "erst_first"
+      "topic": "erst_first",
+      "explanation": "Sequential *erst … dann …* = *first … then …*. Different from temporal *erst* = *not until* or quantitative *erst* = *only*."
     },
     {
       "id": "tricky_erst_only_001",
@@ -195,7 +218,8 @@
       "prompt": "Sie ist erst fünf Jahre alt. (erst means…)",
       "options": ["already", "only / just", "first"],
       "answer": "only / just",
-      "topic": "erst_only"
+      "topic": "erst_only",
+      "explanation": "Quantitative *erst* with an age or quantity = *only / just* (less than you'd think). Different from *erst* = *first* (sequential)."
     },
     {
       "id": "tricky_doch_contradiction_001",
@@ -203,7 +227,8 @@
       "prompt": "— Du kommst nicht mit? — Doch! (doch means…)",
       "options": ["yes, I am (after all)!", "no way!", "maybe!"],
       "answer": "yes, I am (after all)!",
-      "topic": "doch_contradiction"
+      "topic": "doch_contradiction",
+      "explanation": "Standalone *doch!* contradicts a negative statement = *yes, I am!*. Different from modal-particle *doch* softening an imperative."
     },
     {
       "id": "tricky_doch_insistence_001",
@@ -211,7 +236,8 @@
       "prompt": "Das weißt du doch! (doch means…)",
       "options": ["maybe", "you know that! (insistence)", "still"],
       "answer": "you know that! (insistence)",
-      "topic": "doch_insistence"
+      "topic": "doch_insistence",
+      "explanation": "Modal-particle *doch* insisting on shared knowledge = *come on, you know that!*. Different from *doch* contradicting a negation."
     },
     {
       "id": "tricky_doch_softener_001",
@@ -219,7 +245,8 @@
       "prompt": "Komm doch mit! (doch means…)",
       "options": ["come along (softening)", "don't come", "come first"],
       "answer": "come along (softening)",
-      "topic": "doch_softener"
+      "topic": "doch_softener",
+      "explanation": "Modal-particle *doch* softening an imperative — *go ahead and come along*. Different from *doch* contradicting a negation."
     },
     {
       "id": "tricky_doch_after_all_001",
@@ -227,7 +254,8 @@
       "prompt": "Er kommt doch. (doch means…)",
       "options": ["not at all", "after all / it turns out", "sometimes"],
       "answer": "after all / it turns out",
-      "topic": "doch_after_all"
+      "topic": "doch_after_all",
+      "explanation": "*doch* meaning *after all / yet* — contradicting a prior expectation that he wouldn't come. Different from softening *doch* in imperatives."
     },
     {
       "id": "tricky_ja_obviously_001",
@@ -235,7 +263,8 @@
       "prompt": "Das ist ja klar! (ja means…)",
       "options": ["maybe", "obviously / as you can see", "already"],
       "answer": "obviously / as you can see",
-      "topic": "ja_obviously"
+      "topic": "ja_obviously",
+      "explanation": "Modal-particle *ja* marks shared/obvious knowledge = *obviously / as we both know*. Different from *ja* as a warning or as a literal *yes*."
     },
     {
       "id": "tricky_ja_warning_001",
@@ -243,7 +272,8 @@
       "prompt": "Komm ja nicht zu spät! (ja means…)",
       "options": ["please do", "don't you dare", "maybe"],
       "answer": "don't you dare",
-      "topic": "ja_warning"
+      "topic": "ja_warning",
+      "explanation": "Modal-particle *ja* in a negative imperative is a strong warning = *don't you dare*. Different from *ja* marking shared knowledge = *obviously*."
     },
     {
       "id": "tricky_mal_softener_001",
@@ -251,7 +281,8 @@
       "prompt": "Hör mal! (mal means…)",
       "options": ["once", "just (softener)", "always"],
       "answer": "just (softener)",
-      "topic": "mal_softener"
+      "topic": "mal_softener",
+      "explanation": "Modal-particle *mal* softens an imperative = *just listen for a sec*. Different from temporal *mal* = *once / at some point*."
     },
     {
       "id": "tricky_mal_once_001",
@@ -259,7 +290,8 @@
       "prompt": "Ich war mal in Berlin. (mal means…)",
       "options": ["once / at some point", "often", "never"],
       "answer": "once / at some point",
-      "topic": "mal_once"
+      "topic": "mal_once",
+      "explanation": "Temporal *mal* with past tense = *once / at some point*, short for *einmal*. Different from softening *mal* in imperatives."
     },
     {
       "id": "tricky_denn_curiosity_001",
@@ -267,7 +299,8 @@
       "prompt": "Wo bist du denn? (denn means…)",
       "options": ["because", "then / anyway (curious)", "already"],
       "answer": "then / anyway (curious)",
-      "topic": "denn_curiosity"
+      "topic": "denn_curiosity",
+      "explanation": "Modal-particle *denn* in a question softens it and signals curiosity. Different from coordinating *denn* = *because*."
     },
     {
       "id": "tricky_denn_because_001",
@@ -275,7 +308,8 @@
       "prompt": "Ich bleibe zu Hause, denn ich bin müde. (denn means…)",
       "options": ["because (coordinating)", "although", "so that"],
       "answer": "because (coordinating)",
-      "topic": "denn_because"
+      "topic": "denn_because",
+      "explanation": "Coordinating *denn* = *because* — note that the clause keeps verb-second order, unlike *weil*."
     },
     {
       "id": "tricky_wohl_probably_001",
@@ -283,7 +317,8 @@
       "prompt": "Er ist wohl krank. (wohl means…)",
       "options": ["definitely", "probably / I suppose", "never"],
       "answer": "probably / I suppose",
-      "topic": "wohl_probably"
+      "topic": "wohl_probably",
+      "explanation": "*wohl* meaning *probably* — a hedged guess about the situation. Different from *wohl* in a question expressing wonder or disbelief."
     },
     {
       "id": "tricky_wohl_wonder_001",
@@ -291,7 +326,8 @@
       "prompt": "Was meint er wohl damit? (wohl means…)",
       "options": ["obviously", "I wonder", "never"],
       "answer": "I wonder",
-      "topic": "wohl_wonder"
+      "topic": "wohl_wonder",
+      "explanation": "*wohl* in a question marks musing = *I wonder*. Different from declarative *wohl* = *probably*."
     },
     {
       "id": "tricky_nach_to_001",
@@ -299,7 +335,8 @@
       "prompt": "Ich fahre nach Zürich. (nach means…)",
       "options": ["to", "after", "according to"],
       "answer": "to",
-      "topic": "nach_to"
+      "topic": "nach_to",
+      "explanation": "*nach* + city/country = *to* (directional). Different from *nach* + dative time = *after*, or *nach + Meinung* = *according to*."
     },
     {
       "id": "tricky_nach_after_001",
@@ -307,7 +344,8 @@
       "prompt": "Nach dem Essen gehen wir spazieren. (nach means…)",
       "options": ["before", "to", "after"],
       "answer": "after",
-      "topic": "nach_after"
+      "topic": "nach_after",
+      "explanation": "*nach* + dative for time *after*. Different from *nach* + city = *to*, or *nach + Meinung* = *according to*."
     },
     {
       "id": "tricky_nach_according_to_001",
@@ -315,7 +353,8 @@
       "prompt": "Meiner Meinung nach ist das falsch. (nach means…)",
       "options": ["to", "according to", "after"],
       "answer": "according to",
-      "topic": "nach_according_to"
+      "topic": "nach_according_to",
+      "explanation": "Postposed *nach* in *Meinung nach* = *according to*. Different from *nach* + city = *to* or *nach* + time = *after*."
     },
     {
       "id": "tricky_nach_to_002",
@@ -323,7 +362,8 @@
       "prompt": "Wir fahren nach Hause. (nach means…)",
       "options": ["at home", "to (home)", "from home"],
       "answer": "to (home)",
-      "topic": "nach_to"
+      "topic": "nach_to",
+      "explanation": "Idiomatic *nach Hause* = *(to) home* — direction. Different from locative *zu Hause* = *at home*, or *nach* = *after*."
     },
     {
       "id": "tricky_somit_therefore_001",
@@ -331,7 +371,8 @@
       "prompt": "Ich bin krank, somit kann ich nicht zur Arbeit kommen. (somit means…)",
       "options": ["because", "therefore / thus", "although"],
       "answer": "therefore / thus",
-      "topic": "somit_therefore"
+      "topic": "somit_therefore",
+      "explanation": "*somit* drawing a logical conclusion = *therefore / thus*. Different from causal *weil* / *denn* = *because*, which give a reason rather than a result."
     },
     {
       "id": "tricky_somit_with_that_001",
@@ -339,7 +380,8 @@
       "prompt": "Alle Tests sind bestanden. Somit ist das Projekt abgeschlossen. (somit means…)",
       "options": ["afterwards", "with that / and so", "however"],
       "answer": "with that / and so",
-      "topic": "somit_with_that"
+      "topic": "somit_with_that",
+      "explanation": "*somit* linking a closing consequence = *with that / and so*. Different from purely logical *somit* = *therefore*, this one wraps up a sequence."
     },
     {
       "id": "tricky_sowieso_anyway_001",
@@ -347,7 +389,8 @@
       "prompt": "Keine Sorge, ich komme sowieso vorbei. (sowieso means…)",
       "options": ["anyway / in any case", "maybe later", "of course not"],
       "answer": "anyway / in any case",
-      "topic": "sowieso_anyway"
+      "topic": "sowieso_anyway",
+      "explanation": "*sowieso* = *anyway / in any case* — the action is happening regardless. Different from *sowieso* implying obvious shared knowledge."
     },
     {
       "id": "tricky_sowieso_obviously_001",
@@ -355,7 +398,8 @@
       "prompt": "Das weiß ich sowieso schon. (sowieso means…)",
       "options": ["barely", "of course / obviously", "almost"],
       "answer": "of course / obviously",
-      "topic": "sowieso_obviously"
+      "topic": "sowieso_obviously",
+      "explanation": "*sowieso* here = *of course / obviously already*, dismissing the info as redundant. Different from plan-related *sowieso* = *I was going to anyway*."
     },
     {
       "id": "tricky_trotzdem_nevertheless_001",
@@ -363,7 +407,8 @@
       "prompt": "Es regnet, trotzdem gehe ich spazieren. (trotzdem means…)",
       "options": ["therefore", "nevertheless / anyway", "because"],
       "answer": "nevertheless / anyway",
-      "topic": "trotzdem_nevertheless"
+      "topic": "trotzdem_nevertheless",
+      "explanation": "*trotzdem* = *nevertheless* — going ahead despite an obstacle. Different from causal *deshalb* = *therefore*, which would mean rain made you go."
     },
     {
       "id": "tricky_trotzdem_all_the_same_001",
@@ -371,7 +416,8 @@
       "prompt": "Das war nicht nötig, aber trotzdem danke! (trotzdem means…)",
       "options": ["still / all the same", "first", "because"],
       "answer": "still / all the same",
-      "topic": "trotzdem_all_the_same"
+      "topic": "trotzdem_all_the_same",
+      "explanation": "*trotzdem* softened to *all the same / still* — gratitude despite the gift being unnecessary. Different from the stronger contrastive *trotzdem* = *nevertheless*."
     },
     {
       "id": "tricky_allerdings_however_001",
@@ -379,7 +425,8 @@
       "prompt": "Das Essen war gut, allerdings war es teuer. (allerdings means…)",
       "options": ["therefore", "however / but", "for example"],
       "answer": "however / but",
-      "topic": "allerdings_however"
+      "topic": "allerdings_however",
+      "explanation": "*allerdings* introducing a qualification = *however / but*. Different from emphatic *allerdings!* = *absolutely!* as a standalone reply."
     },
     {
       "id": "tricky_allerdings_admittedly_001",
@@ -387,7 +434,8 @@
       "prompt": "Allerdings muss ich zugeben, dass er recht hat. (allerdings means…)",
       "options": ["admittedly", "surprisingly", "never"],
       "answer": "admittedly",
-      "topic": "allerdings_admittedly"
+      "topic": "allerdings_admittedly",
+      "explanation": "Sentence-initial *allerdings* conceding a point = *admittedly*. Different from mid-sentence *allerdings* = *however*, or exclamatory *allerdings!* = *absolutely!*."
     },
     {
       "id": "tricky_allerdings_absolutely_001",
@@ -395,7 +443,8 @@
       "prompt": "— Kommst du zur Party? — Allerdings! (allerdings means…)",
       "options": ["maybe", "absolutely!", "no chance"],
       "answer": "absolutely!",
-      "topic": "allerdings_absolutely"
+      "topic": "allerdings_absolutely",
+      "explanation": "Standalone *Allerdings!* as a reply = *absolutely!* — emphatic agreement. Different from connective *allerdings* = *however / admittedly*."
     },
     {
       "id": "tricky_zwar_admittedly_001",
@@ -403,7 +452,8 @@
       "prompt": "Er ist zwar klug, aber faul. (zwar means…)",
       "options": ["already", "admittedly / it's true that", "never"],
       "answer": "admittedly / it's true that",
-      "topic": "zwar_admittedly"
+      "topic": "zwar_admittedly",
+      "explanation": "*zwar* meaning *admittedly* — paired with a later *aber* in the classic *zwar … aber …* construction. Different from *und zwar* = *specifically*."
     },
     {
       "id": "tricky_zwar_admittedly_002",
@@ -411,7 +461,8 @@
       "prompt": "Ich habe zwar wenig Zeit, aber ich helfe dir trotzdem. (zwar means…)",
       "options": ["a lot", "granted / true", "sometimes"],
       "answer": "granted / true",
-      "topic": "zwar_admittedly"
+      "topic": "zwar_admittedly",
+      "explanation": "*zwar* conceding before an *aber* = *granted / true*. Different from *und zwar* = *namely / specifically*."
     },
     {
       "id": "tricky_zwar_specifically_001",
@@ -419,7 +470,8 @@
       "prompt": "Ich komme, und zwar morgen früh. (zwar means…)",
       "options": ["maybe", "specifically / to be exact", "never"],
       "answer": "specifically / to be exact",
-      "topic": "zwar_specifically"
+      "topic": "zwar_specifically",
+      "explanation": "*und zwar* introducing a specification = *specifically / to be exact*. Different from concessive *zwar … aber …* = *admittedly … but …*."
     },
     {
       "id": "tricky_naemlich_namely_001",
@@ -427,7 +479,8 @@
       "prompt": "Ich habe nur ein Problem, nämlich die Miete. (nämlich means…)",
       "options": ["namely / specifically", "except", "and also"],
       "answer": "namely / specifically",
-      "topic": "naemlich_namely"
+      "topic": "naemlich_namely",
+      "explanation": "*nämlich* spelling out a specific case = *namely*. Different from causal mid-sentence *nämlich* = *because / you see*."
     },
     {
       "id": "tricky_naemlich_because_001",
@@ -435,7 +488,8 @@
       "prompt": "Er kommt heute nicht. Er ist nämlich krank. (nämlich means…)",
       "options": ["namely", "because / you see", "also"],
       "answer": "because / you see",
-      "topic": "naemlich_because"
+      "topic": "naemlich_because",
+      "explanation": "Mid-sentence *nämlich* gives an explanation = *because / you see*. Different from *nämlich* introducing a specific item = *namely*."
     },
     {
       "id": "tricky_eben_simply_001",
@@ -443,7 +497,8 @@
       "prompt": "So ist es eben. (eben means…)",
       "options": ["simply / just the way it is", "not", "again"],
       "answer": "simply / just the way it is",
-      "topic": "eben_simply"
+      "topic": "eben_simply",
+      "explanation": "Modal-particle *eben* expressing resignation = *simply / that's just how it is*. Compare temporal *eben* = *just now* or agreement *eben!* = *exactly!*."
     },
     {
       "id": "tricky_eben_just_now_001",
@@ -451,7 +506,8 @@
       "prompt": "Er ist eben angekommen. (eben means…)",
       "options": ["just now", "never", "slowly"],
       "answer": "just now",
-      "topic": "eben_just_now"
+      "topic": "eben_just_now",
+      "explanation": "*eben* meaning *just now* (temporal). Compare *eben* meaning *exactly* (agreement) or *simply* (resignation)."
     },
     {
       "id": "tricky_eben_exactly_001",
@@ -459,7 +515,8 @@
       "prompt": "— Das ist unfair! — Eben! (eben means…)",
       "options": ["nonsense!", "exactly!", "maybe!"],
       "answer": "exactly!",
-      "topic": "eben_exactly"
+      "topic": "eben_exactly",
+      "explanation": "Standalone *Eben!* = *exactly!* — emphatic agreement. Different from temporal *eben* = *just now* or resigned *eben* = *simply*."
     },
     {
       "id": "tricky_halt_simply_001",
@@ -467,7 +524,8 @@
       "prompt": "Das ist halt so in der Schweiz. (halt means…)",
       "options": ["simply / just the way it is", "never", "sometimes"],
       "answer": "simply / just the way it is",
-      "topic": "halt_simply"
+      "topic": "halt_simply",
+      "explanation": "Modal-particle *halt* (Southern German / Swiss equivalent of *eben*) expressing resignation = *that's just how it is*. Different from the imperative *Halt!* = *stop!*."
     },
     {
       "id": "tricky_halt_stop_001",
@@ -475,7 +533,8 @@
       "prompt": "Halt! Nicht weitergehen! (halt means…)",
       "options": ["hello", "stop!", "wait maybe"],
       "answer": "stop!",
-      "topic": "halt_stop"
+      "topic": "halt_stop",
+      "explanation": "Imperative *Halt!* = *stop!* — from the verb *halten*. Different from modal-particle *halt* = *simply / just the way it is*."
     },
     {
       "id": "tricky_eigentlich_actually_001",
@@ -483,7 +542,8 @@
       "prompt": "Was machst du eigentlich beruflich? (eigentlich means…)",
       "options": ["usually", "actually / by the way", "rarely"],
       "answer": "actually / by the way",
-      "topic": "eigentlich_actually"
+      "topic": "eigentlich_actually",
+      "explanation": "Modal-particle *eigentlich* in a question = *actually / by the way*, broaching a new topic. Different from *eigentlich* = *originally* or *strictly speaking*."
     },
     {
       "id": "tricky_eigentlich_originally_001",
@@ -491,7 +551,8 @@
       "prompt": "Eigentlich wollte ich kommen, aber ich bin krank. (eigentlich means…)",
       "options": ["always", "originally / I meant to", "never"],
       "answer": "originally / I meant to",
-      "topic": "eigentlich_originally"
+      "topic": "eigentlich_originally",
+      "explanation": "*eigentlich* + *wollte* = *originally / I had meant to* — a plan that didn't happen. Different from conversational *eigentlich* = *by the way*."
     },
     {
       "id": "tricky_eigentlich_strictly_speaking_001",
@@ -499,7 +560,8 @@
       "prompt": "Das ist eigentlich nicht erlaubt. (eigentlich means…)",
       "options": ["definitely", "strictly speaking", "probably"],
       "answer": "strictly speaking",
-      "topic": "eigentlich_strictly_speaking"
+      "topic": "eigentlich_strictly_speaking",
+      "explanation": "*eigentlich* qualifying a rule = *strictly speaking* (with an implied *but*). Different from *eigentlich* = *originally* or conversational *eigentlich* = *by the way*."
     },
     {
       "id": "tricky_sonst_otherwise_001",
@@ -507,7 +569,8 @@
       "prompt": "Beeil dich, sonst verpassen wir den Zug. (sonst means…)",
       "options": ["otherwise", "however", "first"],
       "answer": "otherwise",
-      "topic": "sonst_otherwise"
+      "topic": "sonst_otherwise",
+      "explanation": "*sonst* meaning *otherwise* (consequence of not acting). Compare *sonst* = *else / any other* in questions, or *sonst* = *usually*."
     },
     {
       "id": "tricky_sonst_else_001",
@@ -515,7 +578,8 @@
       "prompt": "Haben Sie sonst noch Fragen? (sonst means…)",
       "options": ["again", "any other / else", "never"],
       "answer": "any other / else",
-      "topic": "sonst_else"
+      "topic": "sonst_else",
+      "explanation": "*sonst noch* in a question = *any other / else*. Different from *sonst* = *otherwise* (consequence) or *sonst* = *usually*."
     },
     {
       "id": "tricky_sonst_usually_001",
@@ -523,7 +587,8 @@
       "prompt": "Sonst trinke ich keinen Kaffee, aber heute brauche ich einen. (sonst means…)",
       "options": ["otherwise", "usually / normally", "finally"],
       "answer": "usually / normally",
-      "topic": "sonst_usually"
+      "topic": "sonst_usually",
+      "explanation": "*sonst* contrasted with *heute* = *usually / normally*. Different from *sonst* = *otherwise* (warning) or *sonst* = *else*."
     },
     {
       "id": "tricky_ueberhaupt_at_all_001",
@@ -531,7 +596,8 @@
       "prompt": "Ich verstehe das überhaupt nicht. (überhaupt means…)",
       "options": ["at all", "again", "sometimes"],
       "answer": "at all",
-      "topic": "ueberhaupt_at_all"
+      "topic": "ueberhaupt_at_all",
+      "explanation": "*überhaupt* meaning *at all* — emphasising a negation. Different from *überhaupt* meaning *in general* or *in the first place*."
     },
     {
       "id": "tricky_ueberhaupt_even_001",
@@ -539,7 +605,8 @@
       "prompt": "Warst du überhaupt dort? (überhaupt means…)",
       "options": ["even / in the first place", "already", "still"],
       "answer": "even / in the first place",
-      "topic": "ueberhaupt_even"
+      "topic": "ueberhaupt_even",
+      "explanation": "*überhaupt* in a question challenging a premise = *even / in the first place*. Different from negation-intensifying *überhaupt* = *at all*."
     },
     {
       "id": "tricky_ueberhaupt_in_general_001",
@@ -547,7 +614,8 @@
       "prompt": "Überhaupt finde ich das eine gute Idee. (überhaupt means…)",
       "options": ["in general / on the whole", "at least", "barely"],
       "answer": "in general / on the whole",
-      "topic": "ueberhaupt_in_general"
+      "topic": "ueberhaupt_in_general",
+      "explanation": "Sentence-initial *überhaupt* = *in general / on the whole*. Different from negation-intensifying *überhaupt* = *at all*."
     },
     {
       "id": "tricky_ohnehin_anyway_001",
@@ -555,7 +623,8 @@
       "prompt": "Keine Sorge, ich gehe ohnehin einkaufen. (ohnehin means…)",
       "options": ["therefore", "anyway / in any case", "never"],
       "answer": "anyway / in any case",
-      "topic": "ohnehin_anyway"
+      "topic": "ohnehin_anyway",
+      "explanation": "*ohnehin* = *anyway / in any case* — the action is happening regardless. Near-synonym of *sowieso*. Different from *ohnehin* = *already / as it is*."
     },
     {
       "id": "tricky_ohnehin_already_001",
@@ -563,7 +632,8 @@
       "prompt": "Er ist ohnehin spät dran. (ohnehin means…)",
       "options": ["already / as it is", "maybe", "never"],
       "answer": "already / as it is",
-      "topic": "ohnehin_already"
+      "topic": "ohnehin_already",
+      "explanation": "*ohnehin* describing an existing situation = *already / as it is*. Different from plan-related *ohnehin* = *anyway*, this stresses the current state."
     },
     {
       "id": "tricky_jedenfalls_in_any_case_001",
@@ -571,7 +641,8 @@
       "prompt": "Ich komme jedenfalls. (jedenfalls means…)",
       "options": ["never", "in any case / at any rate", "therefore"],
       "answer": "in any case / at any rate",
-      "topic": "jedenfalls_in_any_case"
+      "topic": "jedenfalls_in_any_case",
+      "explanation": "*jedenfalls* = *in any case / at any rate* — committing to an action regardless. Different from narrowing *jedenfalls* = *at least* (limiting a claim)."
     },
     {
       "id": "tricky_jedenfalls_at_least_001",
@@ -579,7 +650,8 @@
       "prompt": "Er hat es jedenfalls versucht. (jedenfalls means…)",
       "options": ["at least / anyway (narrowing claim)", "first", "definitely"],
       "answer": "at least / anyway (narrowing claim)",
-      "topic": "jedenfalls_at_least"
+      "topic": "jedenfalls_at_least",
+      "explanation": "*jedenfalls* narrowing the scope of a claim = *at least he tried (whatever else is true)*. Different from commitment-style *jedenfalls* = *in any case*."
     },
     {
       "id": "tricky_immerhin_consolation_001",
@@ -587,7 +659,8 @@
       "prompt": "Es regnet, aber immerhin ist es warm. (immerhin means…)",
       "options": ["at least / after all (consolation)", "always", "barely"],
       "answer": "at least / after all (consolation)",
-      "topic": "immerhin_consolation"
+      "topic": "immerhin_consolation",
+      "explanation": "*immerhin* as a silver lining = *at least* (consolation). Different from *immerhin* = *after all / considering*, which justifies leniency."
     },
     {
       "id": "tricky_immerhin_after_all_001",
@@ -595,7 +668,8 @@
       "prompt": "Immerhin ist er noch ein Kind. (immerhin means…)",
       "options": ["against expectation", "after all / considering", "never"],
       "answer": "after all / considering",
-      "topic": "immerhin_after_all"
+      "topic": "immerhin_after_all",
+      "explanation": "*immerhin* introducing a mitigating fact = *after all / considering*. Different from *immerhin* offering a silver lining = *at least*."
     },
     {
       "id": "tricky_vielleicht_maybe_001",
@@ -603,7 +677,8 @@
       "prompt": "Vielleicht kommt er morgen. (vielleicht means…)",
       "options": ["definitely", "maybe / perhaps", "never"],
       "answer": "maybe / perhaps",
-      "topic": "vielleicht_maybe"
+      "topic": "vielleicht_maybe",
+      "explanation": "*vielleicht* meaning *maybe*. Modal-particle *vielleicht* can also express exasperation in exclamations or soften a suggestion."
     },
     {
       "id": "tricky_vielleicht_suggestion_001",
@@ -611,7 +686,8 @@
       "prompt": "Gehen wir vielleicht ins Kino? (vielleicht means…)",
       "options": ["definitely", "maybe (suggestion softener)", "again"],
       "answer": "maybe (suggestion softener)",
-      "topic": "vielleicht_suggestion"
+      "topic": "vielleicht_suggestion",
+      "explanation": "Modal-particle *vielleicht* softening a proposal = *maybe we should …*. Different from epistemic *vielleicht* = *maybe / perhaps*."
     },
     {
       "id": "tricky_vielleicht_exclamation_001",
@@ -619,7 +695,8 @@
       "prompt": "Das ist vielleicht eine Frechheit! (vielleicht means…)",
       "options": ["maybe", "quite some / really (exclamation)", "not at all"],
       "answer": "quite some / really (exclamation)",
-      "topic": "vielleicht_exclamation"
+      "topic": "vielleicht_exclamation",
+      "explanation": "Exclamatory *vielleicht* = *what a / really* — intensifying outrage, not hedging. Different from literal *vielleicht* = *maybe*."
     },
     {
       "id": "tricky_gerade_just_now_001",
@@ -627,7 +704,8 @@
       "prompt": "Er ist gerade angekommen. (gerade means…)",
       "options": ["never", "just now / right now", "eventually"],
       "answer": "just now / right now",
-      "topic": "gerade_just_now"
+      "topic": "gerade_just_now",
+      "explanation": "*gerade* meaning *just now / right now* — actions in progress at the moment of speech. Different from emphatic *gerade* = *exactly* or adjectival *gerade* = *straight*."
     },
     {
       "id": "tricky_gerade_exactly_001",
@@ -635,7 +713,8 @@
       "prompt": "Gerade das wollte ich sagen. (gerade means…)",
       "options": ["maybe", "exactly / precisely (emphatic)", "never"],
       "answer": "exactly / precisely (emphatic)",
-      "topic": "gerade_exactly"
+      "topic": "gerade_exactly",
+      "explanation": "Emphatic *gerade* highlighting a specific thing = *exactly / precisely that*. Different from temporal *gerade* = *just now*."
     },
     {
       "id": "tricky_gerade_straight_001",
@@ -643,7 +722,8 @@
       "prompt": "Der Weg ist gerade. (gerade means…)",
       "options": ["straight (geometric)", "crooked", "right now"],
       "answer": "straight (geometric)",
-      "topic": "gerade_straight"
+      "topic": "gerade_straight",
+      "explanation": "*gerade* as an adjective/adverb = *straight*. Different from temporal *gerade* = *just now*."
     },
     {
       "id": "tricky_gerade_of_all_001",
@@ -651,7 +731,8 @@
       "prompt": "Warum gerade ich? (gerade means…)",
       "options": ["of all people (emphatic)", "always", "never"],
       "answer": "of all people (emphatic)",
-      "topic": "gerade_of_all"
+      "topic": "gerade_of_all",
+      "explanation": "*gerade* emphasising an unwelcome choice = *of all people*. Different from temporal *gerade* = *just now* or geometric *gerade* = *straight*."
     },
     {
       "id": "tricky_gleich_right_away_001",
@@ -659,7 +740,8 @@
       "prompt": "Ich komme gleich. (gleich means…)",
       "options": ["never", "right away / in a moment", "yesterday"],
       "answer": "right away / in a moment",
-      "topic": "gleich_right_away"
+      "topic": "gleich_right_away",
+      "explanation": "Temporal *gleich* = *right away / in a moment*. Different from comparative *gleich* = *the same* or idiomatic *mir gleich* = *doesn't matter*."
     },
     {
       "id": "tricky_gleich_same_001",
@@ -667,7 +749,8 @@
       "prompt": "Wir sind gleich alt. (gleich means…)",
       "options": ["the same age", "already old", "rarely"],
       "answer": "the same age",
-      "topic": "gleich_same"
+      "topic": "gleich_same",
+      "explanation": "*gleich* as a comparative adjective = *the same*. Different from temporal *gleich* = *in a moment*."
     },
     {
       "id": "tricky_gleich_doesnt_matter_001",
@@ -675,7 +758,8 @@
       "prompt": "Das ist mir gleich. (gleich means…)",
       "options": ["painful", "all the same / doesn't matter", "interesting"],
       "answer": "all the same / doesn't matter",
-      "topic": "gleich_doesnt_matter"
+      "topic": "gleich_doesnt_matter",
+      "explanation": "Idiomatic *mir gleich* = *all the same to me / doesn't matter*. Different from temporal *gleich* = *right away* or comparative *gleich* = *the same*."
     },
     {
       "id": "tricky_sogar_even_001",
@@ -683,7 +767,8 @@
       "prompt": "Er kann sogar Chinesisch. (sogar means…)",
       "options": ["never", "even (adds surprise)", "rarely"],
       "answer": "even (adds surprise)",
-      "topic": "sogar_even"
+      "topic": "sogar_even",
+      "explanation": "*sogar* adding a surprising extra = *even*. Compare *noch* = *even* (intensifying a comparative); *sogar* spotlights an unexpected item."
     },
     {
       "id": "tricky_sogar_even_002",
@@ -691,7 +776,8 @@
       "prompt": "Heute ist es sogar besser als gestern. (sogar means…)",
       "options": ["finally", "even (intensifying comparative)", "barely"],
       "answer": "even (intensifying comparative)",
-      "topic": "sogar_even"
+      "topic": "sogar_even",
+      "explanation": "*sogar* before a comparative = *even (better)*, marking surprise at the degree. Compare *noch besser* = *still better*, a more neutral intensifier."
     },
     {
       "id": "tricky_einfach_just_001",
@@ -699,7 +785,8 @@
       "prompt": "Du denkst zu viel — mach es einfach! (einfach means…)",
       "options": ["with difficulty", "just do it (modal particle)", "never"],
       "answer": "just do it (modal particle)",
-      "topic": "einfach_just"
+      "topic": "einfach_just",
+      "explanation": "Modal-particle *einfach* = *just (do it)* — urging direct action. Different from adjectival *einfach* = *easy* or ticket *einfach* = *one-way*."
     },
     {
       "id": "tricky_einfach_easy_001",
@@ -707,7 +794,8 @@
       "prompt": "Dieses Problem ist ziemlich einfach. (einfach means…)",
       "options": ["easy (not difficult)", "just", "one-way"],
       "answer": "easy (not difficult)",
-      "topic": "einfach_easy"
+      "topic": "einfach_easy",
+      "explanation": "Adjectival *einfach* = *easy / simple*. Different from modal-particle *einfach* = *just (do it)* or ticket *einfach* = *one-way*."
     },
     {
       "id": "tricky_einfach_one_way_001",
@@ -715,7 +803,8 @@
       "prompt": "Eine einfache Fahrt nach Bern, bitte. (einfach means…)",
       "options": ["easy", "one-way", "expensive"],
       "answer": "one-way",
-      "topic": "einfach_one_way"
+      "topic": "einfach_one_way",
+      "explanation": "*einfache Fahrt* = *one-way trip* (vs. *Hin- und Rückfahrt*). Different from adjectival *einfach* = *easy* or modal-particle *einfach* = *just*."
     },
     {
       "id": "tricky_lediglich_merely_001",
@@ -723,7 +812,8 @@
       "prompt": "Es war lediglich ein Missverständnis. (lediglich means…)",
       "options": ["finally", "merely / just", "never"],
       "answer": "merely / just",
-      "topic": "lediglich_merely"
+      "topic": "lediglich_merely",
+      "explanation": "*lediglich* = *merely / just*, downplaying the seriousness — a formal cousin of *nur*. Different from softening *lediglich* used to make a request modest."
     },
     {
       "id": "tricky_lediglich_softening_001",
@@ -731,7 +821,8 @@
       "prompt": "Ich möchte lediglich eine Frage stellen. (lediglich means…)",
       "options": ["definitely", "just / only (softening)", "always"],
       "answer": "just / only (softening)",
-      "topic": "lediglich_softening"
+      "topic": "lediglich_softening",
+      "explanation": "*lediglich* softening a request = *just / only* — formal politeness marker. Different from dismissive *lediglich* = *merely* (downplaying an event)."
     },
     {
       "id": "tricky_wenigstens_at_least_001",
@@ -739,7 +830,8 @@
       "prompt": "Wenigstens du bist da! (wenigstens means…)",
       "options": ["finally", "at least (relief)", "maybe"],
       "answer": "at least (relief)",
-      "topic": "wenigstens_at_least"
+      "topic": "wenigstens_at_least",
+      "explanation": "*wenigstens* expressing relief = *at least* (small comfort). Different from *wenigstens* as a bare-minimum demand, and from quantitative *mindestens* = *at least N*."
     },
     {
       "id": "tricky_wenigstens_bare_minimum_001",
@@ -747,7 +839,8 @@
       "prompt": "Sag wenigstens Hallo! (wenigstens means…)",
       "options": ["also", "at least (bare minimum ask)", "never"],
       "answer": "at least (bare minimum ask)",
-      "topic": "wenigstens_bare_minimum"
+      "topic": "wenigstens_bare_minimum",
+      "explanation": "*wenigstens* demanding the bare minimum = *at least say hello*. Different from consoling *wenigstens* = *at least (relief)*, and from numerical *mindestens*."
     },
     {
       "id": "tricky_mindestens_at_least_001",
@@ -755,7 +848,8 @@
       "prompt": "Das kostet mindestens 100 Euro. (mindestens means…)",
       "options": ["at least (quantitative)", "at most", "usually"],
       "answer": "at least (quantitative)",
-      "topic": "mindestens_at_least"
+      "topic": "mindestens_at_least",
+      "explanation": "*mindestens* = *at least* with numbers — a lower bound. Different from emotional *wenigstens* = *at least (relief / minimum ask)*."
     },
     {
       "id": "tricky_mindestens_at_least_002",
@@ -763,7 +857,8 @@
       "prompt": "Wir brauchen mindestens drei Stunden. (mindestens means…)",
       "options": ["at most", "at least (time/quantity)", "never"],
       "answer": "at least (time/quantity)",
-      "topic": "mindestens_at_least"
+      "topic": "mindestens_at_least",
+      "explanation": "*mindestens* with a duration = *at least N hours* — a quantitative floor. Different from emotive *wenigstens* = *at least (relief)*."
     }
   ]
 }

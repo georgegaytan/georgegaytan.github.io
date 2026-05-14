@@ -1,84 +1,84 @@
-[pron_pers_nom_1sg_001] kind=cloze prompt="{0} komme morgen um neun." blanks=["Ich"]
-[pron_pers_nom_2sg_001] kind=cloze prompt="Wann kommst {0} nach Hause?" blanks=["du"]
-[pron_pers_nom_3m_sg_001] kind=cloze prompt="Mein Bruder ist Lehrer. {0} arbeitet in Berlin." blanks=["Er"]
-[pron_pers_nom_3f_sg_001] kind=cloze prompt="Meine Schwester ist Ärztin. {0} wohnt in München." blanks=["Sie"]
-[pron_pers_nom_1pl_001] kind=cloze prompt="{0} fahren am Wochenende ans Meer." blanks=["Wir"]
-[pron_pers_nom_3pl_001] kind=choice prompt="Die Kinder spielen draussen. ___ haben viel Spass." answer="sie" box0_options=["sie","ihr","es","er"]
-[pron_pers_nom_3pl_001] kind=choice prompt="Die Kinder spielen draussen. ___ haben viel Spass." answer="sie" box2_options=["sie","ihr","es","er"]
-[pron_pers_nom_3pl_001] kind=choice prompt="Die Kinder spielen draussen. ___ haben viel Spass." answer="sie" box4_options=["sie","Sie","wir","ihr"]
-[pron_pers_acc_1sg_001] kind=cloze prompt="Kannst du {0} morgen anrufen?" blanks=["mich"]
-[pron_pers_acc_2sg_001] kind=cloze prompt="Ich verstehe {0} nicht ganz." blanks=["dich"]
-[pron_pers_acc_3m_sg_001] kind=cloze prompt="Da ist Peter. Siehst du {0}?" blanks=["ihn"]
-[pron_pers_acc_3f_sg_001] kind=choice prompt="Anna ist meine Freundin. Ich besuche ___ am Samstag." answer="sie" box0_options=["sie","euch","ihn","mich"]
-[pron_pers_acc_3f_sg_001] kind=choice prompt="Anna ist meine Freundin. Ich besuche ___ am Samstag." answer="sie" box2_options=["sie","ihn","mich","es"]
-[pron_pers_acc_3f_sg_001] kind=choice prompt="Anna ist meine Freundin. Ich besuche ___ am Samstag." answer="sie" box4_options=["sie","Sie","ihn","mich"]
-[pron_pers_acc_1pl_001] kind=cloze prompt="Der Lehrer fragt {0} oft auf Deutsch." blanks=["uns"]
-[pron_pers_acc_2pl_001] kind=cloze prompt="Eure Eltern haben angerufen. Sie suchen {0}." blanks=["euch"]
-[pron_pers_dat_1sg_001] kind=cloze prompt="Kannst du {0} bitte helfen?" blanks=["mir"]
-[pron_pers_dat_2sg_001] kind=cloze prompt="Ich gebe {0} morgen das Buch zurück." blanks=["dir"]
-[pron_pers_dat_3m_sg_001] kind=cloze prompt="Tom hat Geburtstag. Wir schenken {0} ein Buch." blanks=["ihm"]
-[pron_pers_dat_3f_sg_001] kind=cloze prompt="Maria ist krank. Wie geht es {0}?" blanks=["ihr"]
-[pron_pers_dat_3pl_001] kind=choice prompt="Die Kollegen brauchen Hilfe. Ich helfe ___ gleich." answer="ihnen" box0_options=["ihnen","mir","dir","euch"]
-[pron_pers_dat_3pl_001] kind=choice prompt="Die Kollegen brauchen Hilfe. Ich helfe ___ gleich." answer="ihnen" box2_options=["ihnen","ihr","uns","ihm"]
-[pron_pers_dat_3pl_001] kind=choice prompt="Die Kollegen brauchen Hilfe. Ich helfe ___ gleich." answer="ihnen" box4_options=["ihnen","Ihnen","ihr","ihm"]
-[pron_pers_dat_formal_001] kind=cloze prompt="Herr Schmidt, kann ich {0} etwas anbieten?" blanks=["Ihnen"]
-[pron_refl_1sg_001] kind=choice prompt="Ich wasche ___ die Hände." answer="mich" box0_options=["mich","uns","euch","sich"]
-[pron_refl_1sg_001] kind=choice prompt="Ich wasche ___ die Hände." answer="mich" box2_options=["mich","uns","euch","sich"]
-[pron_refl_1sg_001] kind=choice prompt="Ich wasche ___ die Hände." answer="mich" box4_options=["mich","sich","dich","euch"]
-[pron_refl_2sg_001] kind=choice prompt="Setz ___ bitte hin!" answer="dich" box0_options=["dich","uns","euch","mich"]
-[pron_refl_2sg_001] kind=choice prompt="Setz ___ bitte hin!" answer="dich" box2_options=["dich","mich","uns","sich"]
-[pron_refl_2sg_001] kind=choice prompt="Setz ___ bitte hin!" answer="dich" box4_options=["dich","mich","sich","euch"]
-[pron_refl_3sg_001] kind=choice prompt="Er freut ___ auf den Urlaub." answer="sich" box0_options=["sich","uns","euch","mich"]
-[pron_refl_3sg_001] kind=choice prompt="Er freut ___ auf den Urlaub." answer="sich" box2_options=["sich","euch","mich","dich"]
-[pron_refl_3sg_001] kind=choice prompt="Er freut ___ auf den Urlaub." answer="sich" box4_options=["sich","mich","dich","euch"]
-[pron_refl_3pl_001] kind=choice prompt="Die Gäste unterhalten ___ gut." answer="sich" box0_options=["sich","uns","euch","dich"]
-[pron_refl_3pl_001] kind=choice prompt="Die Gäste unterhalten ___ gut." answer="sich" box2_options=["sich","euch","dich","mich"]
-[pron_refl_3pl_001] kind=choice prompt="Die Gäste unterhalten ___ gut." answer="sich" box4_options=["sich","dich","mich","euch"]
-[pron_refl_1pl_001] kind=choice prompt="Wir treffen ___ um sieben am Bahnhof." answer="uns" box0_options=["uns","dich","sich","mich"]
-[pron_refl_1pl_001] kind=choice prompt="Wir treffen ___ um sieben am Bahnhof." answer="uns" box2_options=["uns","euch","dich","sich"]
-[pron_refl_1pl_001] kind=choice prompt="Wir treffen ___ um sieben am Bahnhof." answer="uns" box4_options=["uns","euch","dich","sich"]
-[pron_refl_2pl_001] kind=choice prompt="Beeilt ___, sonst kommt ihr zu spät!" answer="euch" box0_options=["euch","uns","mich","sich"]
-[pron_refl_2pl_001] kind=choice prompt="Beeilt ___, sonst kommt ihr zu spät!" answer="euch" box2_options=["euch","uns","mich","sich"]
-[pron_refl_2pl_001] kind=choice prompt="Beeilt ___, sonst kommt ihr zu spät!" answer="euch" box4_options=["euch","mich","sich","dich"]
-[pron_int_nom_001] kind=choice prompt="___ kommt heute Abend zur Party?" answer="wer" box0_options=["wer","wessen","was","wen"]
-[pron_int_nom_001] kind=choice prompt="___ kommt heute Abend zur Party?" answer="wer" box2_options=["wer","wen","wessen","was"]
-[pron_int_nom_001] kind=choice prompt="___ kommt heute Abend zur Party?" answer="wer" box4_options=["wer","wen","wem","was"]
-[pron_int_acc_001] kind=choice prompt="___ hast du gestern auf der Strasse getroffen?" answer="wen" box0_options=["wen","wessen","was","wer"]
-[pron_int_acc_001] kind=choice prompt="___ hast du gestern auf der Strasse getroffen?" answer="wen" box2_options=["wen","wer","was","wessen"]
-[pron_int_acc_001] kind=choice prompt="___ hast du gestern auf der Strasse getroffen?" answer="wen" box4_options=["wen","wer","wem","was"]
-[pron_int_dat_001] kind=choice prompt="Mit ___ sprichst du gerade am Telefon?" answer="wem" box0_options=["wem","wessen","was","wen"]
-[pron_int_dat_001] kind=choice prompt="Mit ___ sprichst du gerade am Telefon?" answer="wem" box2_options=["wem","was","wessen","wen"]
-[pron_int_dat_001] kind=choice prompt="Mit ___ sprichst du gerade am Telefon?" answer="wem" box4_options=["wem","wen","wer","was"]
-[pron_int_gen_001] kind=choice prompt="___ Auto steht da vor dem Haus?" answer="wessen" box0_options=["wessen","wem","wer","was"]
-[pron_int_gen_001] kind=choice prompt="___ Auto steht da vor dem Haus?" answer="wessen" box2_options=["wessen","wen","wem","wer"]
-[pron_int_gen_001] kind=choice prompt="___ Auto steht da vor dem Haus?" answer="wessen" box4_options=["wessen","wen","wem","wer"]
-[pron_int_was_001] kind=choice prompt="___ machst du heute Nachmittag?" answer="was" box0_options=["was","wessen","wer","wen"]
-[pron_int_was_001] kind=choice prompt="___ machst du heute Nachmittag?" answer="was" box2_options=["was","wer","wen","wem"]
-[pron_int_was_001] kind=choice prompt="___ machst du heute Nachmittag?" answer="was" box4_options=["was","wer","wen","wem"]
-[pron_dem_nom_m_001] kind=choice prompt="___ Mantel hier gehört mir." answer="dieser" box0_options=["dieser","diese","diesen","diesem"]
-[pron_dem_nom_m_001] kind=choice prompt="___ Mantel hier gehört mir." answer="dieser" box2_options=["dieser","diese","diesen","diesem"]
-[pron_dem_nom_m_001] kind=choice prompt="___ Mantel hier gehört mir." answer="dieser" box4_options=["dieser","diese","diesen","diesem"]
-[pron_dem_nom_f_001] kind=choice prompt="___ Tasche ist sehr teuer." answer="diese" box0_options=["diese","diesem","dieser","diesen"]
-[pron_dem_nom_f_001] kind=choice prompt="___ Tasche ist sehr teuer." answer="diese" box2_options=["diese","diesem","dieser","diesen"]
-[pron_dem_nom_f_001] kind=choice prompt="___ Tasche ist sehr teuer." answer="diese" box4_options=["diese","diesem","dieser","diesen"]
-[pron_dem_acc_m_001] kind=choice prompt="Ich nehme ___ Kuchen, bitte." answer="diesen" box0_options=["diesen","dieser","diesem","dieses"]
-[pron_dem_acc_m_001] kind=choice prompt="Ich nehme ___ Kuchen, bitte." answer="diesen" box2_options=["diesen","dieser","diesem","dieses"]
-[pron_dem_acc_m_001] kind=choice prompt="Ich nehme ___ Kuchen, bitte." answer="diesen" box4_options=["diesen","dieser","diesem","dieses"]
-[pron_dem_dat_m_001] kind=choice prompt="Mit ___ Schlüssel öffnest du die Tür." answer="diesem" box0_options=["diesem","dieses","diese","dieser"]
-[pron_dem_dat_m_001] kind=choice prompt="Mit ___ Schlüssel öffnest du die Tür." answer="diesem" box2_options=["diesem","dieses","diese","dieser"]
-[pron_dem_dat_m_001] kind=choice prompt="Mit ___ Schlüssel öffnest du die Tür." answer="diesem" box4_options=["diesem","dieses","diese","dieser"]
-[pron_poss_nom_f_001] kind=choice prompt="Das ist ___ Schwester aus Hamburg." answer="meine" box0_options=["meine","unsere","ihre","eure"]
-[pron_poss_nom_f_001] kind=choice prompt="Das ist ___ Schwester aus Hamburg." answer="meine" box2_options=["meine","deine","unsere","ihre"]
-[pron_poss_nom_f_001] kind=choice prompt="Das ist ___ Schwester aus Hamburg." answer="meine" box4_options=["meine","deine","seine","eure"]
-[pron_poss_acc_m_001] kind=choice prompt="Hast du ___ Schlüssel gesehen? Ich finde ihn nicht." answer="meinen" box0_options=["meinen","unseren","ihren","euren"]
-[pron_poss_acc_m_001] kind=choice prompt="Hast du ___ Schlüssel gesehen? Ich finde ihn nicht." answer="meinen" box2_options=["meinen","unseren","seinen","euren"]
-[pron_poss_acc_m_001] kind=choice prompt="Hast du ___ Schlüssel gesehen? Ich finde ihn nicht." answer="meinen" box4_options=["meinen","seinen","deinen","euren"]
-[pron_poss_dat_m_001] kind=choice prompt="Sie spricht oft mit ___ Bruder am Telefon." answer="ihrem" box0_options=["ihrem","seinem","meinem","unserem"]
-[pron_poss_dat_m_001] kind=choice prompt="Sie spricht oft mit ___ Bruder am Telefon." answer="ihrem" box2_options=["ihrem","seinem","meinem","unserem"]
-[pron_poss_dat_m_001] kind=choice prompt="Sie spricht oft mit ___ Bruder am Telefon." answer="ihrem" box4_options=["ihrem","eurem","seinem","meinem"]
-[pron_poss_dat_f_001] kind=choice prompt="Er hilft ___ Mutter im Garten." answer="seiner" box0_options=["seiner","unserer","ihrer","eurer"]
-[pron_poss_dat_f_001] kind=choice prompt="Er hilft ___ Mutter im Garten." answer="seiner" box2_options=["seiner","unserer","ihrer","eurer"]
-[pron_poss_dat_f_001] kind=choice prompt="Er hilft ___ Mutter im Garten." answer="seiner" box4_options=["seiner","deiner","meiner","eurer"]
-[pron_poss_nom_2pl_001] kind=choice prompt="Wie heisst ___ Tochter eigentlich?" answer="eure" box0_options=["eure","unsere","deine","meine"]
-[pron_poss_nom_2pl_001] kind=choice prompt="Wie heisst ___ Tochter eigentlich?" answer="eure" box2_options=["eure","deine","meine","ihre"]
-[pron_poss_nom_2pl_001] kind=choice prompt="Wie heisst ___ Tochter eigentlich?" answer="eure" box4_options=["eure","ihre","deine","meine"]
+[pron_pers_nom_1sg_001] kind=cloze prompt="{0} komme morgen um neun." blanks=["Ich"] explanation="1st-person singular subject is *ich*."
+[pron_pers_nom_2sg_001] kind=cloze prompt="Wann kommst {0} nach Hause?" blanks=["du"] explanation="Informal 2nd-person singular subject is *du*."
+[pron_pers_nom_3m_sg_001] kind=cloze prompt="Mein Bruder ist Lehrer. {0} arbeitet in Berlin." blanks=["Er"] explanation="3rd-person masculine singular subject is *er* (referring to a male person or a masculine noun)."
+[pron_pers_nom_3f_sg_001] kind=cloze prompt="Meine Schwester ist Ärztin. {0} wohnt in München." blanks=["Sie"] explanation="3rd-person feminine singular subject is *sie* (referring to a female person or a feminine noun); capitalised here at the start of the sentence."
+[pron_pers_nom_1pl_001] kind=cloze prompt="{0} fahren am Wochenende ans Meer." blanks=["Wir"] explanation="1st-person plural subject is *wir*."
+[pron_pers_nom_3pl_001] kind=choice prompt="Die Kinder spielen draussen. ___ haben viel Spass." answer="sie" box0_options=["sie","ihr","es","er"] explanation="3rd-person plural subject is *sie* (lowercase; not to be confused with formal *Sie*)."
+[pron_pers_nom_3pl_001] kind=choice prompt="Die Kinder spielen draussen. ___ haben viel Spass." answer="sie" box2_options=["sie","ihr","es","er"] explanation="3rd-person plural subject is *sie* (lowercase; not to be confused with formal *Sie*)."
+[pron_pers_nom_3pl_001] kind=choice prompt="Die Kinder spielen draussen. ___ haben viel Spass." answer="sie" box4_options=["sie","Sie","wir","ihr"] explanation="3rd-person plural subject is *sie* (lowercase; not to be confused with formal *Sie*)."
+[pron_pers_acc_1sg_001] kind=cloze prompt="Kannst du {0} morgen anrufen?" blanks=["mich"] explanation="1st-person singular accusative is *mich* (direct object of *anrufen*)."
+[pron_pers_acc_2sg_001] kind=cloze prompt="Ich verstehe {0} nicht ganz." blanks=["dich"] explanation="Informal 2nd-person singular accusative is *dich* (direct object)."
+[pron_pers_acc_3m_sg_001] kind=cloze prompt="Da ist Peter. Siehst du {0}?" blanks=["ihn"] explanation="3rd-person masculine accusative is *ihn* (direct object referring to a male person or masculine noun)."
+[pron_pers_acc_3f_sg_001] kind=choice prompt="Anna ist meine Freundin. Ich besuche ___ am Samstag." answer="sie" box0_options=["sie","euch","ihn","mich"] explanation="3rd-person feminine accusative is *sie* — same form as the nominative, distinguished by context."
+[pron_pers_acc_3f_sg_001] kind=choice prompt="Anna ist meine Freundin. Ich besuche ___ am Samstag." answer="sie" box2_options=["sie","ihn","mich","es"] explanation="3rd-person feminine accusative is *sie* — same form as the nominative, distinguished by context."
+[pron_pers_acc_3f_sg_001] kind=choice prompt="Anna ist meine Freundin. Ich besuche ___ am Samstag." answer="sie" box4_options=["sie","Sie","ihn","mich"] explanation="3rd-person feminine accusative is *sie* — same form as the nominative, distinguished by context."
+[pron_pers_acc_1pl_001] kind=cloze prompt="Der Lehrer fragt {0} oft auf Deutsch." blanks=["uns"] explanation="1st-person plural accusative is *uns* (same form serves the dative)."
+[pron_pers_acc_2pl_001] kind=cloze prompt="Eure Eltern haben angerufen. Sie suchen {0}." blanks=["euch"] explanation="Informal 2nd-person plural accusative is *euch* (same form serves the dative)."
+[pron_pers_dat_1sg_001] kind=cloze prompt="Kannst du {0} bitte helfen?" blanks=["mir"] explanation="1st-person singular dative is *mir* — *helfen* governs the dative."
+[pron_pers_dat_2sg_001] kind=cloze prompt="Ich gebe {0} morgen das Buch zurück." blanks=["dir"] explanation="Informal 2nd-person singular dative is *dir* (indirect object of *geben*)."
+[pron_pers_dat_3m_sg_001] kind=cloze prompt="Tom hat Geburtstag. Wir schenken {0} ein Buch." blanks=["ihm"] explanation="3rd-person masculine dative is *ihm* (indirect object of *schenken*)."
+[pron_pers_dat_3f_sg_001] kind=cloze prompt="Maria ist krank. Wie geht es {0}?" blanks=["ihr"] explanation="3rd-person feminine dative is *ihr* (here with the dative idiom *wie geht es …*)."
+[pron_pers_dat_3pl_001] kind=choice prompt="Die Kollegen brauchen Hilfe. Ich helfe ___ gleich." answer="ihnen" box0_options=["ihnen","mir","dir","euch"] explanation="3rd-person plural dative is *ihnen* (lowercase; the formal *Ihnen* is capitalised). *Helfen* takes the dative."
+[pron_pers_dat_3pl_001] kind=choice prompt="Die Kollegen brauchen Hilfe. Ich helfe ___ gleich." answer="ihnen" box2_options=["ihnen","ihr","uns","ihm"] explanation="3rd-person plural dative is *ihnen* (lowercase; the formal *Ihnen* is capitalised). *Helfen* takes the dative."
+[pron_pers_dat_3pl_001] kind=choice prompt="Die Kollegen brauchen Hilfe. Ich helfe ___ gleich." answer="ihnen" box4_options=["ihnen","Ihnen","ihr","ihm"] explanation="3rd-person plural dative is *ihnen* (lowercase; the formal *Ihnen* is capitalised). *Helfen* takes the dative."
+[pron_pers_dat_formal_001] kind=cloze prompt="Herr Schmidt, kann ich {0} etwas anbieten?" blanks=["Ihnen"] explanation="Formal *Sie* in the dative is *Ihnen*, capitalised."
+[pron_refl_1sg_001] kind=choice prompt="Ich wasche ___ die Hände." answer="mich" box0_options=["mich","uns","euch","sich"] explanation="Reflexive 1st-person singular accusative is *mich* (same form as the personal accusative)."
+[pron_refl_1sg_001] kind=choice prompt="Ich wasche ___ die Hände." answer="mich" box2_options=["mich","uns","euch","sich"] explanation="Reflexive 1st-person singular accusative is *mich* (same form as the personal accusative)."
+[pron_refl_1sg_001] kind=choice prompt="Ich wasche ___ die Hände." answer="mich" box4_options=["mich","sich","dich","euch"] explanation="Reflexive 1st-person singular accusative is *mich* (same form as the personal accusative)."
+[pron_refl_2sg_001] kind=choice prompt="Setz ___ bitte hin!" answer="dich" box0_options=["dich","uns","euch","mich"] explanation="Reflexive informal 2nd-person singular accusative is *dich* (same form as the personal accusative)."
+[pron_refl_2sg_001] kind=choice prompt="Setz ___ bitte hin!" answer="dich" box2_options=["dich","mich","uns","sich"] explanation="Reflexive informal 2nd-person singular accusative is *dich* (same form as the personal accusative)."
+[pron_refl_2sg_001] kind=choice prompt="Setz ___ bitte hin!" answer="dich" box4_options=["dich","mich","sich","euch"] explanation="Reflexive informal 2nd-person singular accusative is *dich* (same form as the personal accusative)."
+[pron_refl_3sg_001] kind=choice prompt="Er freut ___ auf den Urlaub." answer="sich" box0_options=["sich","uns","euch","mich"] explanation="All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
+[pron_refl_3sg_001] kind=choice prompt="Er freut ___ auf den Urlaub." answer="sich" box2_options=["sich","euch","mich","dich"] explanation="All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
+[pron_refl_3sg_001] kind=choice prompt="Er freut ___ auf den Urlaub." answer="sich" box4_options=["sich","mich","dich","euch"] explanation="All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
+[pron_refl_3pl_001] kind=choice prompt="Die Gäste unterhalten ___ gut." answer="sich" box0_options=["sich","uns","euch","dich"] explanation="All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
+[pron_refl_3pl_001] kind=choice prompt="Die Gäste unterhalten ___ gut." answer="sich" box2_options=["sich","euch","dich","mich"] explanation="All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
+[pron_refl_3pl_001] kind=choice prompt="Die Gäste unterhalten ___ gut." answer="sich" box4_options=["sich","dich","mich","euch"] explanation="All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
+[pron_refl_1pl_001] kind=choice prompt="Wir treffen ___ um sieben am Bahnhof." answer="uns" box0_options=["uns","dich","sich","mich"] explanation="Reflexive 1st-person plural is *uns* in both accusative and dative — identical to the personal pronoun."
+[pron_refl_1pl_001] kind=choice prompt="Wir treffen ___ um sieben am Bahnhof." answer="uns" box2_options=["uns","euch","dich","sich"] explanation="Reflexive 1st-person plural is *uns* in both accusative and dative — identical to the personal pronoun."
+[pron_refl_1pl_001] kind=choice prompt="Wir treffen ___ um sieben am Bahnhof." answer="uns" box4_options=["uns","euch","dich","sich"] explanation="Reflexive 1st-person plural is *uns* in both accusative and dative — identical to the personal pronoun."
+[pron_refl_2pl_001] kind=choice prompt="Beeilt ___, sonst kommt ihr zu spät!" answer="euch" box0_options=["euch","uns","mich","sich"] explanation="Reflexive informal 2nd-person plural is *euch* in both accusative and dative — identical to the personal pronoun."
+[pron_refl_2pl_001] kind=choice prompt="Beeilt ___, sonst kommt ihr zu spät!" answer="euch" box2_options=["euch","uns","mich","sich"] explanation="Reflexive informal 2nd-person plural is *euch* in both accusative and dative — identical to the personal pronoun."
+[pron_refl_2pl_001] kind=choice prompt="Beeilt ___, sonst kommt ihr zu spät!" answer="euch" box4_options=["euch","mich","sich","dich"] explanation="Reflexive informal 2nd-person plural is *euch* in both accusative and dative — identical to the personal pronoun."
+[pron_int_nom_001] kind=choice prompt="___ kommt heute Abend zur Party?" answer="wer" box0_options=["wer","wessen","was","wen"] explanation="*Wer* asks about the subject (nominative): who?"
+[pron_int_nom_001] kind=choice prompt="___ kommt heute Abend zur Party?" answer="wer" box2_options=["wer","wen","wessen","was"] explanation="*Wer* asks about the subject (nominative): who?"
+[pron_int_nom_001] kind=choice prompt="___ kommt heute Abend zur Party?" answer="wer" box4_options=["wer","wen","wem","was"] explanation="*Wer* asks about the subject (nominative): who?"
+[pron_int_acc_001] kind=choice prompt="___ hast du gestern auf der Strasse getroffen?" answer="wen" box0_options=["wen","wessen","was","wer"] explanation="*Wen* is the accusative interrogative: whom (direct object)?"
+[pron_int_acc_001] kind=choice prompt="___ hast du gestern auf der Strasse getroffen?" answer="wen" box2_options=["wen","wer","was","wessen"] explanation="*Wen* is the accusative interrogative: whom (direct object)?"
+[pron_int_acc_001] kind=choice prompt="___ hast du gestern auf der Strasse getroffen?" answer="wen" box4_options=["wen","wer","wem","was"] explanation="*Wen* is the accusative interrogative: whom (direct object)?"
+[pron_int_dat_001] kind=choice prompt="Mit ___ sprichst du gerade am Telefon?" answer="wem" box0_options=["wem","wessen","was","wen"] explanation="*Wem* is the dative interrogative: to/for whom? *Mit* governs the dative."
+[pron_int_dat_001] kind=choice prompt="Mit ___ sprichst du gerade am Telefon?" answer="wem" box2_options=["wem","was","wessen","wen"] explanation="*Wem* is the dative interrogative: to/for whom? *Mit* governs the dative."
+[pron_int_dat_001] kind=choice prompt="Mit ___ sprichst du gerade am Telefon?" answer="wem" box4_options=["wem","wen","wer","was"] explanation="*Wem* is the dative interrogative: to/for whom? *Mit* governs the dative."
+[pron_int_gen_001] kind=choice prompt="___ Auto steht da vor dem Haus?" answer="wessen" box0_options=["wessen","wem","wer","was"] explanation="*Wessen* is the genitive interrogative: whose?"
+[pron_int_gen_001] kind=choice prompt="___ Auto steht da vor dem Haus?" answer="wessen" box2_options=["wessen","wen","wem","wer"] explanation="*Wessen* is the genitive interrogative: whose?"
+[pron_int_gen_001] kind=choice prompt="___ Auto steht da vor dem Haus?" answer="wessen" box4_options=["wessen","wen","wem","wer"] explanation="*Wessen* is the genitive interrogative: whose?"
+[pron_int_was_001] kind=choice prompt="___ machst du heute Nachmittag?" answer="was" box0_options=["was","wessen","wer","wen"] explanation="*Was* asks about a thing: what? Used for both subject and direct object."
+[pron_int_was_001] kind=choice prompt="___ machst du heute Nachmittag?" answer="was" box2_options=["was","wer","wen","wem"] explanation="*Was* asks about a thing: what? Used for both subject and direct object."
+[pron_int_was_001] kind=choice prompt="___ machst du heute Nachmittag?" answer="was" box4_options=["was","wer","wen","wem"] explanation="*Was* asks about a thing: what? Used for both subject and direct object."
+[pron_dem_nom_m_001] kind=choice prompt="___ Mantel hier gehört mir." answer="dieser" box0_options=["dieser","diese","diesen","diesem"] explanation="Demonstrative *dieser* before a masculine nominative noun — same *-er* ending as the definite article *der*."
+[pron_dem_nom_m_001] kind=choice prompt="___ Mantel hier gehört mir." answer="dieser" box2_options=["dieser","diese","diesen","diesem"] explanation="Demonstrative *dieser* before a masculine nominative noun — same *-er* ending as the definite article *der*."
+[pron_dem_nom_m_001] kind=choice prompt="___ Mantel hier gehört mir." answer="dieser" box4_options=["dieser","diese","diesen","diesem"] explanation="Demonstrative *dieser* before a masculine nominative noun — same *-er* ending as the definite article *der*."
+[pron_dem_nom_f_001] kind=choice prompt="___ Tasche ist sehr teuer." answer="diese" box0_options=["diese","diesem","dieser","diesen"] explanation="Demonstrative *diese* before a feminine nominative noun — same *-e* ending as the definite article *die*."
+[pron_dem_nom_f_001] kind=choice prompt="___ Tasche ist sehr teuer." answer="diese" box2_options=["diese","diesem","dieser","diesen"] explanation="Demonstrative *diese* before a feminine nominative noun — same *-e* ending as the definite article *die*."
+[pron_dem_nom_f_001] kind=choice prompt="___ Tasche ist sehr teuer." answer="diese" box4_options=["diese","diesem","dieser","diesen"] explanation="Demonstrative *diese* before a feminine nominative noun — same *-e* ending as the definite article *die*."
+[pron_dem_acc_m_001] kind=choice prompt="Ich nehme ___ Kuchen, bitte." answer="diesen" box0_options=["diesen","dieser","diesem","dieses"] explanation="Demonstrative *diesen* before a masculine accusative noun — same *-en* ending as *den*."
+[pron_dem_acc_m_001] kind=choice prompt="Ich nehme ___ Kuchen, bitte." answer="diesen" box2_options=["diesen","dieser","diesem","dieses"] explanation="Demonstrative *diesen* before a masculine accusative noun — same *-en* ending as *den*."
+[pron_dem_acc_m_001] kind=choice prompt="Ich nehme ___ Kuchen, bitte." answer="diesen" box4_options=["diesen","dieser","diesem","dieses"] explanation="Demonstrative *diesen* before a masculine accusative noun — same *-en* ending as *den*."
+[pron_dem_dat_m_001] kind=choice prompt="Mit ___ Schlüssel öffnest du die Tür." answer="diesem" box0_options=["diesem","dieses","diese","dieser"] explanation="Demonstrative *diesem* before a masculine dative noun — same *-em* ending as *dem*. *Mit* governs the dative."
+[pron_dem_dat_m_001] kind=choice prompt="Mit ___ Schlüssel öffnest du die Tür." answer="diesem" box2_options=["diesem","dieses","diese","dieser"] explanation="Demonstrative *diesem* before a masculine dative noun — same *-em* ending as *dem*. *Mit* governs the dative."
+[pron_dem_dat_m_001] kind=choice prompt="Mit ___ Schlüssel öffnest du die Tür." answer="diesem" box4_options=["diesem","dieses","diese","dieser"] explanation="Demonstrative *diesem* before a masculine dative noun — same *-em* ending as *dem*. *Mit* governs the dative."
+[pron_poss_nom_f_001] kind=choice prompt="Das ist ___ Schwester aus Hamburg." answer="meine" box0_options=["meine","unsere","ihre","eure"] explanation="Possessive *mein* (my) gains *-e* before a feminine nominative noun (*meine Schwester*)."
+[pron_poss_nom_f_001] kind=choice prompt="Das ist ___ Schwester aus Hamburg." answer="meine" box2_options=["meine","deine","unsere","ihre"] explanation="Possessive *mein* (my) gains *-e* before a feminine nominative noun (*meine Schwester*)."
+[pron_poss_nom_f_001] kind=choice prompt="Das ist ___ Schwester aus Hamburg." answer="meine" box4_options=["meine","deine","seine","eure"] explanation="Possessive *mein* (my) gains *-e* before a feminine nominative noun (*meine Schwester*)."
+[pron_poss_acc_m_001] kind=choice prompt="Hast du ___ Schlüssel gesehen? Ich finde ihn nicht." answer="meinen" box0_options=["meinen","unseren","ihren","euren"] explanation="Possessive *mein* (my) gains *-en* before a masculine accusative noun (*meinen Schlüssel*)."
+[pron_poss_acc_m_001] kind=choice prompt="Hast du ___ Schlüssel gesehen? Ich finde ihn nicht." answer="meinen" box2_options=["meinen","unseren","seinen","euren"] explanation="Possessive *mein* (my) gains *-en* before a masculine accusative noun (*meinen Schlüssel*)."
+[pron_poss_acc_m_001] kind=choice prompt="Hast du ___ Schlüssel gesehen? Ich finde ihn nicht." answer="meinen" box4_options=["meinen","seinen","deinen","euren"] explanation="Possessive *mein* (my) gains *-en* before a masculine accusative noun (*meinen Schlüssel*)."
+[pron_poss_dat_m_001] kind=choice prompt="Sie spricht oft mit ___ Bruder am Telefon." answer="ihrem" box0_options=["ihrem","seinem","meinem","unserem"] explanation="Possessive *ihr* (her) gains *-em* before a masculine dative noun (*ihrem Bruder*). *Mit* governs the dative."
+[pron_poss_dat_m_001] kind=choice prompt="Sie spricht oft mit ___ Bruder am Telefon." answer="ihrem" box2_options=["ihrem","seinem","meinem","unserem"] explanation="Possessive *ihr* (her) gains *-em* before a masculine dative noun (*ihrem Bruder*). *Mit* governs the dative."
+[pron_poss_dat_m_001] kind=choice prompt="Sie spricht oft mit ___ Bruder am Telefon." answer="ihrem" box4_options=["ihrem","eurem","seinem","meinem"] explanation="Possessive *ihr* (her) gains *-em* before a masculine dative noun (*ihrem Bruder*). *Mit* governs the dative."
+[pron_poss_dat_f_001] kind=choice prompt="Er hilft ___ Mutter im Garten." answer="seiner" box0_options=["seiner","unserer","ihrer","eurer"] explanation="Possessive *sein* (his) gains *-er* before a feminine dative noun (*seiner Mutter*). *Helfen* governs the dative."
+[pron_poss_dat_f_001] kind=choice prompt="Er hilft ___ Mutter im Garten." answer="seiner" box2_options=["seiner","unserer","ihrer","eurer"] explanation="Possessive *sein* (his) gains *-er* before a feminine dative noun (*seiner Mutter*). *Helfen* governs the dative."
+[pron_poss_dat_f_001] kind=choice prompt="Er hilft ___ Mutter im Garten." answer="seiner" box4_options=["seiner","deiner","meiner","eurer"] explanation="Possessive *sein* (his) gains *-er* before a feminine dative noun (*seiner Mutter*). *Helfen* governs the dative."
+[pron_poss_nom_2pl_001] kind=choice prompt="Wie heisst ___ Tochter eigentlich?" answer="eure" box0_options=["eure","unsere","deine","meine"] explanation="Possessive *euer* (your, informal plural) drops the second *e* and gains *-e* before a feminine nominative noun (*eure Tochter*)."
+[pron_poss_nom_2pl_001] kind=choice prompt="Wie heisst ___ Tochter eigentlich?" answer="eure" box2_options=["eure","deine","meine","ihre"] explanation="Possessive *euer* (your, informal plural) drops the second *e* and gains *-e* before a feminine nominative noun (*eure Tochter*)."
+[pron_poss_nom_2pl_001] kind=choice prompt="Wie heisst ___ Tochter eigentlich?" answer="eure" box4_options=["eure","ihre","deine","meine"] explanation="Possessive *euer* (your, informal plural) drops the second *e* and gains *-e* before a feminine nominative noun (*eure Tochter*)."

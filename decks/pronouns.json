@@ -52,35 +52,40 @@
       "kind": "cloze",
       "prompt": "{0} komme morgen um neun.",
       "blanks": [{ "answer": "Ich", "alts": ["ich"], "topic": "pers_nom_1_sg", "scaffoldPool": "personal_nom" }],
-      "translation": "I am coming tomorrow at nine."
+      "translation": "I am coming tomorrow at nine.",
+      "explanation": "1st-person singular subject is *ich*."
     },
     {
       "id": "pron_pers_nom_2sg_001",
       "kind": "cloze",
       "prompt": "Wann kommst {0} nach Hause?",
       "blanks": [{ "answer": "du", "alts": [], "topic": "pers_nom_2_sg", "scaffoldPool": "personal_nom" }],
-      "translation": "When are you coming home?"
+      "translation": "When are you coming home?",
+      "explanation": "Informal 2nd-person singular subject is *du*."
     },
     {
       "id": "pron_pers_nom_3m_sg_001",
       "kind": "cloze",
       "prompt": "Mein Bruder ist Lehrer. {0} arbeitet in Berlin.",
       "blanks": [{ "answer": "Er", "alts": ["er"], "topic": "pers_nom_3m_sg", "scaffoldPool": "personal_nom" }],
-      "translation": "My brother is a teacher. He works in Berlin."
+      "translation": "My brother is a teacher. He works in Berlin.",
+      "explanation": "3rd-person masculine singular subject is *er* (referring to a male person or a masculine noun)."
     },
     {
       "id": "pron_pers_nom_3f_sg_001",
       "kind": "cloze",
       "prompt": "Meine Schwester ist Ärztin. {0} wohnt in München.",
       "blanks": [{ "answer": "Sie", "alts": ["sie"], "topic": "pers_nom_3f_sg", "scaffoldPool": "personal_nom" }],
-      "translation": "My sister is a doctor. She lives in Munich."
+      "translation": "My sister is a doctor. She lives in Munich.",
+      "explanation": "3rd-person feminine singular subject is *sie* (referring to a female person or a feminine noun); capitalised here at the start of the sentence."
     },
     {
       "id": "pron_pers_nom_1pl_001",
       "kind": "cloze",
       "prompt": "{0} fahren am Wochenende ans Meer.",
       "blanks": [{ "answer": "Wir", "alts": ["wir"], "topic": "pers_nom_1_pl", "scaffoldPool": "personal_nom" }],
-      "translation": "We are going to the sea on the weekend."
+      "translation": "We are going to the sea on the weekend.",
+      "explanation": "1st-person plural subject is *wir*."
     },
     {
       "id": "pron_pers_nom_3pl_001",
@@ -88,28 +93,32 @@
       "prompt": "Die Kinder spielen draussen. ___ haben viel Spass.",
       "pool": "personal_nom",
       "answer": "sie",
-      "topic": "pers_nom_3_pl"
+      "topic": "pers_nom_3_pl",
+      "explanation": "3rd-person plural subject is *sie* (lowercase; not to be confused with formal *Sie*)."
     },
     {
       "id": "pron_pers_acc_1sg_001",
       "kind": "cloze",
       "prompt": "Kannst du {0} morgen anrufen?",
       "blanks": [{ "answer": "mich", "alts": [], "topic": "pers_acc_1_sg", "scaffoldPool": "personal_acc" }],
-      "translation": "Can you call me tomorrow?"
+      "translation": "Can you call me tomorrow?",
+      "explanation": "1st-person singular accusative is *mich* (direct object of *anrufen*)."
     },
     {
       "id": "pron_pers_acc_2sg_001",
       "kind": "cloze",
       "prompt": "Ich verstehe {0} nicht ganz.",
       "blanks": [{ "answer": "dich", "alts": [], "topic": "pers_acc_2_sg", "scaffoldPool": "personal_acc" }],
-      "translation": "I don't quite understand you."
+      "translation": "I don't quite understand you.",
+      "explanation": "Informal 2nd-person singular accusative is *dich* (direct object)."
     },
     {
       "id": "pron_pers_acc_3m_sg_001",
       "kind": "cloze",
       "prompt": "Da ist Peter. Siehst du {0}?",
       "blanks": [{ "answer": "ihn", "alts": [], "topic": "pers_acc_3m_sg", "scaffoldPool": "personal_acc" }],
-      "translation": "There is Peter. Do you see him?"
+      "translation": "There is Peter. Do you see him?",
+      "explanation": "3rd-person masculine accusative is *ihn* (direct object referring to a male person or masculine noun)."
     },
     {
       "id": "pron_pers_acc_3f_sg_001",
@@ -117,49 +126,56 @@
       "prompt": "Anna ist meine Freundin. Ich besuche ___ am Samstag.",
       "pool": "personal_acc",
       "answer": "sie",
-      "topic": "pers_acc_3f_sg"
+      "topic": "pers_acc_3f_sg",
+      "explanation": "3rd-person feminine accusative is *sie* — same form as the nominative, distinguished by context."
     },
     {
       "id": "pron_pers_acc_1pl_001",
       "kind": "cloze",
       "prompt": "Der Lehrer fragt {0} oft auf Deutsch.",
       "blanks": [{ "answer": "uns", "alts": [], "topic": "pers_acc_1_pl", "scaffoldPool": "personal_acc" }],
-      "translation": "The teacher often asks us in German."
+      "translation": "The teacher often asks us in German.",
+      "explanation": "1st-person plural accusative is *uns* (same form serves the dative)."
     },
     {
       "id": "pron_pers_acc_2pl_001",
       "kind": "cloze",
       "prompt": "Eure Eltern haben angerufen. Sie suchen {0}.",
       "blanks": [{ "answer": "euch", "alts": [], "topic": "pers_acc_2_pl", "scaffoldPool": "personal_acc" }],
-      "translation": "Your parents called. They are looking for you all."
+      "translation": "Your parents called. They are looking for you all.",
+      "explanation": "Informal 2nd-person plural accusative is *euch* (same form serves the dative)."
     },
     {
       "id": "pron_pers_dat_1sg_001",
       "kind": "cloze",
       "prompt": "Kannst du {0} bitte helfen?",
       "blanks": [{ "answer": "mir", "alts": [], "topic": "pers_dat_1_sg", "scaffoldPool": "personal_dat" }],
-      "translation": "Can you please help me?"
+      "translation": "Can you please help me?",
+      "explanation": "1st-person singular dative is *mir* — *helfen* governs the dative."
     },
     {
       "id": "pron_pers_dat_2sg_001",
       "kind": "cloze",
       "prompt": "Ich gebe {0} morgen das Buch zurück.",
       "blanks": [{ "answer": "dir", "alts": [], "topic": "pers_dat_2_sg", "scaffoldPool": "personal_dat" }],
-      "translation": "I'll give you back the book tomorrow."
+      "translation": "I'll give you back the book tomorrow.",
+      "explanation": "Informal 2nd-person singular dative is *dir* (indirect object of *geben*)."
     },
     {
       "id": "pron_pers_dat_3m_sg_001",
       "kind": "cloze",
       "prompt": "Tom hat Geburtstag. Wir schenken {0} ein Buch.",
       "blanks": [{ "answer": "ihm", "alts": [], "topic": "pers_dat_3m_sg", "scaffoldPool": "personal_dat" }],
-      "translation": "Tom has a birthday. We're giving him a book."
+      "translation": "Tom has a birthday. We're giving him a book.",
+      "explanation": "3rd-person masculine dative is *ihm* (indirect object of *schenken*)."
     },
     {
       "id": "pron_pers_dat_3f_sg_001",
       "kind": "cloze",
       "prompt": "Maria ist krank. Wie geht es {0}?",
       "blanks": [{ "answer": "ihr", "alts": [], "topic": "pers_dat_3f_sg", "scaffoldPool": "personal_dat" }],
-      "translation": "Maria is sick. How is she doing?"
+      "translation": "Maria is sick. How is she doing?",
+      "explanation": "3rd-person feminine dative is *ihr* (here with the dative idiom *wie geht es …*)."
     },
     {
       "id": "pron_pers_dat_3pl_001",
@@ -167,14 +183,16 @@
       "prompt": "Die Kollegen brauchen Hilfe. Ich helfe ___ gleich.",
       "pool": "personal_dat",
       "answer": "ihnen",
-      "topic": "pers_dat_3_pl"
+      "topic": "pers_dat_3_pl",
+      "explanation": "3rd-person plural dative is *ihnen* (lowercase; the formal *Ihnen* is capitalised). *Helfen* takes the dative."
     },
     {
       "id": "pron_pers_dat_formal_001",
       "kind": "cloze",
       "prompt": "Herr Schmidt, kann ich {0} etwas anbieten?",
       "blanks": [{ "answer": "Ihnen", "alts": ["ihnen"], "topic": "pers_dat_formal", "scaffoldPool": "personal_dat" }],
-      "translation": "Mr Schmidt, can I offer you something?"
+      "translation": "Mr Schmidt, can I offer you something?",
+      "explanation": "Formal *Sie* in the dative is *Ihnen*, capitalised."
     },
     {
       "id": "pron_refl_1sg_001",
@@ -182,7 +200,8 @@
       "prompt": "Ich wasche ___ die Hände.",
       "pool": "reflexive_pronouns",
       "answer": "mich",
-      "topic": "refl_1_sg"
+      "topic": "refl_1_sg",
+      "explanation": "Reflexive 1st-person singular accusative is *mich* (same form as the personal accusative)."
     },
     {
       "id": "pron_refl_2sg_001",
@@ -190,7 +209,8 @@
       "prompt": "Setz ___ bitte hin!",
       "pool": "reflexive_pronouns",
       "answer": "dich",
-      "topic": "refl_2_sg"
+      "topic": "refl_2_sg",
+      "explanation": "Reflexive informal 2nd-person singular accusative is *dich* (same form as the personal accusative)."
     },
     {
       "id": "pron_refl_3sg_001",
@@ -198,7 +218,8 @@
       "prompt": "Er freut ___ auf den Urlaub.",
       "pool": "reflexive_pronouns",
       "answer": "sich",
-      "topic": "refl_3_sg"
+      "topic": "refl_3_sg",
+      "explanation": "All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
     },
     {
       "id": "pron_refl_3pl_001",
@@ -206,7 +227,8 @@
       "prompt": "Die Gäste unterhalten ___ gut.",
       "pool": "reflexive_pronouns",
       "answer": "sich",
-      "topic": "refl_3_pl"
+      "topic": "refl_3_pl",
+      "explanation": "All 3rd-person reflexives — singular and plural, all cases — collapse to *sich*."
     },
     {
       "id": "pron_refl_1pl_001",
@@ -214,7 +236,8 @@
       "prompt": "Wir treffen ___ um sieben am Bahnhof.",
       "pool": "reflexive_pronouns",
       "answer": "uns",
-      "topic": "refl_1_pl"
+      "topic": "refl_1_pl",
+      "explanation": "Reflexive 1st-person plural is *uns* in both accusative and dative — identical to the personal pronoun."
     },
     {
       "id": "pron_refl_2pl_001",
@@ -222,7 +245,8 @@
       "prompt": "Beeilt ___, sonst kommt ihr zu spät!",
       "pool": "reflexive_pronouns",
       "answer": "euch",
-      "topic": "refl_2_pl"
+      "topic": "refl_2_pl",
+      "explanation": "Reflexive informal 2nd-person plural is *euch* in both accusative and dative — identical to the personal pronoun."
     },
     {
       "id": "pron_int_nom_001",
@@ -230,7 +254,8 @@
       "prompt": "___ kommt heute Abend zur Party?",
       "pool": "interrogative_pronouns",
       "answer": "wer",
-      "topic": "int_wer"
+      "topic": "int_wer",
+      "explanation": "*Wer* asks about the subject (nominative): who?"
     },
     {
       "id": "pron_int_acc_001",
@@ -238,7 +263,8 @@
       "prompt": "___ hast du gestern auf der Strasse getroffen?",
       "pool": "interrogative_pronouns",
       "answer": "wen",
-      "topic": "int_wen"
+      "topic": "int_wen",
+      "explanation": "*Wen* is the accusative interrogative: whom (direct object)?"
     },
     {
       "id": "pron_int_dat_001",
@@ -246,7 +272,8 @@
       "prompt": "Mit ___ sprichst du gerade am Telefon?",
       "pool": "interrogative_pronouns",
       "answer": "wem",
-      "topic": "int_wem"
+      "topic": "int_wem",
+      "explanation": "*Wem* is the dative interrogative: to/for whom? *Mit* governs the dative."
     },
     {
       "id": "pron_int_gen_001",
@@ -254,7 +281,8 @@
       "prompt": "___ Auto steht da vor dem Haus?",
       "pool": "interrogative_pronouns",
       "answer": "wessen",
-      "topic": "int_wessen"
+      "topic": "int_wessen",
+      "explanation": "*Wessen* is the genitive interrogative: whose?"
     },
     {
       "id": "pron_int_was_001",
@@ -262,7 +290,8 @@
       "prompt": "___ machst du heute Nachmittag?",
       "pool": "interrogative_pronouns",
       "answer": "was",
-      "topic": "int_was"
+      "topic": "int_was",
+      "explanation": "*Was* asks about a thing: what? Used for both subject and direct object."
     },
     {
       "id": "pron_dem_nom_m_001",
@@ -270,7 +299,8 @@
       "prompt": "___ Mantel hier gehört mir.",
       "pool": "demonstrative_pronouns",
       "answer": "dieser",
-      "topic": "dem_nom_m_sg"
+      "topic": "dem_nom_m_sg",
+      "explanation": "Demonstrative *dieser* before a masculine nominative noun — same *-er* ending as the definite article *der*."
     },
     {
       "id": "pron_dem_nom_f_001",
@@ -278,7 +308,8 @@
       "prompt": "___ Tasche ist sehr teuer.",
       "pool": "demonstrative_pronouns",
       "answer": "diese",
-      "topic": "dem_nom_f_sg"
+      "topic": "dem_nom_f_sg",
+      "explanation": "Demonstrative *diese* before a feminine nominative noun — same *-e* ending as the definite article *die*."
     },
     {
       "id": "pron_dem_acc_m_001",
@@ -286,7 +317,8 @@
       "prompt": "Ich nehme ___ Kuchen, bitte.",
       "pool": "demonstrative_pronouns",
       "answer": "diesen",
-      "topic": "dem_acc_m_sg"
+      "topic": "dem_acc_m_sg",
+      "explanation": "Demonstrative *diesen* before a masculine accusative noun — same *-en* ending as *den*."
     },
     {
       "id": "pron_dem_dat_m_001",
@@ -294,7 +326,8 @@
       "prompt": "Mit ___ Schlüssel öffnest du die Tür.",
       "pool": "demonstrative_pronouns",
       "answer": "diesem",
-      "topic": "dem_dat_m_sg"
+      "topic": "dem_dat_m_sg",
+      "explanation": "Demonstrative *diesem* before a masculine dative noun — same *-em* ending as *dem*. *Mit* governs the dative."
     },
     {
       "id": "pron_poss_nom_f_001",
@@ -302,7 +335,8 @@
       "prompt": "Das ist ___ Schwester aus Hamburg.",
       "pool": "possessive_nom_acc_fem",
       "answer": "meine",
-      "topic": "poss_nom_1sg_f"
+      "topic": "poss_nom_1sg_f",
+      "explanation": "Possessive *mein* (my) gains *-e* before a feminine nominative noun (*meine Schwester*)."
     },
     {
       "id": "pron_poss_acc_m_001",
@@ -310,7 +344,8 @@
       "prompt": "Hast du ___ Schlüssel gesehen? Ich finde ihn nicht.",
       "pool": "possessive_acc_masc",
       "answer": "meinen",
-      "topic": "poss_acc_1sg_m"
+      "topic": "poss_acc_1sg_m",
+      "explanation": "Possessive *mein* (my) gains *-en* before a masculine accusative noun (*meinen Schlüssel*)."
     },
     {
       "id": "pron_poss_dat_m_001",
@@ -318,7 +353,8 @@
       "prompt": "Sie spricht oft mit ___ Bruder am Telefon.",
       "pool": "possessive_dat_masc_neut",
       "answer": "ihrem",
-      "topic": "poss_dat_3fsg_m"
+      "topic": "poss_dat_3fsg_m",
+      "explanation": "Possessive *ihr* (her) gains *-em* before a masculine dative noun (*ihrem Bruder*). *Mit* governs the dative."
     },
     {
       "id": "pron_poss_dat_f_001",
@@ -326,7 +362,8 @@
       "prompt": "Er hilft ___ Mutter im Garten.",
       "pool": "possessive_dat_fem",
       "answer": "seiner",
-      "topic": "poss_dat_3msg_f"
+      "topic": "poss_dat_3msg_f",
+      "explanation": "Possessive *sein* (his) gains *-er* before a feminine dative noun (*seiner Mutter*). *Helfen* governs the dative."
     },
     {
       "id": "pron_poss_nom_2pl_001",
@@ -334,7 +371,8 @@
       "prompt": "Wie heisst ___ Tochter eigentlich?",
       "pool": "possessive_nom_acc_fem",
       "answer": "eure",
-      "topic": "poss_nom_2pl_f"
+      "topic": "poss_nom_2pl_f",
+      "explanation": "Possessive *euer* (your, informal plural) drops the second *e* and gains *-e* before a feminine nominative noun (*eure Tochter*)."
     }
   ]
 }
