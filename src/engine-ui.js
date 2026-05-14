@@ -91,10 +91,93 @@
       el('button', { class: 'backup-btn', onclick: exportProgress }, '↓ Export'),
       el('button', { class: 'backup-btn', onclick: importProgress }, '↑ Import')
     );
+    const dailyBtn = el('button', { class: 'btn-primary', style: { marginTop: '20px', width: '100%', maxWidth: '440px' }, onclick: openDailyReview }, 'Daily Review (cross-deck)');
+    menu.appendChild(dailyBtn);
     menu.appendChild(backup);
     const fileInput = el('input', { type: 'file', id: 'importFile', accept: '.json', style: { display: 'none' }, onchange: handleImport });
     menu.appendChild(fileInput);
     root.appendChild(menu);
+  }
+
+  // ----- Daily Review (cross-deck) -----
+  function dailyReviewQueue() {
+    const t = today();
+    const allDue = [];
+    for (const deckDef of window.DECKS) {
+      const state = Storage.loadDeck(deckDef.id);
+      if (!state || !state.items) continue;
+      for (const itemDef of deckDef.items) {
+        const s = state.items[itemDef.id];
+        if (!s || !s.due || s.box <= 0) continue;
+        if (s.due <= t) {
+          allDue.push({ deckId: deckDef.id, deckDef, itemDef, state: s, dueDate: s.due, topics: topicsOf(itemDef) });
+        }
+      }
+    }
+    allDue.sort((a, b) => a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0);
+
+    const queue = [];
+    const remaining = allDue.slice();
+    let lastDeck = null;
+    let lastTopics = new Set();
+    while (queue.length < 30 && remaining.length > 0) {
+      let pickIdx = remaining.findIndex(c =>
+        c.deckId !== lastDeck &&
+        !c.topics.some(t => lastTopics.has(t))
+      );
+      if (pickIdx === -1) pickIdx = 0;
+      const pick = remaining.splice(pickIdx, 1)[0];
+      queue.push(pick);
+      lastDeck = pick.deckId;
+      lastTopics = new Set(pick.topics);
+    }
+    return queue;
+  }
+
+  function openDailyReview() {
+    const queue = dailyReviewQueue();
+    if (queue.length === 0) {
+      alert('No items due today. Come back tomorrow.');
+      return;
+    }
+    DRILL = {
+      mixed: true,
+      queue,
+      qIdx: 0,
+      sessionCount: 0,
+      sessionCap: queue.length,
+      firstTryCorrect: 0,
+      advanced: 0,
+      lapsed: 0,
+      attemptedThisItem: false,
+      usedScaffolding: false,
+      lastTopics: [],
+      sessionSeen: [],
+    };
+    renderDrillMixed();
+  }
+
+  function renderDrillMixed() {
+    const root = $('#root');
+    root.innerHTML = '';
+    const top = el('div', { class: 'drill-top' },
+      el('button', { class: 'drill-back', onclick: closeDrill }, '← Menu'),
+      el('div', { class: 'drill-progress' }, `Daily Review · ${DRILL.sessionCount + 1} / ${DRILL.sessionCap}`)
+    );
+    const body = el('div', { class: 'drill-body', id: 'drillBody' });
+    root.appendChild(el('div', { class: 'drill active' }, top, body));
+    advanceMixed();
+  }
+
+  function advanceMixed() {
+    if (DRILL.qIdx >= DRILL.queue.length) return endSession();
+    const entry = DRILL.queue[DRILL.qIdx];
+    DRILL.deckId = entry.deckId;
+    DRILL.deckDef = entry.deckDef;
+    DRILL.state = Storage.loadDeck(entry.deckId);
+    DRILL.usedScaffolding = false;
+    DRILL.attemptedThisItem = false;
+    renderItem(entry.itemDef);
   }
 
   function exportProgress() {
@@ -406,6 +489,14 @@
   }
 
   var nextItem = function (prevItem) {
+    if (DRILL.mixed) {
+      DRILL.lastTopics = topicsOf(prevItem);
+      DRILL.qIdx++;
+      DRILL.sessionCount++;
+      Storage.saveDeck(DRILL.deckId, DRILL.state);
+      advanceMixed();
+      return;
+    }
     DRILL.sessionSeen.push(prevItem.id);
     DRILL.lastTopics = topicsOf(prevItem);
     DRILL.sessionCount++;
@@ -445,8 +536,8 @@
   }
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { renderMenu, openDeck };
+    module.exports = { renderMenu, openDeck, openDailyReview };
   } else {
-    global.EngineUI = { renderMenu, openDeck };
+    global.EngineUI = { renderMenu, openDeck, openDailyReview };
   }
 })(typeof window !== 'undefined' ? window : globalThis);
