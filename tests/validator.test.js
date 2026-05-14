@@ -140,3 +140,38 @@ test('valid Mode B choice item produces no errors', () => {
   const errs = validateDeck(deckWithPools([item], pools));
   assert.strictEqual(errs.filter(e => e.severity === 'error').length, 0);
 });
+
+test('C12: modal_verb_form pool entry not in known modal forms → error', () => {
+  const pools = { p1: { category: 'modal_verb_form', items: ['kann','können','könnt','frühstücken'] } };
+  const item = { id: 'a', kind: 'choice', prompt: '{0} sprechen', pool: 'p1', answer: 'können', topic: 'modal_k' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C12' && /frühstücken/.test(e.message)));
+});
+
+test('C12: definite_article pool with non-article entry → error', () => {
+  const pools = { p1: { category: 'definite_article', items: ['der','die','das','meinem'] } };
+  const item = { id: 'a', kind: 'choice', prompt: '{0} Mann', pool: 'p1', answer: 'der', topic: 'nom_m' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C12' && /meinem/.test(e.message)));
+});
+
+test('C12: noun_gender pool with non-gender → error', () => {
+  const pools = { p1: { category: 'noun_gender', items: ['der','die','das','den'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'Apfel', pool: 'p1', answer: 'der', topic: 'g_m' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C12' && /den/.test(e.message)));
+});
+
+test('C12: adj_ending pool with bogus entry → error', () => {
+  const pools = { p1: { category: 'adj_ending', items: ['','e','en','XYZ'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'rot{0}', pool: 'p1', answer: 'e', topic: 'ae' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C12' && /XYZ/.test(e.message)));
+});
+
+test('C12: well-formed modal_verb_form pool produces no C12 error', () => {
+  const pools = { p1: { category: 'modal_verb_form', items: ['kann','kannst','können','könnt','konnte'] } };
+  const item = { id: 'a', kind: 'choice', prompt: '{0} sprechen', pool: 'p1', answer: 'können', topic: 'modal_k' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.strictEqual(errs.filter(e => e.code === 'C12').length, 0);
+});

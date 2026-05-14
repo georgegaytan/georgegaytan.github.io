@@ -12,6 +12,42 @@ const CATEGORIES = (function () {
 
 const SNAKE_CASE = /^[a-z][a-z0-9_]*$/;
 
+const MORPHOLOGY = (function () {
+  const out = {};
+  try {
+    out.modals = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'morphology', 'modals.json'), 'utf8'));
+    out.articles = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'src', 'morphology', 'articles.json'), 'utf8'));
+  } catch (e) {}
+  return out;
+})();
+
+function flattenModalForms() {
+  const all = new Set();
+  for (const lemma in (MORPHOLOGY.modals || {})) {
+    for (const f of MORPHOLOGY.modals[lemma]) all.add(f);
+  }
+  return all;
+}
+const ALL_MODAL_FORMS = flattenModalForms();
+
+const CATEGORY_MEMBERSHIP = {
+  modal_verb_form: (s) => ALL_MODAL_FORMS.has(s),
+  modal_lemma: (s) => (MORPHOLOGY.modals || {}).hasOwnProperty(s),
+  definite_article: (s) => (MORPHOLOGY.articles && MORPHOLOGY.articles.definite || []).includes(s),
+  indefinite_article: (s) => {
+    const a = (MORPHOLOGY.articles || {});
+    return (a.indefinite || []).includes(s) || (a.negative || []).includes(s);
+  },
+  noun_gender: (s) => ['der','die','das'].includes(s),
+  adj_ending: (s) => (MORPHOLOGY.articles && MORPHOLOGY.articles.adj_endings || []).includes(s),
+};
+
+function categoryCheck(category, value) {
+  const checker = CATEGORY_MEMBERSHIP[category];
+  if (!checker) return typeof value === 'string';
+  return checker(value);
+}
+
 function err(code, message, location) {
   return { severity: 'error', code, message, location };
 }
@@ -94,6 +130,13 @@ function validateItem(item, deck) {
           errs.push(err('C11', `pool "${item.pool}" is missing "category"`, loc));
         } else if (!CATEGORIES.has(pool.category)) {
           errs.push(err('C11', `pool "${item.pool}" category "${pool.category}" not in allowlist (src/categories.json)`, loc));
+        }
+        if (pool.category && CATEGORIES.has(pool.category)) {
+          for (const entry of items) {
+            if (!categoryCheck(pool.category, entry)) {
+              errs.push(err('C12', `pool "${item.pool}" entry "${entry}" fails category check for "${pool.category}"`, loc));
+            }
+          }
         }
       }
     }

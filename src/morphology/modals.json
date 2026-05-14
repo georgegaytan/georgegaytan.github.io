@@ -1,0 +1,8 @@
+{
+  "können": ["kann", "kannst", "können", "könnt", "konnte", "konntest", "konnten", "konntet", "könnte", "könntest", "könnten", "könntet", "gekonnt"],
+  "müssen": ["muss", "musst", "müssen", "müsst", "musste", "musstest", "mussten", "musstet", "müsste", "müsstest", "müssten", "müsstet", "gemusst"],
+  "dürfen": ["darf", "darfst", "dürfen", "dürft", "durfte", "durftest", "durften", "durftet", "dürfte", "dürftest", "dürften", "dürftet", "gedurft"],
+  "sollen": ["soll", "sollst", "sollen", "sollt", "sollte", "solltest", "sollten", "solltet", "gesollt"],
+  "wollen": ["will", "willst", "wollen", "wollt", "wollte", "wolltest", "wollten", "wolltet", "gewollt"],
+  "mögen": ["mag", "magst", "mögen", "mögt", "mochte", "mochtest", "mochten", "mochtet", "möchte", "möchtest", "möchten", "möchtet", "gemocht"]
+}

@@ -1,0 +1,7 @@
+{
+  "definite": ["der", "die", "das", "den", "dem", "des"],
+  "indefinite": ["ein", "eine", "einen", "einem", "einer", "eines"],
+  "negative": ["kein", "keine", "keinen", "keinem", "keiner", "keines"],
+  "noun_gender": ["der", "die", "das"],
+  "adj_endings": ["", "e", "en", "es", "er", "em"]
+}
