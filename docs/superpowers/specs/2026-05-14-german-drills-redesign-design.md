@@ -92,6 +92,10 @@ A freestanding prompt. User types the answer.
 
 Used **only** where production is not well-defined: gender ID, meaning identification for ambiguous particles, comprehension checks. **Not the default** — authors must justify a `choice` over `cloze` / `text`.
 
+Two authoring modes, both supported:
+
+**Mode A — explicit `options` list (small fixed sets):**
+
 ```json
 {
   "id": "vocab_gender_apfel",
@@ -103,7 +107,33 @@ Used **only** where production is not well-defined: gender ID, meaning identific
 }
 ```
 
-Distractor strength varies by box (see Scaffolding).
+**Mode B — `pool` reference (typed distractor pool; the engine draws distractors at render time):**
+
+```json
+{
+  "id": "modal_können_3pl_001",
+  "kind": "choice",
+  "prompt": "Sie ___ Deutsch sprechen.",
+  "answer": "können",
+  "pool": "können_conjugation",
+  "topic": "modal_können_konj"
+}
+```
+
+The deck declares the pool once at the top level:
+
+```json
+"pools": {
+  "können_conjugation": {
+    "category": "modal_verb_form",
+    "items": ["kann", "kannst", "können", "könnt", "konnte", "konnten", "könnte", "könnten"]
+  }
+}
+```
+
+**Why two modes:** Mode A is right when options are intrinsically fixed (gender is always `der/die/das`; particle-meaning ID has a hand-picked semantic distractor set). Mode B is right whenever the distractors share a morphological category — conjugations of one verb, articles in one case, partizip-II forms. Mode B is the load-bearing one for grammar drills because **it makes "dead distractor" mistakes structurally impossible**: distractors come from the same category as the answer, by construction. The historical failure mode (a `können` question with `kann/können/darf/muss` where `darf` and `muss` are *different lemmas in base form*) cannot occur — `darf` and `muss` live in a different pool with a different `category`.
+
+**Distractor strength varies by box** (see Scaffolding). The engine ranks pool entries by similarity to the answer (e.g., shared prefix, shared inflection class) and picks easy-to-hard accordingly. Implementation: the engine sorts pool entries by Levenshtein distance to the answer, picks farther-out distractors at low box, closer-in (adversarial) ones at high box.
 
 ### Input validation (shared across `cloze` and `text`)
 
@@ -241,11 +271,23 @@ function getProgress(deckId) {
   "icon": "📐",
   "color": "#7f5af0",
   "description": "Articles, adjective endings, and case in context.",
+  "pools": {
+    "definite_articles_all_cases": {
+      "category": "definite_article",
+      "items": ["der", "die", "das", "den", "dem", "des"]
+    },
+    "adjective_endings": {
+      "category": "adj_ending",
+      "items": ["", "e", "en", "es", "er", "em"]
+    }
+  },
   "items": [
     /* array of cloze / text / choice items as shown above */
   ]
 }
 ```
+
+**`pools` is optional** (only needed if any `choice` item uses Mode B). Pools are deck-local; if cross-deck pools become useful later, a `pools/shared.json` file can be added — out of scope for v1.
 
 **Item ID convention:** `<deck>_<topic>_<seq>`, e.g., `decl_nom_m_def_001`. Stable across rebuilds — used as the localStorage key for per-item state.
 
@@ -267,17 +309,84 @@ function getProgress(deckId) {
 5. Throughout migration, the old `german-drills.html` stays in the repo as a content reference. Delete it (and the `deck*.html` scratch files, `decode_decks.js`, `analyze_decks.js`, `final_analysis.js`) once migration is complete.
 6. **No user-progress migration.** Users start at box 0 for every item on the new engine.
 
-## Testing Strategy
+## Content Validation & Testing
 
-There's no test framework today; we add a minimal one.
+This redesign treats **content correctness** as a first-class concern — historically the most painful regressions were not engine bugs but language bugs: dead distractors, wrong genders, missing accepted alternates, options that didn't share a morphological category. The testing plan has three layers, in priority order.
 
-- **`tests/engine.test.js`** — headless Node tests (built-in `node:test`, no npm needed). Cover:
-  - SRS update rule (correct / correct-with-scaffold / wrong transitions; ease floor; box-1 reset on lapse).
-  - Input validators (case, umlaut tolerance, whitespace).
-  - Session selection (priority order, new-item cap, no-back-to-back-topic rule).
-  - Storage round-trip (export → wipe → import → state matches).
-- **Manual browser verification** remains primary for the UI: open `index.html`, run a full session per deck, verify dashboard + export/import.
-- Build script does a sanity pass: every deck JSON validates against the schema, every `cloze` has matching `{N}` placeholders and `blanks` entries, no duplicate item IDs.
+### Layer 1 — Build-time content validators (the load-bearing layer)
+
+`build.js` runs every deck JSON through a validator before producing `index.html`. **The build fails — non-zero exit — on any violation.** No way to ship a deck that fails validation. This is the layer that prevents the "kann / können / darf / muss" class of mistake.
+
+**Per-item structural lints:**
+
+- **C1.** Every item has a unique `id` across all decks (catches accidental duplicates from copy-paste authoring).
+- **C2.** Every `cloze` item's `prompt` placeholder count matches `blanks.length` exactly. `{0}`, `{1}`, ... must be present and contiguous.
+- **C3.** No item's `prompt` text contains the literal `answer` string (sanity check — catches typos where the answer leaks into the prompt).
+- **C4.** `topic` is a non-empty snake_case string.
+
+**`choice` validators (the regression-prevention core):**
+
+- **C5.** Every `choice` item has either `options` (Mode A) **xor** `pool` (Mode B). Not both, not neither.
+- **C6.** Mode A: `options` ≥ 2, all unique, `answer` is in `options`.
+- **C7.** Mode B: `pool` exists in the deck's `pools` map.
+- **C8.** Mode B: `answer` is in `pool.items`.
+- **C9.** Mode B: `pool.items.length` ≥ 4 (so the engine can draw 3 distractors after excluding the answer).
+- **C10.** Mode B: all entries in a pool are unique.
+- **C11.** Mode B: every pool has a non-empty `category` string. Categories are linted against an allowlist in `src/categories.json` (a small enum: `definite_article`, `indefinite_article`, `modal_verb_form`, `modal_lemma`, `partizip_2`, `aux_verb`, `pronoun_*`, `adj_ending`, `noun_gender`, `particle_meaning`, etc.). Adding a new category requires editing that file — forces deliberateness.
+- **C12.** Mode B: **categorical purity** — for every pool, every entry passes a category-specific shape check. Examples:
+  - `definite_article`: must be one of `{der, die, das, den, dem, des}`.
+  - `modal_verb_form`: must be a conjugated form (not infinitive) of one of `{können, müssen, dürfen, sollen, wollen, mögen, möchten}` — checked against a small morphology table shipped at `src/morphology/modals.json`.
+  - `noun_gender`: must be `der` / `die` / `das`.
+  - `adj_ending`: must be one of `{"", e, en, es, er, em}`.
+  - Categories without a morphology check (e.g., `particle_meaning`) just enforce non-empty strings; semantic correctness falls to Layer 3.
+
+**`cloze` and `text` validators:**
+
+- **C13.** For each blank, the `answer` is non-empty.
+- **C14.** Auto-derived `alts` are added if missing — case-flipped variant, ae/oe/ue ↔ ä/ö/ü variant. Validator warns if author-provided `alts` are missing variants that would otherwise be unfair to typo-prone users.
+- **C15.** `cloze` items with `translation` field: translation is a non-empty string; warn if no overlap of content words with the German `prompt` (loose heuristic against copy-paste mismatches).
+
+**Cross-deck consistency lints:**
+
+- **C16.** Gender consistency: any noun whose gender is asserted across multiple decks (vocabulary gender deck, declension noun phrases, etc.) must agree. Build collects all `(lemma, gender)` claims and fails on disagreement.
+- **C17.** Translation consistency (warning only): if `Apfel ↔ apple` appears in DE→EN context, flag if `apple ↔ Apfel` is missing or different in EN→DE. Translations aren't always bijective, so this is a warning, not an error.
+
+### Layer 2 — Engine unit tests (`tests/engine.test.js`)
+
+Headless Node tests using built-in `node:test`. No npm install.
+
+- **E1.** SRS state transitions match the spec table exactly (correct / correct-with-scaffold / wrong; ease floor 1.3; box reset to 1 on lapse; interval rounding).
+- **E2.** Input validators behave per spec: case-insensitive except for nouns and sentence-start, umlaut tolerance both directions, whitespace handling.
+- **E3.** Distractor selection from a `pool` always excludes the answer, produces N unique entries, and respects the box → adversarial-strength mapping (low box → high Levenshtein distance from answer; high box → low distance).
+- **E4.** Distractor selection is deterministic given a seed (so tests are reproducible and we can snapshot what users would see).
+- **E5.** Session selection respects priority order (overdue → low-box-not-seen-today → new), respects caps (20 per session, 5 new), and never repeats a topic back-to-back.
+- **E6.** Storage round-trip (`exportAll` → wipe → `importAll`) reconstructs state byte-for-byte.
+- **E7.** Scaffolding ladder produces the expected affordances at each box.
+
+### Layer 3 — Content snapshots & sampling tests
+
+Catches the failures Layer 1 can't reach — semantic / pedagogical wrongness that requires human review of generated output.
+
+- **S1.** **Question snapshot.** After build, dump every rendered question (prompt + correct answer + sample distractors at box 0, 2, and 4) into `tests/snapshots/<deck>.txt`. The snapshot file is committed. **Any change to a snapshot in CI / pre-commit forces the author to acknowledge it** — accidental content drift becomes a visible diff. This is how we catch "I changed the answer key but forgot to update the alts."
+- **S2.** **Sampled distractor render.** For each `choice` item using a `pool`, the test harness asks the engine to produce distractors at each scaffolding level and verifies: distractors ≠ answer, no duplicates, all in the declared pool, all pass the category check. Run across all items, not a sample, since this is cheap.
+- **S3.** **Hand-curated regression suite.** A small `tests/known-issues.test.js` file holds explicit assertions for past failure modes (e.g., "the `können` 3pl question must never offer `darf` or `muss` as a distractor — they're different lemmas, not other forms of `können`"). Every time we discover a content bug in the wild, we add a test here. The list grows over time; this is how the codebase remembers its specific scars.
+
+### What this gives us
+
+- **Build fails on whole categories of content bug** before they ever ship (Layer 1).
+- **Engine behavior is tested headlessly and deterministically** (Layer 2).
+- **Generated content is visible in version control** so reviews can catch what tests can't (Layer 3).
+- **Snapshot diffs force conscious acknowledgement** of every content change.
+
+### Manual verification (still required, smaller scope than today)
+
+Manual browser testing remains for things automated tests can't reach: visual layout, animation, mobile touch behavior, real input-method quirks. The manual checklist gets smaller because Layers 1–3 cover what's automatable.
+
+Per-deck manual smoke test after migration:
+1. Open `index.html`, start the deck, run 5 items.
+2. Get one right unaided, one wrong, one with scaffolding — verify SRS updates as expected on the dashboard.
+3. Verify the wrong-answer-correction protocol fires.
+4. Export progress, clear `localStorage`, import — verify state restored.
 
 ## What This Replaces / Cleans Up Today
 
@@ -288,6 +397,7 @@ There's no test framework today; we add a minimal one.
 - Inconsistent hint mechanics across decks → one scaffolding ladder.
 - Inconsistent SRS schemes → one SM-2 hybrid.
 - Per-deck "hard mode" toggles → built into the scaffolding ladder (box 3+ = "hard mode" effectively).
+- **Hand-rolled distractors per item** → typed pools with build-time category validation. Eliminates the "dead distractor" failure class.
 
 ## Decisions to Reconfirm
 
