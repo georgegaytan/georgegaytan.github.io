@@ -34,6 +34,29 @@ test('regression: modal conjugation choices never offer different-lemma forms', 
   }
 });
 
+// Past regression: chameleon cloze items had no scaffoldPool, so the box-0/1
+// chip palette was a single chip equal to the answer — trivially solvable
+// (e.g. answer "nach" → chips ["nach"]). The user explicitly called this out
+// as the anti-pattern they wanted us to avoid. Lock the chameleon deck to
+// always offer enough chips that the question requires recognition, not just
+// clicking the only chip.
+test('regression: chameleon cloze items show ≥4 chips at scaffolding stage', () => {
+  const deck = loadDeckOrSkip('chameleon');
+  if (!deck) return;
+  const pools = deck.pools || {};
+  for (const item of deck.items) {
+    if (item.kind !== 'cloze') continue;
+    const chipSet = new Set();
+    for (const b of (item.blanks || [])) if (b.answer) chipSet.add(b.answer);
+    for (const b of (item.blanks || [])) {
+      if (b.scaffoldPool && pools[b.scaffoldPool]) {
+        for (const e of pools[b.scaffoldPool].items) chipSet.add(e);
+      }
+    }
+    assert.ok(chipSet.size >= 4, `${item.id}: chip palette has ${chipSet.size} chip(s); chameleon items must offer ≥4 for meaningful scaffolding`);
+  }
+});
+
 test('regression: no choice item has fewer than 2 plausible options at any box', () => {
   if (!fs.existsSync(DECKS_DIR)) return;
   for (const f of fs.readdirSync(DECKS_DIR)) {

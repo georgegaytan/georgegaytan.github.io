@@ -446,6 +446,7 @@
   }
 
   function finalizeAttempt(item, correct, inputs) {
+    if (DRILL.attemptedThisItem) return;
     DRILL.attemptedThisItem = true;
     const state = DRILL.state.items[item.id];
     const body = $('#drillBody');

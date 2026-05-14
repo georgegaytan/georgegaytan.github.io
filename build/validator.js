@@ -190,6 +190,26 @@ function validateItem(item, deck) {
     }
   }
 
+  // C20: at box 0/1 the engine shows a chip palette built from each blank's
+  // answer plus any scaffoldPool entries. If the chip palette has fewer chips
+  // than blanks + 2, the question is trivially solvable (one or two chips, only
+  // valid permutation visible). Warn when a cloze blank has no scaffoldPool
+  // AND the per-item chipset would be smaller than blanks.length + 2.
+  if (item.kind === 'cloze') {
+    const deckPools = deck.pools || {};
+    const chipSet = new Set();
+    for (const b of (item.blanks || [])) if (b.answer) chipSet.add(b.answer);
+    for (const b of (item.blanks || [])) {
+      if (b.scaffoldPool && deckPools[b.scaffoldPool]) {
+        for (const e of deckPools[b.scaffoldPool].items) chipSet.add(e);
+      }
+    }
+    const minChips = (item.blanks || []).length + 2;
+    if (chipSet.size < minChips) {
+      errs.push(warn('C20', `cloze chip palette has ${chipSet.size} chip(s); at box 0/1 the question is trivially solvable. Add scaffoldPool to blanks (need ≥${minChips}).`, loc));
+    }
+  }
+
   // C5-C6: choice Mode A
   if (item.kind === 'choice') {
     const hasOpts = Array.isArray(item.options);
