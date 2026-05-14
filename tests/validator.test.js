@@ -92,3 +92,51 @@ test('valid Mode A choice item produces no errors', () => {
   const errs = validateDeck(deck([item]));
   assert.strictEqual(errs.filter(e => e.severity === 'error').length, 0);
 });
+
+test('C7: pool reference not in deck.pools → error', () => {
+  const item = { id: 'a', kind: 'choice', prompt: 'p', pool: 'ghost', answer: 'x', topic: 't' };
+  const errs = validateDeck(deckWithPools([item], {}));
+  assert.ok(errs.some(e => e.code === 'C7'));
+});
+
+test('C8: pool exists but answer not in pool.items → error', () => {
+  const pools = { p1: { category: 'modal_verb_form', items: ['kann','könnt','können','konnte'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'p', pool: 'p1', answer: 'darf', topic: 't' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C8'));
+});
+
+test('C9: pool.items.length < 4 → error', () => {
+  const pools = { p1: { category: 'modal_verb_form', items: ['kann','könnt','können'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'p', pool: 'p1', answer: 'können', topic: 't' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C9'));
+});
+
+test('C10: pool.items has duplicates → error', () => {
+  const pools = { p1: { category: 'modal_verb_form', items: ['kann','kann','können','könnt','konnte'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'p', pool: 'p1', answer: 'können', topic: 't' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C10'));
+});
+
+test('C11: pool.category not in allowlist → error', () => {
+  const pools = { p1: { category: 'invented_category', items: ['a','b','c','d'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'p', pool: 'p1', answer: 'a', topic: 't' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C11'));
+});
+
+test('C11: pool missing category → error', () => {
+  const pools = { p1: { items: ['a','b','c','d'] } };
+  const item = { id: 'a', kind: 'choice', prompt: 'p', pool: 'p1', answer: 'a', topic: 't' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.ok(errs.some(e => e.code === 'C11'));
+});
+
+test('valid Mode B choice item produces no errors', () => {
+  const pools = { p1: { category: 'modal_verb_form', items: ['kann','kannst','können','könnt','konnte'] } };
+  const item = { id: 'a', kind: 'choice', prompt: '{0} sprechen', pool: 'p1', answer: 'können', topic: 'modal_k' };
+  const errs = validateDeck(deckWithPools([item], pools));
+  assert.strictEqual(errs.filter(e => e.severity === 'error').length, 0);
+});

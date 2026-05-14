@@ -74,6 +74,29 @@ function validateItem(item, deck) {
         errs.push(err('C6', `choice answer "${item.answer}" not in options`, loc));
       }
     }
+    if (hasPool) {
+      const pools = deck.pools || {};
+      const pool = pools[item.pool];
+      if (!pool) {
+        errs.push(err('C7', `pool "${item.pool}" not defined in deck.pools`, loc));
+      } else {
+        const items = pool.items || [];
+        if (item.answer != null && !items.includes(item.answer)) {
+          errs.push(err('C8', `answer "${item.answer}" not in pool "${item.pool}"`, loc));
+        }
+        if (items.length < 4) {
+          errs.push(err('C9', `pool "${item.pool}" has ${items.length} entries; need ≥4`, loc));
+        }
+        if (items.length !== new Set(items).size) {
+          errs.push(err('C10', `pool "${item.pool}" has duplicate entries`, loc));
+        }
+        if (!pool.category) {
+          errs.push(err('C11', `pool "${item.pool}" is missing "category"`, loc));
+        } else if (!CATEGORIES.has(pool.category)) {
+          errs.push(err('C11', `pool "${item.pool}" category "${pool.category}" not in allowlist (src/categories.json)`, loc));
+        }
+      }
+    }
   }
 
   return errs;
