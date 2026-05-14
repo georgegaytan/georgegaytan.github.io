@@ -462,6 +462,7 @@
       fb.appendChild(el('div', { class: 'correct-form' }, correctForm));
       if (item.translation) fb.appendChild(el('div', { class: 'translation' }, item.translation));
     }
+    if (item.explanation) fb.appendChild(el('div', { class: 'explanation' }, item.explanation));
     body.appendChild(fb);
 
     if (!correct) {

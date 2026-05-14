@@ -24,6 +24,7 @@ function snapshotItem(item, deck, box) {
     }
     line += `prompt=${JSON.stringify(item.prompt)} answer=${JSON.stringify(item.answer)} box${box}_options=${JSON.stringify(options)}`;
   }
+  if (item.explanation) line += ` explanation=${JSON.stringify(item.explanation)}`;
   return line;
 }
 

@@ -61,6 +61,7 @@ body.drill-open { overflow: hidden; height: 100vh; }
 .feedback.wrong { background: #301414; color: #fca5a5; }
 .feedback .correct-form { font-family: 'DM Mono', monospace; font-weight: 600; }
 .feedback .translation { color: #888; font-size: 13px; margin-top: 8px; }
+.feedback .explanation { color: #b8b8c8; font-size: 13px; line-height: 1.5; margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.06); }
 
 .drill-actions { display: flex; gap: 12px; justify-content: center; margin-top: 24px; padding: 16px 0; border-top: 1px solid #1e1e3a; }
 .btn-primary { background: #7f5af0; color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 15px; }

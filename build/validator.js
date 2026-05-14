@@ -210,6 +210,13 @@ function validateItem(item, deck) {
     }
   }
 
+  // C21: warn (do not error) when an item lacks "explanation". The feedback
+  // panel shows this after the answer is committed; missing explanations
+  // ship fine but leave the learner without the "why". Authored deck-by-deck.
+  if (typeof item.explanation !== 'string' || item.explanation.trim().length === 0) {
+    errs.push(warn('C21', `item has no explanation field (post-answer "why" is missing)`, loc));
+  }
+
   // C5-C6: choice Mode A
   if (item.kind === 'choice') {
     const hasOpts = Array.isArray(item.options);
