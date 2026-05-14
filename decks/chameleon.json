@@ -1,0 +1,312 @@
+{
+  "id": "chameleon",
+  "name": "Chameleon Words",
+  "icon": "🦎",
+  "color": "#10b981",
+  "description": "German particles that shift meaning by context: nach, noch, schon, doch, mal, erst, ja, denn, wohl.",
+  "items": [
+    {
+      "id": "cham_nach_after_001",
+      "kind": "cloze",
+      "prompt": "Sie geht {0} der Arbeit einkaufen.",
+      "blanks": [{ "answer": "nach", "alts": [], "topic": "nach_after" }],
+      "translation": "She goes shopping after work."
+    },
+    {
+      "id": "cham_nach_to_001",
+      "kind": "cloze",
+      "prompt": "Wir fahren im Sommer {0} Spanien.",
+      "blanks": [{ "answer": "nach", "alts": [], "topic": "nach_to" }],
+      "translation": "We're going to Spain in summer."
+    },
+    {
+      "id": "cham_nach_according_to_001",
+      "kind": "cloze",
+      "prompt": "{0} meiner Meinung fährt er zu schnell.",
+      "blanks": [{ "answer": "Nach", "alts": ["nach"], "topic": "nach_according_to" }],
+      "translation": "In my opinion, he drives too fast."
+    },
+    {
+      "id": "cham_nach_meaning_001",
+      "kind": "choice",
+      "prompt": "Er ist müde nach dem Sport. (Was bedeutet hier das Partikel?)",
+      "options": ["after", "to (a place)", "according to", "still"],
+      "answer": "after",
+      "topic": "nach_after"
+    },
+    {
+      "id": "cham_nach_meaning_002",
+      "kind": "choice",
+      "prompt": "Seine Familie wandert bald nach Kanada aus. (Was bedeutet hier das Partikel?)",
+      "options": ["after", "to (a place)", "according to", "yet again"],
+      "answer": "to (a place)",
+      "topic": "nach_to"
+    },
+    {
+      "id": "cham_noch_still_001",
+      "kind": "cloze",
+      "prompt": "Er wohnt {0} in Berlin.",
+      "blanks": [{ "answer": "noch", "alts": [], "topic": "noch_still" }],
+      "translation": "He still lives in Berlin."
+    },
+    {
+      "id": "cham_noch_not_yet_001",
+      "kind": "cloze",
+      "prompt": "Sie hat den Film {0} nicht gesehen.",
+      "blanks": [{ "answer": "noch", "alts": [], "topic": "noch_not_yet" }],
+      "translation": "She hasn't seen the movie yet."
+    },
+    {
+      "id": "cham_noch_another_001",
+      "kind": "cloze",
+      "prompt": "Möchtest du {0} ein Stück Kuchen?",
+      "blanks": [{ "answer": "noch", "alts": [], "topic": "noch_another" }],
+      "translation": "Would you like another piece of cake?"
+    },
+    {
+      "id": "cham_noch_even_001",
+      "kind": "cloze",
+      "prompt": "Das Buch ist {0} besser als der Film.",
+      "blanks": [{ "answer": "noch", "alts": [], "topic": "noch_even" }],
+      "translation": "The book is even better than the film."
+    },
+    {
+      "id": "cham_noch_meaning_001",
+      "kind": "choice",
+      "prompt": "Der Chef sitzt noch im Büro. (Was bedeutet hier das Partikel?)",
+      "options": ["still", "not yet", "another (additional)", "even (intensifier)"],
+      "answer": "still",
+      "topic": "noch_still"
+    },
+    {
+      "id": "cham_noch_meaning_002",
+      "kind": "choice",
+      "prompt": "Das wäre noch interessanter. (Was bedeutet hier das Partikel?)",
+      "options": ["still", "not yet", "another (additional)", "even (intensifier)"],
+      "answer": "even (intensifier)",
+      "topic": "noch_even"
+    },
+    {
+      "id": "cham_schon_already_001",
+      "kind": "cloze",
+      "prompt": "Ich habe das Buch {0} gelesen.",
+      "blanks": [{ "answer": "schon", "alts": [], "topic": "schon_already" }],
+      "translation": "I have already read the book."
+    },
+    {
+      "id": "cham_schon_ever_001",
+      "kind": "cloze",
+      "prompt": "Bist du {0} mal in Japan gewesen?",
+      "blanks": [{ "answer": "schon", "alts": [], "topic": "schon_ever" }],
+      "translation": "Have you ever been to Japan?"
+    },
+    {
+      "id": "cham_schon_yet_again_001",
+      "kind": "cloze",
+      "prompt": "Du bist {0} wieder zu spät gekommen.",
+      "blanks": [{ "answer": "schon", "alts": [], "topic": "schon_yet_again" }],
+      "translation": "You arrived late yet again."
+    },
+    {
+      "id": "cham_schon_reassurance_001",
+      "kind": "cloze",
+      "prompt": "Wir werden das {0} schaffen, keine Sorge.",
+      "blanks": [{ "answer": "schon", "alts": [], "topic": "schon_reassurance" }],
+      "translation": "We'll manage it, no worries."
+    },
+    {
+      "id": "cham_schon_meaning_001",
+      "kind": "choice",
+      "prompt": "Die Kinder haben schon geschlafen. (Was bedeutet hier das Partikel?)",
+      "options": ["already", "ever (at any time)", "yet again", "reassurance (don't worry)"],
+      "answer": "already",
+      "topic": "schon_already"
+    },
+    {
+      "id": "cham_schon_meaning_002",
+      "kind": "choice",
+      "prompt": "Es wird schon klappen. (Was bedeutet hier das Partikel?)",
+      "options": ["already", "ever (at any time)", "yet again", "reassurance (don't worry)"],
+      "answer": "reassurance (don't worry)",
+      "topic": "schon_reassurance"
+    },
+    {
+      "id": "cham_doch_insistence_001",
+      "kind": "cloze",
+      "prompt": "Ich habe ihm {0} geholfen!",
+      "blanks": [{ "answer": "doch", "alts": [], "topic": "doch_insistence" }],
+      "translation": "I DID help him!"
+    },
+    {
+      "id": "cham_doch_surprise_001",
+      "kind": "cloze",
+      "prompt": "Sie ist {0} gekommen!",
+      "blanks": [{ "answer": "doch", "alts": [], "topic": "doch_surprise" }],
+      "translation": "She came after all!"
+    },
+    {
+      "id": "cham_doch_encouragement_001",
+      "kind": "cloze",
+      "prompt": "Komm {0} einfach mit!",
+      "blanks": [{ "answer": "doch", "alts": [], "topic": "doch_encouragement" }],
+      "translation": "Just come along!"
+    },
+    {
+      "id": "cham_doch_meaning_001",
+      "kind": "choice",
+      "prompt": "Sie hat das doch gesagt! (Was bedeutet hier das Partikel?)",
+      "options": ["insistence (DID do it)", "after all (surprise)", "soft encouragement", "however"],
+      "answer": "insistence (DID do it)",
+      "topic": "doch_insistence"
+    },
+    {
+      "id": "cham_doch_meaning_002",
+      "kind": "choice",
+      "prompt": "Er ist doch hier! (Was bedeutet hier das Partikel?)",
+      "options": ["insistence (DID do it)", "after all (surprise)", "soft encouragement", "frustration"],
+      "answer": "after all (surprise)",
+      "topic": "doch_surprise"
+    },
+    {
+      "id": "cham_mal_softener_001",
+      "kind": "cloze",
+      "prompt": "Kannst du mir {0} helfen?",
+      "blanks": [{ "answer": "mal", "alts": [], "topic": "mal_softener" }],
+      "translation": "Could you help me?"
+    },
+    {
+      "id": "cham_mal_once_more_001",
+      "kind": "cloze",
+      "prompt": "Kannst du das noch{0} erklären?",
+      "blanks": [{ "answer": "mal", "alts": [], "topic": "mal_once_more" }],
+      "translation": "Can you explain it once more?"
+    },
+    {
+      "id": "cham_mal_meaning_001",
+      "kind": "choice",
+      "prompt": "Kannst du das Fenster mal öffnen? (Was bedeutet hier das Partikel?)",
+      "options": ["request softener", "once more (repetition)", "after all", "probably"],
+      "answer": "request softener",
+      "topic": "mal_softener"
+    },
+    {
+      "id": "cham_erst_not_until_001",
+      "kind": "cloze",
+      "prompt": "Der Zug fährt {0} um 10 Uhr ab.",
+      "blanks": [{ "answer": "erst", "alts": [], "topic": "erst_not_until" }],
+      "translation": "The train doesn't leave until 10."
+    },
+    {
+      "id": "cham_erst_only_just_001",
+      "kind": "cloze",
+      "prompt": "Sie ist {0} gestern angekommen.",
+      "blanks": [{ "answer": "erst", "alts": [], "topic": "erst_only_just" }],
+      "translation": "She only arrived yesterday."
+    },
+    {
+      "id": "cham_erst_first_001",
+      "kind": "cloze",
+      "prompt": "Ich muss {0} die E-Mail lesen.",
+      "blanks": [{ "answer": "erst", "alts": [], "topic": "erst_first" }],
+      "translation": "I have to read the email first."
+    },
+    {
+      "id": "cham_erst_meaning_001",
+      "kind": "choice",
+      "prompt": "Er kommt erst nächste Woche zurück. (Was bedeutet hier das Partikel?)",
+      "options": ["not until (later than expected)", "only just (recently)", "first (before something else)", "already"],
+      "answer": "not until (later than expected)",
+      "topic": "erst_not_until"
+    },
+    {
+      "id": "cham_erst_meaning_002",
+      "kind": "choice",
+      "prompt": "Er ist erst vor einer Stunde aufgewacht. (Was bedeutet hier das Partikel?)",
+      "options": ["not until (later than expected)", "only just (recently)", "first (before something else)", "still"],
+      "answer": "only just (recently)",
+      "topic": "erst_only_just"
+    },
+    {
+      "id": "cham_ja_shared_knowledge_001",
+      "kind": "cloze",
+      "prompt": "Er kommt {0} morgen, wie wir wissen.",
+      "blanks": [{ "answer": "ja", "alts": [], "topic": "ja_shared_knowledge" }],
+      "translation": "He's coming tomorrow, as we know."
+    },
+    {
+      "id": "cham_ja_warning_001",
+      "kind": "cloze",
+      "prompt": "Du darfst das {0} nicht vergessen!",
+      "blanks": [{ "answer": "ja", "alts": [], "topic": "ja_warning" }],
+      "translation": "You'd better not forget that!"
+    },
+    {
+      "id": "cham_ja_meaning_001",
+      "kind": "choice",
+      "prompt": "Du hast ja keine Zeit. (Was bedeutet hier das Partikel?)",
+      "options": ["as we both know (shared knowledge)", "emphatic warning", "expression of surprise", "yes"],
+      "answer": "as we both know (shared knowledge)",
+      "topic": "ja_shared_knowledge"
+    },
+    {
+      "id": "cham_ja_meaning_002",
+      "kind": "choice",
+      "prompt": "Vergiss das ja nicht! (Was bedeutet hier das Partikel?)",
+      "options": ["as we both know (shared knowledge)", "emphatic warning", "expression of surprise", "probably"],
+      "answer": "emphatic warning",
+      "topic": "ja_warning"
+    },
+    {
+      "id": "cham_denn_question_001",
+      "kind": "cloze",
+      "prompt": "Was ist {0} los?",
+      "blanks": [{ "answer": "denn", "alts": [], "topic": "denn_question_particle" }],
+      "translation": "What's going on?"
+    },
+    {
+      "id": "cham_denn_question_002",
+      "kind": "cloze",
+      "prompt": "Wo warst du {0}?",
+      "blanks": [{ "answer": "denn", "alts": [], "topic": "denn_question_particle" }],
+      "translation": "Where were you?"
+    },
+    {
+      "id": "cham_denn_meaning_001",
+      "kind": "choice",
+      "prompt": "Warum kommt er denn so spät? (Was bedeutet hier das Partikel?)",
+      "options": ["question softener (curiosity/impatience)", "because (conjunction)", "after all", "still"],
+      "answer": "question softener (curiosity/impatience)",
+      "topic": "denn_question_particle"
+    },
+    {
+      "id": "cham_wohl_probably_001",
+      "kind": "cloze",
+      "prompt": "Er hat {0} keine Zeit.",
+      "blanks": [{ "answer": "wohl", "alts": [], "topic": "wohl_probably" }],
+      "translation": "He probably doesn't have time."
+    },
+    {
+      "id": "cham_wohl_hedging_001",
+      "kind": "cloze",
+      "prompt": "Du hast {0} recht, denke ich.",
+      "blanks": [{ "answer": "wohl", "alts": [], "topic": "wohl_hedging" }],
+      "translation": "You're right, I suppose."
+    },
+    {
+      "id": "cham_wohl_meaning_001",
+      "kind": "choice",
+      "prompt": "Es regnet wohl morgen. (Was bedeutet hier das Partikel?)",
+      "options": ["probably (assumption)", "hedging (I suppose)", "ironic disbelief", "well-being (adjective)"],
+      "answer": "probably (assumption)",
+      "topic": "wohl_probably"
+    },
+    {
+      "id": "cham_wohl_meaning_002",
+      "kind": "choice",
+      "prompt": "Meint sie das wohl ernst? (Was bedeutet hier das Partikel?)",
+      "options": ["probably (assumption)", "hedging (I suppose)", "ironic disbelief", "softener for requests"],
+      "answer": "ironic disbelief",
+      "topic": "wohl_disbelief"
+    }
+  ]
+}

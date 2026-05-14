@@ -1,0 +1,88 @@
+[vocab_gender_mann] kind=choice prompt="Mann" answer="der" box0_options=["der","die","das"]
+[vocab_gender_hund] kind=choice prompt="Hund" answer="der" box0_options=["der","die","das"]
+[vocab_gender_apfel] kind=choice prompt="Apfel" answer="der" box0_options=["der","die","das"]
+[vocab_gender_tisch] kind=choice prompt="Tisch" answer="der" box0_options=["der","die","das"]
+[vocab_gender_stuhl] kind=choice prompt="Stuhl" answer="der" box0_options=["der","die","das"]
+[vocab_gender_garten] kind=choice prompt="Garten" answer="der" box0_options=["der","die","das"]
+[vocab_gender_tag] kind=choice prompt="Tag" answer="der" box0_options=["der","die","das"]
+[vocab_gender_bruder] kind=choice prompt="Bruder" answer="der" box0_options=["der","die","das"]
+[vocab_gender_vater] kind=choice prompt="Vater" answer="der" box0_options=["der","die","das"]
+[vocab_gender_lehrer] kind=choice prompt="Lehrer" answer="der" box0_options=["der","die","das"]
+[vocab_gender_kaffee] kind=choice prompt="Kaffee" answer="der" box0_options=["der","die","das"]
+[vocab_gender_bahnhof] kind=choice prompt="Bahnhof" answer="der" box0_options=["der","die","das"]
+[vocab_gender_frau] kind=choice prompt="Frau" answer="die" box0_options=["der","die","das"]
+[vocab_gender_katze] kind=choice prompt="Katze" answer="die" box0_options=["der","die","das"]
+[vocab_gender_lampe] kind=choice prompt="Lampe" answer="die" box0_options=["der","die","das"]
+[vocab_gender_tuer] kind=choice prompt="Tür" answer="die" box0_options=["der","die","das"]
+[vocab_gender_strasse] kind=choice prompt="Straße" answer="die" box0_options=["der","die","das"]
+[vocab_gender_schule] kind=choice prompt="Schule" answer="die" box0_options=["der","die","das"]
+[vocab_gender_mutter] kind=choice prompt="Mutter" answer="die" box0_options=["der","die","das"]
+[vocab_gender_schwester] kind=choice prompt="Schwester" answer="die" box0_options=["der","die","das"]
+[vocab_gender_milch] kind=choice prompt="Milch" answer="die" box0_options=["der","die","das"]
+[vocab_gender_uhr] kind=choice prompt="Uhr" answer="die" box0_options=["der","die","das"]
+[vocab_gender_familie] kind=choice prompt="Familie" answer="die" box0_options=["der","die","das"]
+[vocab_gender_kind] kind=choice prompt="Kind" answer="das" box0_options=["der","die","das"]
+[vocab_gender_buch] kind=choice prompt="Buch" answer="das" box0_options=["der","die","das"]
+[vocab_gender_auto] kind=choice prompt="Auto" answer="das" box0_options=["der","die","das"]
+[vocab_gender_haus] kind=choice prompt="Haus" answer="das" box0_options=["der","die","das"]
+[vocab_gender_brot] kind=choice prompt="Brot" answer="das" box0_options=["der","die","das"]
+[vocab_gender_wasser] kind=choice prompt="Wasser" answer="das" box0_options=["der","die","das"]
+[vocab_gender_fenster] kind=choice prompt="Fenster" answer="das" box0_options=["der","die","das"]
+[vocab_gender_fahrrad] kind=choice prompt="Fahrrad" answer="das" box0_options=["der","die","das"]
+[vocab_gender_hotel] kind=choice prompt="Hotel" answer="das" box0_options=["der","die","das"]
+[vocab_apfel_en] kind=text prompt="Apfel" answer="apple"
+[vocab_brot_en] kind=text prompt="Brot" answer="bread"
+[vocab_kaese_en] kind=text prompt="Käse" answer="cheese"
+[vocab_milch_en] kind=text prompt="Milch" answer="milk"
+[vocab_wasser_en] kind=text prompt="Wasser" answer="water"
+[vocab_haus_en] kind=text prompt="Haus" answer="house"
+[vocab_tisch_en] kind=text prompt="Tisch" answer="table"
+[vocab_stuhl_en] kind=text prompt="Stuhl" answer="chair"
+[vocab_buch_en] kind=text prompt="Buch" answer="book"
+[vocab_schule_en] kind=text prompt="Schule" answer="school"
+[vocab_mutter_en] kind=text prompt="Mutter" answer="mother"
+[vocab_vater_en] kind=text prompt="Vater" answer="father"
+[vocab_bruder_en] kind=text prompt="Bruder" answer="brother"
+[vocab_schwester_en] kind=text prompt="Schwester" answer="sister"
+[vocab_hund_en] kind=text prompt="Hund" answer="dog"
+[vocab_katze_en] kind=text prompt="Katze" answer="cat"
+[vocab_auto_en] kind=text prompt="Auto" answer="car"
+[vocab_bahnhof_en] kind=text prompt="Bahnhof" answer="train station"
+[vocab_fahrrad_en] kind=text prompt="Fahrrad" answer="bicycle"
+[vocab_gehen_en] kind=text prompt="gehen" answer="to go"
+[vocab_sehen_en] kind=text prompt="sehen" answer="to see"
+[vocab_essen_en] kind=text prompt="essen" answer="to eat"
+[vocab_trinken_en] kind=text prompt="trinken" answer="to drink"
+[vocab_lesen_en] kind=text prompt="lesen" answer="to read"
+[vocab_schreiben_en] kind=text prompt="schreiben" answer="to write"
+[vocab_gross_en] kind=text prompt="groß" answer="big"
+[vocab_klein_en] kind=text prompt="klein" answer="small"
+[vocab_schoen_en] kind=text prompt="schön" answer="beautiful"
+[vocab_apple_de] kind=text prompt="apple" answer="Apfel"
+[vocab_bread_de] kind=text prompt="bread" answer="Brot"
+[vocab_cheese_de] kind=text prompt="cheese" answer="Käse"
+[vocab_milk_de] kind=text prompt="milk" answer="Milch"
+[vocab_water_de] kind=text prompt="water" answer="Wasser"
+[vocab_house_de] kind=text prompt="house" answer="Haus"
+[vocab_table_de] kind=text prompt="table" answer="Tisch"
+[vocab_chair_de] kind=text prompt="chair" answer="Stuhl"
+[vocab_door_de] kind=text prompt="door" answer="Tür"
+[vocab_window_de] kind=text prompt="window" answer="Fenster"
+[vocab_book_de] kind=text prompt="book" answer="Buch"
+[vocab_school_de] kind=text prompt="school" answer="Schule"
+[vocab_teacher_de] kind=text prompt="teacher (male)" answer="Lehrer"
+[vocab_mother_de] kind=text prompt="mother" answer="Mutter"
+[vocab_father_de] kind=text prompt="father" answer="Vater"
+[vocab_brother_de] kind=text prompt="brother" answer="Bruder"
+[vocab_sister_de] kind=text prompt="sister" answer="Schwester"
+[vocab_child_de] kind=text prompt="child" answer="Kind"
+[vocab_dog_de] kind=text prompt="dog" answer="Hund"
+[vocab_cat_de] kind=text prompt="cat" answer="Katze"
+[vocab_car_de] kind=text prompt="car" answer="Auto"
+[vocab_to_go_de] kind=text prompt="to go" answer="gehen"
+[vocab_to_see_de] kind=text prompt="to see" answer="sehen"
+[vocab_to_eat_de] kind=text prompt="to eat" answer="essen"
+[vocab_to_drink_de] kind=text prompt="to drink" answer="trinken"
+[vocab_big_de] kind=text prompt="big" answer="groß"
+[vocab_small_de] kind=text prompt="small" answer="klein"
+[vocab_beautiful_de] kind=text prompt="beautiful" answer="schön"

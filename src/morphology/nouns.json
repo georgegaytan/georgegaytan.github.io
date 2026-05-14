@@ -1,0 +1,6 @@
+{
+  "_comment": "Shared noun-gender reference. Used by deck authors to keep gender claims consistent across decks (C16). Update when adding nouns that appear in multiple decks.",
+  "der": ["Mann", "Hund", "Apfel", "Tisch", "Stuhl", "Wagen", "Garten", "Tag", "Mond", "Stern", "Wein", "Bruder", "Vater", "Sohn", "Lehrer", "Arzt", "Schlüssel", "Computer", "Film", "Kaffee", "Tee", "Saft", "Fisch", "Sommer", "Winter", "Park", "Bahnhof", "Brief", "Schrank"],
+  "die": ["Frau", "Katze", "Birne", "Lampe", "Tür", "Straße", "Stadt", "Schule", "Schwester", "Mutter", "Tochter", "Lehrerin", "Ärztin", "Zeitung", "Blume", "Sonne", "Nacht", "Milch", "Suppe", "Banane", "Karotte", "Hand", "Nase", "Uhr", "Brücke", "Kirche", "Familie"],
+  "das": ["Kind", "Buch", "Auto", "Haus", "Brot", "Wasser", "Bier", "Mädchen", "Brötchen", "Fenster", "Fahrrad", "Hemd", "Hotel", "Telefon", "Tier", "Geschenk", "Land", "Foto", "Glas", "Salz", "Salzwasser", "Wetter", "Frühstück"]
+}

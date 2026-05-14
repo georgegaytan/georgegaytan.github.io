@@ -1,0 +1,404 @@
+{
+  "id": "declension",
+  "name": "Declension",
+  "icon": "📐",
+  "color": "#7f5af0",
+  "description": "Articles, adjective endings, and case in context.",
+  "pools": {
+    "definite_articles": {
+      "category": "definite_article",
+      "items": ["der", "die", "das", "den", "dem", "des"]
+    },
+    "indefinite_articles": {
+      "category": "indefinite_article",
+      "items": ["ein", "eine", "einen", "einem", "einer", "eines"]
+    },
+    "negative_articles": {
+      "category": "indefinite_article",
+      "items": ["kein", "keine", "keinen", "keinem", "keiner", "keines"]
+    },
+    "adj_endings_strong": {
+      "category": "adj_ending",
+      "items": ["", "e", "en", "es", "er", "em"]
+    }
+  },
+  "items": [
+    {
+      "id": "decl_nom_m_def_001",
+      "kind": "cloze",
+      "prompt": "{0} Hund schläft im Garten.",
+      "blanks": [
+        { "answer": "Der", "alts": ["der"], "topic": "nom_m_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "The dog sleeps in the garden."
+    },
+    {
+      "id": "decl_nom_f_def_001",
+      "kind": "cloze",
+      "prompt": "{0} Frau singt sehr schön.",
+      "blanks": [
+        { "answer": "Die", "alts": ["die"], "topic": "nom_f_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "The woman sings very beautifully."
+    },
+    {
+      "id": "decl_nom_n_def_001",
+      "kind": "cloze",
+      "prompt": "{0} Kind spielt im Park.",
+      "blanks": [
+        { "answer": "Das", "alts": ["das"], "topic": "nom_n_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "The child plays in the park."
+    },
+    {
+      "id": "decl_nom_pl_def_001",
+      "kind": "cloze",
+      "prompt": "{0} Kinder lachen laut.",
+      "blanks": [
+        { "answer": "Die", "alts": ["die"], "topic": "nom_pl_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "The children laugh loudly."
+    },
+    {
+      "id": "decl_acc_m_def_001",
+      "kind": "cloze",
+      "prompt": "Ich sehe {0} Mann auf der Straße.",
+      "blanks": [
+        { "answer": "den", "alts": ["Den"], "topic": "acc_m_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "I see the man on the street."
+    },
+    {
+      "id": "decl_acc_f_def_001",
+      "kind": "cloze",
+      "prompt": "Wir besuchen {0} Lehrerin morgen.",
+      "blanks": [
+        { "answer": "die", "alts": ["Die"], "topic": "acc_f_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "We are visiting the teacher tomorrow."
+    },
+    {
+      "id": "decl_acc_n_def_001",
+      "kind": "cloze",
+      "prompt": "Ich lese {0} Buch heute Abend.",
+      "blanks": [
+        { "answer": "das", "alts": ["Das"], "topic": "acc_n_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "I am reading the book tonight."
+    },
+    {
+      "id": "decl_acc_pl_def_001",
+      "kind": "cloze",
+      "prompt": "Er kauft {0} Brötchen für uns.",
+      "blanks": [
+        { "answer": "die", "alts": ["Die"], "topic": "acc_pl_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "He is buying the rolls for us."
+    },
+    {
+      "id": "decl_dat_m_def_001",
+      "kind": "cloze",
+      "prompt": "Ich spreche mit {0} Lehrer.",
+      "blanks": [
+        { "answer": "dem", "alts": ["Dem"], "topic": "dat_m_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "I am speaking with the teacher."
+    },
+    {
+      "id": "decl_dat_f_def_001",
+      "kind": "cloze",
+      "prompt": "Ich helfe {0} jungen Frau gerne.",
+      "blanks": [
+        { "answer": "der", "alts": ["Der"], "topic": "dat_f_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "I gladly help the young woman."
+    },
+    {
+      "id": "decl_dat_n_def_001",
+      "kind": "cloze",
+      "prompt": "Sie spielt mit {0} Kind im Garten.",
+      "blanks": [
+        { "answer": "dem", "alts": ["Dem"], "topic": "dat_n_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "She plays with the child in the garden."
+    },
+    {
+      "id": "decl_dat_pl_def_001",
+      "kind": "cloze",
+      "prompt": "Wir fahren mit {0} Kindern in die Stadt.",
+      "blanks": [
+        { "answer": "den", "alts": ["Den"], "topic": "dat_pl_def", "scaffoldPool": "definite_articles" }
+      ],
+      "translation": "We are driving with the children into the city."
+    },
+    {
+      "id": "decl_nom_m_indef_001",
+      "kind": "cloze",
+      "prompt": "{0} Bruder wohnt in Berlin.",
+      "blanks": [
+        { "answer": "Ein", "alts": ["ein"], "topic": "nom_m_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "A brother lives in Berlin."
+    },
+    {
+      "id": "decl_nom_f_indef_001",
+      "kind": "cloze",
+      "prompt": "{0} Katze sitzt auf dem Stuhl.",
+      "blanks": [
+        { "answer": "Eine", "alts": ["eine"], "topic": "nom_f_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "A cat sits on the chair."
+    },
+    {
+      "id": "decl_nom_n_indef_001",
+      "kind": "cloze",
+      "prompt": "{0} Fahrrad steht vor dem Haus.",
+      "blanks": [
+        { "answer": "Ein", "alts": ["ein"], "topic": "nom_n_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "A bicycle stands in front of the house."
+    },
+    {
+      "id": "decl_acc_m_indef_001",
+      "kind": "cloze",
+      "prompt": "Sie hat {0} Bruder in München.",
+      "blanks": [
+        { "answer": "einen", "alts": ["Einen"], "topic": "acc_m_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "She has a brother in Munich."
+    },
+    {
+      "id": "decl_acc_f_indef_001",
+      "kind": "cloze",
+      "prompt": "Ich brauche {0} neue Lampe.",
+      "blanks": [
+        { "answer": "eine", "alts": ["Eine"], "topic": "acc_f_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "I need a new lamp."
+    },
+    {
+      "id": "decl_acc_n_indef_001",
+      "kind": "cloze",
+      "prompt": "Er kauft {0} Brot am Morgen.",
+      "blanks": [
+        { "answer": "ein", "alts": ["Ein"], "topic": "acc_n_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "He buys a bread in the morning."
+    },
+    {
+      "id": "decl_dat_m_indef_001",
+      "kind": "cloze",
+      "prompt": "Wir wohnen bei {0} Lehrer.",
+      "blanks": [
+        { "answer": "einem", "alts": ["Einem"], "topic": "dat_m_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "We are living with a teacher."
+    },
+    {
+      "id": "decl_dat_f_indef_001",
+      "kind": "cloze",
+      "prompt": "Ich gebe {0} Schwester das Geschenk.",
+      "blanks": [
+        { "answer": "einer", "alts": ["Einer"], "topic": "dat_f_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "I give a sister the present."
+    },
+    {
+      "id": "decl_dat_n_indef_001",
+      "kind": "cloze",
+      "prompt": "Sie hilft {0} Kind beim Lernen.",
+      "blanks": [
+        { "answer": "einem", "alts": ["Einem"], "topic": "dat_n_indef", "scaffoldPool": "indefinite_articles" }
+      ],
+      "translation": "She helps a child with learning."
+    },
+    {
+      "id": "decl_nom_m_neg_001",
+      "kind": "cloze",
+      "prompt": "{0} Vater ist heute zu Hause.",
+      "blanks": [
+        { "answer": "Kein", "alts": ["kein"], "topic": "nom_m_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "No father is at home today."
+    },
+    {
+      "id": "decl_nom_f_neg_001",
+      "kind": "cloze",
+      "prompt": "{0} Lampe steht auf dem Tisch.",
+      "blanks": [
+        { "answer": "Keine", "alts": ["keine"], "topic": "nom_f_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "No lamp is on the table."
+    },
+    {
+      "id": "decl_nom_n_neg_001",
+      "kind": "cloze",
+      "prompt": "{0} Auto steht vor dem Haus.",
+      "blanks": [
+        { "answer": "Kein", "alts": ["kein"], "topic": "nom_n_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "No car is in front of the house."
+    },
+    {
+      "id": "decl_nom_pl_neg_001",
+      "kind": "cloze",
+      "prompt": "{0} Tiere leben in dieser Stadt.",
+      "blanks": [
+        { "answer": "Keine", "alts": ["keine"], "topic": "nom_pl_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "No animals live in this city."
+    },
+    {
+      "id": "decl_acc_m_neg_001",
+      "kind": "cloze",
+      "prompt": "Ich habe {0} Hund zu Hause.",
+      "blanks": [
+        { "answer": "keinen", "alts": ["Keinen"], "topic": "acc_m_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "I have no dog at home."
+    },
+    {
+      "id": "decl_acc_f_neg_001",
+      "kind": "cloze",
+      "prompt": "Er trinkt {0} Milch zum Frühstück.",
+      "blanks": [
+        { "answer": "keine", "alts": ["Keine"], "topic": "acc_f_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "He drinks no milk for breakfast."
+    },
+    {
+      "id": "decl_acc_n_neg_001",
+      "kind": "cloze",
+      "prompt": "Sie liest {0} Buch in den Ferien.",
+      "blanks": [
+        { "answer": "kein", "alts": ["Kein"], "topic": "acc_n_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "She reads no book during the holidays."
+    },
+    {
+      "id": "decl_acc_pl_neg_001",
+      "kind": "cloze",
+      "prompt": "Wir haben {0} Brötchen mehr.",
+      "blanks": [
+        { "answer": "keine", "alts": ["Keine"], "topic": "acc_pl_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "We have no more rolls."
+    },
+    {
+      "id": "decl_dat_m_neg_001",
+      "kind": "cloze",
+      "prompt": "Sie wohnt bei {0} Bruder.",
+      "blanks": [
+        { "answer": "keinem", "alts": ["Keinem"], "topic": "dat_m_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "She lives with no brother."
+    },
+    {
+      "id": "decl_dat_f_neg_001",
+      "kind": "cloze",
+      "prompt": "Ich helfe {0} faulen Schwester.",
+      "blanks": [
+        { "answer": "keiner", "alts": ["Keiner"], "topic": "dat_f_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "I help no lazy sister."
+    },
+    {
+      "id": "decl_dat_n_neg_001",
+      "kind": "cloze",
+      "prompt": "Sie spricht mit {0} Kind in der Klasse.",
+      "blanks": [
+        { "answer": "keinem", "alts": ["Keinem"], "topic": "dat_n_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "She speaks with no child in the class."
+    },
+    {
+      "id": "decl_dat_pl_neg_001",
+      "kind": "cloze",
+      "prompt": "Er spielt mit {0} Tieren im Park.",
+      "blanks": [
+        { "answer": "keinen", "alts": ["Keinen"], "topic": "dat_pl_neg", "scaffoldPool": "negative_articles" }
+      ],
+      "translation": "He plays with no animals in the park."
+    },
+    {
+      "id": "decl_nom_m_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "{0} klein{1} Hund schläft hier.",
+      "blanks": [
+        { "answer": "Ein", "alts": ["ein"], "topic": "nom_m_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "er", "alts": [], "topic": "adj_ending_strong_nom_m", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "A small dog is sleeping here."
+    },
+    {
+      "id": "decl_nom_f_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "{0} jung{1} Tochter lacht laut.",
+      "blanks": [
+        { "answer": "Eine", "alts": ["eine"], "topic": "nom_f_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "e", "alts": [], "topic": "adj_ending_strong_nom_f", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "A young daughter is laughing loudly."
+    },
+    {
+      "id": "decl_nom_n_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "{0} neu{1} Fahrrad steht im Hof.",
+      "blanks": [
+        { "answer": "Ein", "alts": ["ein"], "topic": "nom_n_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "es", "alts": [], "topic": "adj_ending_strong_nom_n", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "A new bicycle is in the yard."
+    },
+    {
+      "id": "decl_acc_m_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "Wir suchen {0} alt{1} Schlüssel.",
+      "blanks": [
+        { "answer": "einen", "alts": ["Einen"], "topic": "acc_m_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "en", "alts": [], "topic": "adj_ending_strong_acc_m", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "We are looking for an old key."
+    },
+    {
+      "id": "decl_acc_f_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "Sie braucht {0} rot{1} Blume.",
+      "blanks": [
+        { "answer": "eine", "alts": ["Eine"], "topic": "acc_f_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "e", "alts": [], "topic": "adj_ending_strong_acc_f", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "She needs a red flower."
+    },
+    {
+      "id": "decl_acc_n_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "Wir trinken {0} kalt{1} Bier.",
+      "blanks": [
+        { "answer": "ein", "alts": ["Ein"], "topic": "acc_n_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "es", "alts": [], "topic": "adj_ending_strong_acc_n", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "We are drinking a cold beer."
+    },
+    {
+      "id": "decl_dat_m_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "Wir wohnen bei {0} nett{1} Lehrer.",
+      "blanks": [
+        { "answer": "einem", "alts": ["Einem"], "topic": "dat_m_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "en", "alts": [], "topic": "adj_ending_strong_dat_m", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "We are living with a nice teacher."
+    },
+    {
+      "id": "decl_dat_f_indef_adj_001",
+      "kind": "cloze",
+      "prompt": "Sie spielt mit {0} klein{1} Schwester.",
+      "blanks": [
+        { "answer": "einer", "alts": ["Einer"], "topic": "dat_f_indef", "scaffoldPool": "indefinite_articles" },
+        { "answer": "en", "alts": [], "topic": "adj_ending_strong_dat_f", "scaffoldPool": "adj_endings_strong" }
+      ],
+      "translation": "She plays with a little sister."
+    }
+  ]
+}

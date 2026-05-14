@@ -1,0 +1,769 @@
+{
+  "id": "tricky-words",
+  "name": "Tricky Words",
+  "icon": "🎭",
+  "color": "#ef4444",
+  "description": "34 German particles whose meaning depends on context: damit, doch, eben, halt, ja, mal, ruhig, schon, etc.",
+  "items": [
+    {
+      "id": "tricky_damit_with_it_001",
+      "kind": "choice",
+      "prompt": "Ich schreibe damit einen Brief. (damit means…)",
+      "options": ["with it", "so that", "therefore"],
+      "answer": "with it",
+      "topic": "damit_with_it"
+    },
+    {
+      "id": "tricky_damit_so_that_001",
+      "kind": "choice",
+      "prompt": "Ich lerne Deutsch, damit ich in Zürich arbeiten kann. (damit means…)",
+      "options": ["with it", "so that", "because"],
+      "answer": "so that",
+      "topic": "damit_so_that"
+    },
+    {
+      "id": "tricky_damit_with_it_002",
+      "kind": "choice",
+      "prompt": "Was willst du damit sagen? (damit means…)",
+      "options": ["so that", "by that", "about it"],
+      "answer": "by that",
+      "topic": "damit_with_it"
+    },
+    {
+      "id": "tricky_damit_so_that_002",
+      "kind": "choice",
+      "prompt": "Er spart Geld, damit er reisen kann. (damit means…)",
+      "options": ["with it", "so that", "although"],
+      "answer": "so that",
+      "topic": "damit_so_that"
+    },
+    {
+      "id": "tricky_dafuer_for_it_001",
+      "kind": "choice",
+      "prompt": "Wie viel hast du dafür bezahlt? (dafür means…)",
+      "options": ["for it", "in return", "instead"],
+      "answer": "for it",
+      "topic": "dafuer_for_it"
+    },
+    {
+      "id": "tricky_dafuer_in_return_001",
+      "kind": "choice",
+      "prompt": "Er ist streng, dafür ist er fair. (dafür means…)",
+      "options": ["for it", "on the other hand", "so that"],
+      "answer": "on the other hand",
+      "topic": "dafuer_in_return"
+    },
+    {
+      "id": "tricky_dafuer_in_favor_001",
+      "kind": "choice",
+      "prompt": "Ich bin dafür. (dafür means…)",
+      "options": ["against it", "in favor of it", "ready for it"],
+      "answer": "in favor of it",
+      "topic": "dafuer_in_favor"
+    },
+    {
+      "id": "tricky_dafuer_not_my_fault_001",
+      "kind": "choice",
+      "prompt": "Dafür kann ich nichts. (dafür means…)",
+      "options": ["in return", "about that / for that", "because"],
+      "answer": "about that / for that",
+      "topic": "dafuer_not_my_fault"
+    },
+    {
+      "id": "tricky_dazu_about_that_001",
+      "kind": "choice",
+      "prompt": "Was sagst du dazu? (dazu means…)",
+      "options": ["about that", "in addition", "because of that"],
+      "answer": "about that",
+      "topic": "dazu_about_that"
+    },
+    {
+      "id": "tricky_dazu_in_addition_001",
+      "kind": "choice",
+      "prompt": "Er kocht gut, und dazu singt er auch. (dazu means…)",
+      "options": ["about it", "in addition", "for that purpose"],
+      "answer": "in addition",
+      "topic": "dazu_in_addition"
+    },
+    {
+      "id": "tricky_dazu_for_purpose_001",
+      "kind": "choice",
+      "prompt": "Dazu brauche ich mehr Zeit. (dazu means…)",
+      "options": ["in addition", "about it", "for that purpose"],
+      "answer": "for that purpose",
+      "topic": "dazu_for_purpose"
+    },
+    {
+      "id": "tricky_dazu_about_that_002",
+      "kind": "choice",
+      "prompt": "Ich habe keine Lust dazu. (dazu means…)",
+      "options": ["to do that", "in addition", "instead of that"],
+      "answer": "to do that",
+      "topic": "dazu_about_that"
+    },
+    {
+      "id": "tricky_schon_already_001",
+      "kind": "choice",
+      "prompt": "Bist du schon fertig? (schon means…)",
+      "options": ["already", "still", "only just"],
+      "answer": "already",
+      "topic": "schon_already"
+    },
+    {
+      "id": "tricky_schon_reassurance_001",
+      "kind": "choice",
+      "prompt": "Das wird schon klappen. (schon means…)",
+      "options": ["already", "surely / don't worry", "just"],
+      "answer": "surely / don't worry",
+      "topic": "schon_reassurance"
+    },
+    {
+      "id": "tricky_schon_already_002",
+      "kind": "choice",
+      "prompt": "Ich habe schon drei Mal angerufen. (schon means…)",
+      "options": ["only just", "already", "even"],
+      "answer": "already",
+      "topic": "schon_already"
+    },
+    {
+      "id": "tricky_schon_softener_001",
+      "kind": "choice",
+      "prompt": "Das ist schon okay. (schon means…)",
+      "options": ["already", "it's fine / alright", "still"],
+      "answer": "it's fine / alright",
+      "topic": "schon_softener"
+    },
+    {
+      "id": "tricky_noch_still_001",
+      "kind": "choice",
+      "prompt": "Er schläft noch. (noch means…)",
+      "options": ["already", "still", "again"],
+      "answer": "still",
+      "topic": "noch_still"
+    },
+    {
+      "id": "tricky_noch_another_001",
+      "kind": "choice",
+      "prompt": "Noch ein Bier, bitte! (noch means…)",
+      "options": ["still", "another", "even"],
+      "answer": "another",
+      "topic": "noch_another"
+    },
+    {
+      "id": "tricky_noch_even_001",
+      "kind": "choice",
+      "prompt": "Das ist noch besser als das erste. (noch means…)",
+      "options": ["still", "already", "even"],
+      "answer": "even",
+      "topic": "noch_even"
+    },
+    {
+      "id": "tricky_noch_any_more_001",
+      "kind": "choice",
+      "prompt": "Hast du noch Fragen? (noch means…)",
+      "options": ["any more", "already", "only"],
+      "answer": "any more",
+      "topic": "noch_any_more"
+    },
+    {
+      "id": "tricky_erst_not_until_001",
+      "kind": "choice",
+      "prompt": "Er kommt erst morgen. (erst means…)",
+      "options": ["already tomorrow", "not until tomorrow", "first tomorrow"],
+      "answer": "not until tomorrow",
+      "topic": "erst_not_until"
+    },
+    {
+      "id": "tricky_erst_just_now_001",
+      "kind": "choice",
+      "prompt": "Ich bin erst angekommen. (erst means…)",
+      "options": ["only just / just now", "already", "finally"],
+      "answer": "only just / just now",
+      "topic": "erst_just_now"
+    },
+    {
+      "id": "tricky_erst_first_001",
+      "kind": "choice",
+      "prompt": "Erst denken, dann handeln. (erst means…)",
+      "options": ["only", "first", "not until"],
+      "answer": "first",
+      "topic": "erst_first"
+    },
+    {
+      "id": "tricky_erst_only_001",
+      "kind": "choice",
+      "prompt": "Sie ist erst fünf Jahre alt. (erst means…)",
+      "options": ["already", "only / just", "first"],
+      "answer": "only / just",
+      "topic": "erst_only"
+    },
+    {
+      "id": "tricky_doch_contradiction_001",
+      "kind": "choice",
+      "prompt": "— Du kommst nicht mit? — Doch! (doch means…)",
+      "options": ["yes, I am (after all)!", "no way!", "maybe!"],
+      "answer": "yes, I am (after all)!",
+      "topic": "doch_contradiction"
+    },
+    {
+      "id": "tricky_doch_insistence_001",
+      "kind": "choice",
+      "prompt": "Das weißt du doch! (doch means…)",
+      "options": ["maybe", "you know that! (insistence)", "still"],
+      "answer": "you know that! (insistence)",
+      "topic": "doch_insistence"
+    },
+    {
+      "id": "tricky_doch_softener_001",
+      "kind": "choice",
+      "prompt": "Komm doch mit! (doch means…)",
+      "options": ["come along (softening)", "don't come", "come first"],
+      "answer": "come along (softening)",
+      "topic": "doch_softener"
+    },
+    {
+      "id": "tricky_doch_after_all_001",
+      "kind": "choice",
+      "prompt": "Er kommt doch. (doch means…)",
+      "options": ["not at all", "after all / it turns out", "sometimes"],
+      "answer": "after all / it turns out",
+      "topic": "doch_after_all"
+    },
+    {
+      "id": "tricky_ja_obviously_001",
+      "kind": "choice",
+      "prompt": "Das ist ja klar! (ja means…)",
+      "options": ["maybe", "obviously / as you can see", "already"],
+      "answer": "obviously / as you can see",
+      "topic": "ja_obviously"
+    },
+    {
+      "id": "tricky_ja_warning_001",
+      "kind": "choice",
+      "prompt": "Komm ja nicht zu spät! (ja means…)",
+      "options": ["please do", "don't you dare", "maybe"],
+      "answer": "don't you dare",
+      "topic": "ja_warning"
+    },
+    {
+      "id": "tricky_mal_softener_001",
+      "kind": "choice",
+      "prompt": "Hör mal! (mal means…)",
+      "options": ["once", "just (softener)", "always"],
+      "answer": "just (softener)",
+      "topic": "mal_softener"
+    },
+    {
+      "id": "tricky_mal_once_001",
+      "kind": "choice",
+      "prompt": "Ich war mal in Berlin. (mal means…)",
+      "options": ["once / at some point", "often", "never"],
+      "answer": "once / at some point",
+      "topic": "mal_once"
+    },
+    {
+      "id": "tricky_denn_curiosity_001",
+      "kind": "choice",
+      "prompt": "Wo bist du denn? (denn means…)",
+      "options": ["because", "then / anyway (curious)", "already"],
+      "answer": "then / anyway (curious)",
+      "topic": "denn_curiosity"
+    },
+    {
+      "id": "tricky_denn_because_001",
+      "kind": "choice",
+      "prompt": "Ich bleibe zu Hause, denn ich bin müde. (denn means…)",
+      "options": ["because (coordinating)", "although", "so that"],
+      "answer": "because (coordinating)",
+      "topic": "denn_because"
+    },
+    {
+      "id": "tricky_wohl_probably_001",
+      "kind": "choice",
+      "prompt": "Er ist wohl krank. (wohl means…)",
+      "options": ["definitely", "probably / I suppose", "never"],
+      "answer": "probably / I suppose",
+      "topic": "wohl_probably"
+    },
+    {
+      "id": "tricky_wohl_wonder_001",
+      "kind": "choice",
+      "prompt": "Was meint er wohl damit? (wohl means…)",
+      "options": ["obviously", "I wonder", "never"],
+      "answer": "I wonder",
+      "topic": "wohl_wonder"
+    },
+    {
+      "id": "tricky_nach_to_001",
+      "kind": "choice",
+      "prompt": "Ich fahre nach Zürich. (nach means…)",
+      "options": ["to", "after", "according to"],
+      "answer": "to",
+      "topic": "nach_to"
+    },
+    {
+      "id": "tricky_nach_after_001",
+      "kind": "choice",
+      "prompt": "Nach dem Essen gehen wir spazieren. (nach means…)",
+      "options": ["before", "to", "after"],
+      "answer": "after",
+      "topic": "nach_after"
+    },
+    {
+      "id": "tricky_nach_according_to_001",
+      "kind": "choice",
+      "prompt": "Meiner Meinung nach ist das falsch. (nach means…)",
+      "options": ["to", "according to", "after"],
+      "answer": "according to",
+      "topic": "nach_according_to"
+    },
+    {
+      "id": "tricky_nach_to_002",
+      "kind": "choice",
+      "prompt": "Wir fahren nach Hause. (nach means…)",
+      "options": ["at home", "to (home)", "from home"],
+      "answer": "to (home)",
+      "topic": "nach_to"
+    },
+    {
+      "id": "tricky_somit_therefore_001",
+      "kind": "choice",
+      "prompt": "Ich bin krank, somit kann ich nicht zur Arbeit kommen. (somit means…)",
+      "options": ["because", "therefore / thus", "although"],
+      "answer": "therefore / thus",
+      "topic": "somit_therefore"
+    },
+    {
+      "id": "tricky_somit_with_that_001",
+      "kind": "choice",
+      "prompt": "Alle Tests sind bestanden. Somit ist das Projekt abgeschlossen. (somit means…)",
+      "options": ["afterwards", "with that / and so", "however"],
+      "answer": "with that / and so",
+      "topic": "somit_with_that"
+    },
+    {
+      "id": "tricky_sowieso_anyway_001",
+      "kind": "choice",
+      "prompt": "Keine Sorge, ich komme sowieso vorbei. (sowieso means…)",
+      "options": ["anyway / in any case", "maybe later", "of course not"],
+      "answer": "anyway / in any case",
+      "topic": "sowieso_anyway"
+    },
+    {
+      "id": "tricky_sowieso_obviously_001",
+      "kind": "choice",
+      "prompt": "Das weiß ich sowieso schon. (sowieso means…)",
+      "options": ["barely", "of course / obviously", "almost"],
+      "answer": "of course / obviously",
+      "topic": "sowieso_obviously"
+    },
+    {
+      "id": "tricky_trotzdem_nevertheless_001",
+      "kind": "choice",
+      "prompt": "Es regnet, trotzdem gehe ich spazieren. (trotzdem means…)",
+      "options": ["therefore", "nevertheless / anyway", "because"],
+      "answer": "nevertheless / anyway",
+      "topic": "trotzdem_nevertheless"
+    },
+    {
+      "id": "tricky_trotzdem_all_the_same_001",
+      "kind": "choice",
+      "prompt": "Das war nicht nötig, aber trotzdem danke! (trotzdem means…)",
+      "options": ["still / all the same", "first", "because"],
+      "answer": "still / all the same",
+      "topic": "trotzdem_all_the_same"
+    },
+    {
+      "id": "tricky_allerdings_however_001",
+      "kind": "choice",
+      "prompt": "Das Essen war gut, allerdings war es teuer. (allerdings means…)",
+      "options": ["therefore", "however / but", "for example"],
+      "answer": "however / but",
+      "topic": "allerdings_however"
+    },
+    {
+      "id": "tricky_allerdings_admittedly_001",
+      "kind": "choice",
+      "prompt": "Allerdings muss ich zugeben, dass er recht hat. (allerdings means…)",
+      "options": ["admittedly", "surprisingly", "never"],
+      "answer": "admittedly",
+      "topic": "allerdings_admittedly"
+    },
+    {
+      "id": "tricky_allerdings_absolutely_001",
+      "kind": "choice",
+      "prompt": "— Kommst du zur Party? — Allerdings! (allerdings means…)",
+      "options": ["maybe", "absolutely!", "no chance"],
+      "answer": "absolutely!",
+      "topic": "allerdings_absolutely"
+    },
+    {
+      "id": "tricky_zwar_admittedly_001",
+      "kind": "choice",
+      "prompt": "Er ist zwar klug, aber faul. (zwar means…)",
+      "options": ["already", "admittedly / it's true that", "never"],
+      "answer": "admittedly / it's true that",
+      "topic": "zwar_admittedly"
+    },
+    {
+      "id": "tricky_zwar_admittedly_002",
+      "kind": "choice",
+      "prompt": "Ich habe zwar wenig Zeit, aber ich helfe dir trotzdem. (zwar means…)",
+      "options": ["a lot", "granted / true", "sometimes"],
+      "answer": "granted / true",
+      "topic": "zwar_admittedly"
+    },
+    {
+      "id": "tricky_zwar_specifically_001",
+      "kind": "choice",
+      "prompt": "Ich komme, und zwar morgen früh. (zwar means…)",
+      "options": ["maybe", "specifically / to be exact", "never"],
+      "answer": "specifically / to be exact",
+      "topic": "zwar_specifically"
+    },
+    {
+      "id": "tricky_naemlich_namely_001",
+      "kind": "choice",
+      "prompt": "Ich habe nur ein Problem, nämlich die Miete. (nämlich means…)",
+      "options": ["namely / specifically", "except", "and also"],
+      "answer": "namely / specifically",
+      "topic": "naemlich_namely"
+    },
+    {
+      "id": "tricky_naemlich_because_001",
+      "kind": "choice",
+      "prompt": "Er kommt heute nicht. Er ist nämlich krank. (nämlich means…)",
+      "options": ["namely", "because / you see", "also"],
+      "answer": "because / you see",
+      "topic": "naemlich_because"
+    },
+    {
+      "id": "tricky_eben_simply_001",
+      "kind": "choice",
+      "prompt": "So ist es eben. (eben means…)",
+      "options": ["simply / just the way it is", "not", "again"],
+      "answer": "simply / just the way it is",
+      "topic": "eben_simply"
+    },
+    {
+      "id": "tricky_eben_just_now_001",
+      "kind": "choice",
+      "prompt": "Er ist eben angekommen. (eben means…)",
+      "options": ["just now", "never", "slowly"],
+      "answer": "just now",
+      "topic": "eben_just_now"
+    },
+    {
+      "id": "tricky_eben_exactly_001",
+      "kind": "choice",
+      "prompt": "— Das ist unfair! — Eben! (eben means…)",
+      "options": ["nonsense!", "exactly!", "maybe!"],
+      "answer": "exactly!",
+      "topic": "eben_exactly"
+    },
+    {
+      "id": "tricky_halt_simply_001",
+      "kind": "choice",
+      "prompt": "Das ist halt so in der Schweiz. (halt means…)",
+      "options": ["simply / just the way it is", "never", "sometimes"],
+      "answer": "simply / just the way it is",
+      "topic": "halt_simply"
+    },
+    {
+      "id": "tricky_halt_stop_001",
+      "kind": "choice",
+      "prompt": "Halt! Nicht weitergehen! (halt means…)",
+      "options": ["hello", "stop!", "wait maybe"],
+      "answer": "stop!",
+      "topic": "halt_stop"
+    },
+    {
+      "id": "tricky_eigentlich_actually_001",
+      "kind": "choice",
+      "prompt": "Was machst du eigentlich beruflich? (eigentlich means…)",
+      "options": ["usually", "actually / by the way", "rarely"],
+      "answer": "actually / by the way",
+      "topic": "eigentlich_actually"
+    },
+    {
+      "id": "tricky_eigentlich_originally_001",
+      "kind": "choice",
+      "prompt": "Eigentlich wollte ich kommen, aber ich bin krank. (eigentlich means…)",
+      "options": ["always", "originally / I meant to", "never"],
+      "answer": "originally / I meant to",
+      "topic": "eigentlich_originally"
+    },
+    {
+      "id": "tricky_eigentlich_strictly_speaking_001",
+      "kind": "choice",
+      "prompt": "Das ist eigentlich nicht erlaubt. (eigentlich means…)",
+      "options": ["definitely", "strictly speaking", "probably"],
+      "answer": "strictly speaking",
+      "topic": "eigentlich_strictly_speaking"
+    },
+    {
+      "id": "tricky_sonst_otherwise_001",
+      "kind": "choice",
+      "prompt": "Beeil dich, sonst verpassen wir den Zug. (sonst means…)",
+      "options": ["otherwise", "however", "first"],
+      "answer": "otherwise",
+      "topic": "sonst_otherwise"
+    },
+    {
+      "id": "tricky_sonst_else_001",
+      "kind": "choice",
+      "prompt": "Haben Sie sonst noch Fragen? (sonst means…)",
+      "options": ["again", "any other / else", "never"],
+      "answer": "any other / else",
+      "topic": "sonst_else"
+    },
+    {
+      "id": "tricky_sonst_usually_001",
+      "kind": "choice",
+      "prompt": "Sonst trinke ich keinen Kaffee, aber heute brauche ich einen. (sonst means…)",
+      "options": ["otherwise", "usually / normally", "finally"],
+      "answer": "usually / normally",
+      "topic": "sonst_usually"
+    },
+    {
+      "id": "tricky_ueberhaupt_at_all_001",
+      "kind": "choice",
+      "prompt": "Ich verstehe das überhaupt nicht. (überhaupt means…)",
+      "options": ["at all", "again", "sometimes"],
+      "answer": "at all",
+      "topic": "ueberhaupt_at_all"
+    },
+    {
+      "id": "tricky_ueberhaupt_even_001",
+      "kind": "choice",
+      "prompt": "Warst du überhaupt dort? (überhaupt means…)",
+      "options": ["even / in the first place", "already", "still"],
+      "answer": "even / in the first place",
+      "topic": "ueberhaupt_even"
+    },
+    {
+      "id": "tricky_ueberhaupt_in_general_001",
+      "kind": "choice",
+      "prompt": "Überhaupt finde ich das eine gute Idee. (überhaupt means…)",
+      "options": ["in general / on the whole", "at least", "barely"],
+      "answer": "in general / on the whole",
+      "topic": "ueberhaupt_in_general"
+    },
+    {
+      "id": "tricky_ohnehin_anyway_001",
+      "kind": "choice",
+      "prompt": "Keine Sorge, ich gehe ohnehin einkaufen. (ohnehin means…)",
+      "options": ["therefore", "anyway / in any case", "never"],
+      "answer": "anyway / in any case",
+      "topic": "ohnehin_anyway"
+    },
+    {
+      "id": "tricky_ohnehin_already_001",
+      "kind": "choice",
+      "prompt": "Er ist ohnehin spät dran. (ohnehin means…)",
+      "options": ["already / as it is", "maybe", "never"],
+      "answer": "already / as it is",
+      "topic": "ohnehin_already"
+    },
+    {
+      "id": "tricky_jedenfalls_in_any_case_001",
+      "kind": "choice",
+      "prompt": "Ich komme jedenfalls. (jedenfalls means…)",
+      "options": ["never", "in any case / at any rate", "therefore"],
+      "answer": "in any case / at any rate",
+      "topic": "jedenfalls_in_any_case"
+    },
+    {
+      "id": "tricky_jedenfalls_at_least_001",
+      "kind": "choice",
+      "prompt": "Er hat es jedenfalls versucht. (jedenfalls means…)",
+      "options": ["at least / anyway (narrowing claim)", "first", "definitely"],
+      "answer": "at least / anyway (narrowing claim)",
+      "topic": "jedenfalls_at_least"
+    },
+    {
+      "id": "tricky_immerhin_consolation_001",
+      "kind": "choice",
+      "prompt": "Es regnet, aber immerhin ist es warm. (immerhin means…)",
+      "options": ["at least / after all (consolation)", "always", "barely"],
+      "answer": "at least / after all (consolation)",
+      "topic": "immerhin_consolation"
+    },
+    {
+      "id": "tricky_immerhin_after_all_001",
+      "kind": "choice",
+      "prompt": "Immerhin ist er noch ein Kind. (immerhin means…)",
+      "options": ["against expectation", "after all / considering", "never"],
+      "answer": "after all / considering",
+      "topic": "immerhin_after_all"
+    },
+    {
+      "id": "tricky_vielleicht_maybe_001",
+      "kind": "choice",
+      "prompt": "Vielleicht kommt er morgen. (vielleicht means…)",
+      "options": ["definitely", "maybe / perhaps", "never"],
+      "answer": "maybe / perhaps",
+      "topic": "vielleicht_maybe"
+    },
+    {
+      "id": "tricky_vielleicht_suggestion_001",
+      "kind": "choice",
+      "prompt": "Gehen wir vielleicht ins Kino? (vielleicht means…)",
+      "options": ["definitely", "maybe (suggestion softener)", "again"],
+      "answer": "maybe (suggestion softener)",
+      "topic": "vielleicht_suggestion"
+    },
+    {
+      "id": "tricky_vielleicht_exclamation_001",
+      "kind": "choice",
+      "prompt": "Das ist vielleicht eine Frechheit! (vielleicht means…)",
+      "options": ["maybe", "quite some / really (exclamation)", "not at all"],
+      "answer": "quite some / really (exclamation)",
+      "topic": "vielleicht_exclamation"
+    },
+    {
+      "id": "tricky_gerade_just_now_001",
+      "kind": "choice",
+      "prompt": "Er ist gerade angekommen. (gerade means…)",
+      "options": ["never", "just now / right now", "eventually"],
+      "answer": "just now / right now",
+      "topic": "gerade_just_now"
+    },
+    {
+      "id": "tricky_gerade_exactly_001",
+      "kind": "choice",
+      "prompt": "Gerade das wollte ich sagen. (gerade means…)",
+      "options": ["maybe", "exactly / precisely (emphatic)", "never"],
+      "answer": "exactly / precisely (emphatic)",
+      "topic": "gerade_exactly"
+    },
+    {
+      "id": "tricky_gerade_straight_001",
+      "kind": "choice",
+      "prompt": "Der Weg ist gerade. (gerade means…)",
+      "options": ["straight (geometric)", "crooked", "right now"],
+      "answer": "straight (geometric)",
+      "topic": "gerade_straight"
+    },
+    {
+      "id": "tricky_gerade_of_all_001",
+      "kind": "choice",
+      "prompt": "Warum gerade ich? (gerade means…)",
+      "options": ["of all people (emphatic)", "always", "never"],
+      "answer": "of all people (emphatic)",
+      "topic": "gerade_of_all"
+    },
+    {
+      "id": "tricky_gleich_right_away_001",
+      "kind": "choice",
+      "prompt": "Ich komme gleich. (gleich means…)",
+      "options": ["never", "right away / in a moment", "yesterday"],
+      "answer": "right away / in a moment",
+      "topic": "gleich_right_away"
+    },
+    {
+      "id": "tricky_gleich_same_001",
+      "kind": "choice",
+      "prompt": "Wir sind gleich alt. (gleich means…)",
+      "options": ["the same age", "already old", "rarely"],
+      "answer": "the same age",
+      "topic": "gleich_same"
+    },
+    {
+      "id": "tricky_gleich_doesnt_matter_001",
+      "kind": "choice",
+      "prompt": "Das ist mir gleich. (gleich means…)",
+      "options": ["painful", "all the same / doesn't matter", "interesting"],
+      "answer": "all the same / doesn't matter",
+      "topic": "gleich_doesnt_matter"
+    },
+    {
+      "id": "tricky_sogar_even_001",
+      "kind": "choice",
+      "prompt": "Er kann sogar Chinesisch. (sogar means…)",
+      "options": ["never", "even (adds surprise)", "rarely"],
+      "answer": "even (adds surprise)",
+      "topic": "sogar_even"
+    },
+    {
+      "id": "tricky_sogar_even_002",
+      "kind": "choice",
+      "prompt": "Heute ist es sogar besser als gestern. (sogar means…)",
+      "options": ["finally", "even (intensifying comparative)", "barely"],
+      "answer": "even (intensifying comparative)",
+      "topic": "sogar_even"
+    },
+    {
+      "id": "tricky_einfach_just_001",
+      "kind": "choice",
+      "prompt": "Du denkst zu viel — mach es einfach! (einfach means…)",
+      "options": ["with difficulty", "just do it (modal particle)", "never"],
+      "answer": "just do it (modal particle)",
+      "topic": "einfach_just"
+    },
+    {
+      "id": "tricky_einfach_easy_001",
+      "kind": "choice",
+      "prompt": "Dieses Problem ist ziemlich einfach. (einfach means…)",
+      "options": ["easy (not difficult)", "just", "one-way"],
+      "answer": "easy (not difficult)",
+      "topic": "einfach_easy"
+    },
+    {
+      "id": "tricky_einfach_one_way_001",
+      "kind": "choice",
+      "prompt": "Eine einfache Fahrt nach Bern, bitte. (einfach means…)",
+      "options": ["easy", "one-way", "expensive"],
+      "answer": "one-way",
+      "topic": "einfach_one_way"
+    },
+    {
+      "id": "tricky_lediglich_merely_001",
+      "kind": "choice",
+      "prompt": "Es war lediglich ein Missverständnis. (lediglich means…)",
+      "options": ["finally", "merely / just", "never"],
+      "answer": "merely / just",
+      "topic": "lediglich_merely"
+    },
+    {
+      "id": "tricky_lediglich_softening_001",
+      "kind": "choice",
+      "prompt": "Ich möchte lediglich eine Frage stellen. (lediglich means…)",
+      "options": ["definitely", "just / only (softening)", "always"],
+      "answer": "just / only (softening)",
+      "topic": "lediglich_softening"
+    },
+    {
+      "id": "tricky_wenigstens_at_least_001",
+      "kind": "choice",
+      "prompt": "Wenigstens du bist da! (wenigstens means…)",
+      "options": ["finally", "at least (relief)", "maybe"],
+      "answer": "at least (relief)",
+      "topic": "wenigstens_at_least"
+    },
+    {
+      "id": "tricky_wenigstens_bare_minimum_001",
+      "kind": "choice",
+      "prompt": "Sag wenigstens Hallo! (wenigstens means…)",
+      "options": ["also", "at least (bare minimum ask)", "never"],
+      "answer": "at least (bare minimum ask)",
+      "topic": "wenigstens_bare_minimum"
+    },
+    {
+      "id": "tricky_mindestens_at_least_001",
+      "kind": "choice",
+      "prompt": "Das kostet mindestens 100 Euro. (mindestens means…)",
+      "options": ["at least (quantitative)", "at most", "usually"],
+      "answer": "at least (quantitative)",
+      "topic": "mindestens_at_least"
+    },
+    {
+      "id": "tricky_mindestens_at_least_002",
+      "kind": "choice",
+      "prompt": "Wir brauchen mindestens drei Stunden. (mindestens means…)",
+      "options": ["at most", "at least (time/quantity)", "never"],
+      "answer": "at least (time/quantity)",
+      "topic": "mindestens_at_least"
+    }
+  ]
+}

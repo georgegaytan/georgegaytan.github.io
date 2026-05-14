@@ -1,0 +1,340 @@
+{
+  "id": "pronouns",
+  "name": "Pronouns",
+  "icon": "👥",
+  "color": "#ec4899",
+  "description": "Personal, possessive, reflexive, interrogative, and demonstrative pronouns by case.",
+  "pools": {
+    "personal_nom": {
+      "category": "personal_pronoun",
+      "items": ["ich", "du", "er", "sie", "es", "wir", "ihr", "Sie"]
+    },
+    "personal_acc": {
+      "category": "personal_pronoun",
+      "items": ["mich", "dich", "ihn", "sie", "es", "uns", "euch", "Sie"]
+    },
+    "personal_dat": {
+      "category": "personal_pronoun",
+      "items": ["mir", "dir", "ihm", "ihr", "uns", "euch", "ihnen", "Ihnen"]
+    },
+    "reflexive_pronouns": {
+      "category": "reflexive_pronoun",
+      "items": ["mich", "dich", "sich", "uns", "euch"]
+    },
+    "interrogative_pronouns": {
+      "category": "interrogative_pronoun",
+      "items": ["wer", "wen", "wem", "wessen", "was"]
+    },
+    "demonstrative_pronouns": {
+      "category": "demonstrative_pronoun",
+      "items": ["dieser", "diese", "dieses", "diesen", "diesem"]
+    },
+    "possessive_nom_acc_fem": {
+      "category": "possessive_pronoun",
+      "items": ["meine", "deine", "seine", "ihre", "unsere", "eure"]
+    },
+    "possessive_acc_masc": {
+      "category": "possessive_pronoun",
+      "items": ["meinen", "deinen", "seinen", "ihren", "unseren", "euren"]
+    },
+    "possessive_dat_masc_neut": {
+      "category": "possessive_pronoun",
+      "items": ["meinem", "deinem", "seinem", "ihrem", "unserem", "eurem"]
+    },
+    "possessive_dat_fem": {
+      "category": "possessive_pronoun",
+      "items": ["meiner", "deiner", "seiner", "ihrer", "unserer", "eurer"]
+    }
+  },
+  "items": [
+    {
+      "id": "pron_pers_nom_1sg_001",
+      "kind": "cloze",
+      "prompt": "{0} komme morgen um neun.",
+      "blanks": [{ "answer": "Ich", "alts": ["ich"], "topic": "pers_nom_1_sg", "scaffoldPool": "personal_nom" }],
+      "translation": "I am coming tomorrow at nine."
+    },
+    {
+      "id": "pron_pers_nom_2sg_001",
+      "kind": "cloze",
+      "prompt": "Wann kommst {0} nach Hause?",
+      "blanks": [{ "answer": "du", "alts": [], "topic": "pers_nom_2_sg", "scaffoldPool": "personal_nom" }],
+      "translation": "When are you coming home?"
+    },
+    {
+      "id": "pron_pers_nom_3m_sg_001",
+      "kind": "cloze",
+      "prompt": "Mein Bruder ist Lehrer. {0} arbeitet in Berlin.",
+      "blanks": [{ "answer": "Er", "alts": ["er"], "topic": "pers_nom_3m_sg", "scaffoldPool": "personal_nom" }],
+      "translation": "My brother is a teacher. He works in Berlin."
+    },
+    {
+      "id": "pron_pers_nom_3f_sg_001",
+      "kind": "cloze",
+      "prompt": "Meine Schwester ist Ärztin. {0} wohnt in München.",
+      "blanks": [{ "answer": "Sie", "alts": ["sie"], "topic": "pers_nom_3f_sg", "scaffoldPool": "personal_nom" }],
+      "translation": "My sister is a doctor. She lives in Munich."
+    },
+    {
+      "id": "pron_pers_nom_1pl_001",
+      "kind": "cloze",
+      "prompt": "{0} fahren am Wochenende ans Meer.",
+      "blanks": [{ "answer": "Wir", "alts": ["wir"], "topic": "pers_nom_1_pl", "scaffoldPool": "personal_nom" }],
+      "translation": "We are going to the sea on the weekend."
+    },
+    {
+      "id": "pron_pers_nom_3pl_001",
+      "kind": "choice",
+      "prompt": "Die Kinder spielen draussen. ___ haben viel Spass.",
+      "pool": "personal_nom",
+      "answer": "sie",
+      "topic": "pers_nom_3_pl"
+    },
+    {
+      "id": "pron_pers_acc_1sg_001",
+      "kind": "cloze",
+      "prompt": "Kannst du {0} morgen anrufen?",
+      "blanks": [{ "answer": "mich", "alts": [], "topic": "pers_acc_1_sg", "scaffoldPool": "personal_acc" }],
+      "translation": "Can you call me tomorrow?"
+    },
+    {
+      "id": "pron_pers_acc_2sg_001",
+      "kind": "cloze",
+      "prompt": "Ich verstehe {0} nicht ganz.",
+      "blanks": [{ "answer": "dich", "alts": [], "topic": "pers_acc_2_sg", "scaffoldPool": "personal_acc" }],
+      "translation": "I don't quite understand you."
+    },
+    {
+      "id": "pron_pers_acc_3m_sg_001",
+      "kind": "cloze",
+      "prompt": "Da ist Peter. Siehst du {0}?",
+      "blanks": [{ "answer": "ihn", "alts": [], "topic": "pers_acc_3m_sg", "scaffoldPool": "personal_acc" }],
+      "translation": "There is Peter. Do you see him?"
+    },
+    {
+      "id": "pron_pers_acc_3f_sg_001",
+      "kind": "choice",
+      "prompt": "Anna ist meine Freundin. Ich besuche ___ am Samstag.",
+      "pool": "personal_acc",
+      "answer": "sie",
+      "topic": "pers_acc_3f_sg"
+    },
+    {
+      "id": "pron_pers_acc_1pl_001",
+      "kind": "cloze",
+      "prompt": "Der Lehrer fragt {0} oft auf Deutsch.",
+      "blanks": [{ "answer": "uns", "alts": [], "topic": "pers_acc_1_pl", "scaffoldPool": "personal_acc" }],
+      "translation": "The teacher often asks us in German."
+    },
+    {
+      "id": "pron_pers_acc_2pl_001",
+      "kind": "cloze",
+      "prompt": "Eure Eltern haben angerufen. Sie suchen {0}.",
+      "blanks": [{ "answer": "euch", "alts": [], "topic": "pers_acc_2_pl", "scaffoldPool": "personal_acc" }],
+      "translation": "Your parents called. They are looking for you all."
+    },
+    {
+      "id": "pron_pers_dat_1sg_001",
+      "kind": "cloze",
+      "prompt": "Kannst du {0} bitte helfen?",
+      "blanks": [{ "answer": "mir", "alts": [], "topic": "pers_dat_1_sg", "scaffoldPool": "personal_dat" }],
+      "translation": "Can you please help me?"
+    },
+    {
+      "id": "pron_pers_dat_2sg_001",
+      "kind": "cloze",
+      "prompt": "Ich gebe {0} morgen das Buch zurück.",
+      "blanks": [{ "answer": "dir", "alts": [], "topic": "pers_dat_2_sg", "scaffoldPool": "personal_dat" }],
+      "translation": "I'll give you back the book tomorrow."
+    },
+    {
+      "id": "pron_pers_dat_3m_sg_001",
+      "kind": "cloze",
+      "prompt": "Tom hat Geburtstag. Wir schenken {0} ein Buch.",
+      "blanks": [{ "answer": "ihm", "alts": [], "topic": "pers_dat_3m_sg", "scaffoldPool": "personal_dat" }],
+      "translation": "Tom has a birthday. We're giving him a book."
+    },
+    {
+      "id": "pron_pers_dat_3f_sg_001",
+      "kind": "cloze",
+      "prompt": "Maria ist krank. Wie geht es {0}?",
+      "blanks": [{ "answer": "ihr", "alts": [], "topic": "pers_dat_3f_sg", "scaffoldPool": "personal_dat" }],
+      "translation": "Maria is sick. How is she doing?"
+    },
+    {
+      "id": "pron_pers_dat_3pl_001",
+      "kind": "choice",
+      "prompt": "Die Kollegen brauchen Hilfe. Ich helfe ___ gleich.",
+      "pool": "personal_dat",
+      "answer": "ihnen",
+      "topic": "pers_dat_3_pl"
+    },
+    {
+      "id": "pron_pers_dat_formal_001",
+      "kind": "cloze",
+      "prompt": "Herr Schmidt, kann ich {0} etwas anbieten?",
+      "blanks": [{ "answer": "Ihnen", "alts": ["ihnen"], "topic": "pers_dat_formal", "scaffoldPool": "personal_dat" }],
+      "translation": "Mr Schmidt, can I offer you something?"
+    },
+    {
+      "id": "pron_refl_1sg_001",
+      "kind": "choice",
+      "prompt": "Ich wasche ___ die Hände.",
+      "pool": "reflexive_pronouns",
+      "answer": "mich",
+      "topic": "refl_1_sg"
+    },
+    {
+      "id": "pron_refl_2sg_001",
+      "kind": "choice",
+      "prompt": "Setz ___ bitte hin!",
+      "pool": "reflexive_pronouns",
+      "answer": "dich",
+      "topic": "refl_2_sg"
+    },
+    {
+      "id": "pron_refl_3sg_001",
+      "kind": "choice",
+      "prompt": "Er freut ___ auf den Urlaub.",
+      "pool": "reflexive_pronouns",
+      "answer": "sich",
+      "topic": "refl_3_sg"
+    },
+    {
+      "id": "pron_refl_3pl_001",
+      "kind": "choice",
+      "prompt": "Die Gäste unterhalten ___ gut.",
+      "pool": "reflexive_pronouns",
+      "answer": "sich",
+      "topic": "refl_3_pl"
+    },
+    {
+      "id": "pron_refl_1pl_001",
+      "kind": "choice",
+      "prompt": "Wir treffen ___ um sieben am Bahnhof.",
+      "pool": "reflexive_pronouns",
+      "answer": "uns",
+      "topic": "refl_1_pl"
+    },
+    {
+      "id": "pron_refl_2pl_001",
+      "kind": "choice",
+      "prompt": "Beeilt ___, sonst kommt ihr zu spät!",
+      "pool": "reflexive_pronouns",
+      "answer": "euch",
+      "topic": "refl_2_pl"
+    },
+    {
+      "id": "pron_int_nom_001",
+      "kind": "choice",
+      "prompt": "___ kommt heute Abend zur Party?",
+      "pool": "interrogative_pronouns",
+      "answer": "wer",
+      "topic": "int_wer"
+    },
+    {
+      "id": "pron_int_acc_001",
+      "kind": "choice",
+      "prompt": "___ hast du gestern auf der Strasse getroffen?",
+      "pool": "interrogative_pronouns",
+      "answer": "wen",
+      "topic": "int_wen"
+    },
+    {
+      "id": "pron_int_dat_001",
+      "kind": "choice",
+      "prompt": "Mit ___ sprichst du gerade am Telefon?",
+      "pool": "interrogative_pronouns",
+      "answer": "wem",
+      "topic": "int_wem"
+    },
+    {
+      "id": "pron_int_gen_001",
+      "kind": "choice",
+      "prompt": "___ Auto steht da vor dem Haus?",
+      "pool": "interrogative_pronouns",
+      "answer": "wessen",
+      "topic": "int_wessen"
+    },
+    {
+      "id": "pron_int_was_001",
+      "kind": "choice",
+      "prompt": "___ machst du heute Nachmittag?",
+      "pool": "interrogative_pronouns",
+      "answer": "was",
+      "topic": "int_was"
+    },
+    {
+      "id": "pron_dem_nom_m_001",
+      "kind": "choice",
+      "prompt": "___ Mantel hier gehört mir.",
+      "pool": "demonstrative_pronouns",
+      "answer": "dieser",
+      "topic": "dem_nom_m_sg"
+    },
+    {
+      "id": "pron_dem_nom_f_001",
+      "kind": "choice",
+      "prompt": "___ Tasche ist sehr teuer.",
+      "pool": "demonstrative_pronouns",
+      "answer": "diese",
+      "topic": "dem_nom_f_sg"
+    },
+    {
+      "id": "pron_dem_acc_m_001",
+      "kind": "choice",
+      "prompt": "Ich nehme ___ Kuchen, bitte.",
+      "pool": "demonstrative_pronouns",
+      "answer": "diesen",
+      "topic": "dem_acc_m_sg"
+    },
+    {
+      "id": "pron_dem_dat_m_001",
+      "kind": "choice",
+      "prompt": "Mit ___ Schlüssel öffnest du die Tür.",
+      "pool": "demonstrative_pronouns",
+      "answer": "diesem",
+      "topic": "dem_dat_m_sg"
+    },
+    {
+      "id": "pron_poss_nom_f_001",
+      "kind": "choice",
+      "prompt": "Das ist ___ Schwester aus Hamburg.",
+      "pool": "possessive_nom_acc_fem",
+      "answer": "meine",
+      "topic": "poss_nom_1sg_f"
+    },
+    {
+      "id": "pron_poss_acc_m_001",
+      "kind": "choice",
+      "prompt": "Hast du ___ Schlüssel gesehen? Ich finde ihn nicht.",
+      "pool": "possessive_acc_masc",
+      "answer": "meinen",
+      "topic": "poss_acc_1sg_m"
+    },
+    {
+      "id": "pron_poss_dat_m_001",
+      "kind": "choice",
+      "prompt": "Sie spricht oft mit ___ Bruder am Telefon.",
+      "pool": "possessive_dat_masc_neut",
+      "answer": "ihrem",
+      "topic": "poss_dat_3fsg_m"
+    },
+    {
+      "id": "pron_poss_dat_f_001",
+      "kind": "choice",
+      "prompt": "Er hilft ___ Mutter im Garten.",
+      "pool": "possessive_dat_fem",
+      "answer": "seiner",
+      "topic": "poss_dat_3msg_f"
+    },
+    {
+      "id": "pron_poss_nom_2pl_001",
+      "kind": "choice",
+      "prompt": "Wie heisst ___ Tochter eigentlich?",
+      "pool": "possessive_nom_acc_fem",
+      "answer": "eure",
+      "topic": "poss_nom_2pl_f"
+    }
+  ]
+}
