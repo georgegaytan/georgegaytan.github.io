@@ -206,6 +206,28 @@ function validateItem(item, deck) {
       if (item.answer != null && !item.options.includes(item.answer)) {
         errs.push(err('C6', `choice answer "${item.answer}" not in options`, loc));
       }
+      // C18: close the Mode A back door — if every option matches an allowlisted
+      // category, the author should have used Mode B with that pool instead.
+      // Exemptions: <3 options (intrinsic binary), and the canonical noun_gender
+      // pattern (options are exactly the 3 articles der/die/das).
+      const NOUN_GENDER = ['der','die','das'];
+      const isNounGenderPattern = item.options.length === 3
+        && item.options.every(o => NOUN_GENDER.includes(o));
+      if (item.options.length >= 3 && !isNounGenderPattern) {
+        for (const cat of Object.keys(CATEGORY_MEMBERSHIP)) {
+          if (cat === 'noun_gender') continue;
+          let allMatch = true;
+          for (const opt of item.options) {
+            if (!categoryCheck(cat, opt)) { allMatch = false; break; }
+          }
+          if (allMatch) {
+            errs.push(err('C18',
+              `Mode A options all match category "${cat}" — convert to Mode B with a typed pool to prevent dead-distractor regressions`,
+              loc));
+            break;
+          }
+        }
+      }
     }
     if (hasPool) {
       const pools = deck.pools || {};

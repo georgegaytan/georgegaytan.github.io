@@ -299,3 +299,43 @@ test('C16: implicit gender from definite article agrees → no error', () => {
   const errs = validateDecks([vocab, decl]);
   assert.strictEqual(errs.filter(e => e.code === 'C16').length, 0);
 });
+
+test('C18: Mode A options all match a known category → error suggesting Mode B', () => {
+  const item = {
+    id: 'a', kind: 'choice', prompt: 'Sie ___ Deutsch sprechen.',
+    options: ['kann','können','darf','muss'],
+    answer: 'können', topic: 'modal_form'
+  };
+  const errs = validateDeck(deck([item]));
+  assert.ok(errs.some(e => e.code === 'C18' && /modal_verb_form/.test(e.message)));
+});
+
+test('C18: Mode A with mixed-category options is fine', () => {
+  const item = {
+    id: 'a', kind: 'choice', prompt: 'doch (in this context):',
+    options: ['however', 'yes (contradicting)', 'after all', 'particle of emphasis'],
+    answer: 'however', topic: 'doch_meaning'
+  };
+  const errs = validateDeck(deck([item]));
+  assert.strictEqual(errs.filter(e => e.code === 'C18').length, 0);
+});
+
+test('C18: noun_gender Mode A is fine (the canonical exception)', () => {
+  const item = {
+    id: 'a', kind: 'choice', prompt: 'Apfel',
+    options: ['der','die','das'],
+    answer: 'der', topic: 'gender_m'
+  };
+  const errs = validateDeck(deck([item]));
+  assert.strictEqual(errs.filter(e => e.code === 'C18').length, 0);
+});
+
+test('C18: 2-option Mode A is exempt (intrinsic binary choice)', () => {
+  const item = {
+    id: 'a', kind: 'choice', prompt: 'Ich ___ gegangen.',
+    options: ['bin','habe'],
+    answer: 'bin', topic: 'aux_choice'
+  };
+  const errs = validateDeck(deck([item]));
+  assert.strictEqual(errs.filter(e => e.code === 'C18').length, 0);
+});
