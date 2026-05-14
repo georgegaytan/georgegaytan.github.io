@@ -1,0 +1,58 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+A single-file offline German-learning PWA published at `georgegaytan.github.io`. The deployed artifact is `index.html` at the repo root — built from `src/` + `decks/` + `build/` by `node build/build.js`. GitHub Pages serves it as static HTML.
+
+Hard design constraints (load-bearing):
+- Single deployed HTML file. No external runtime dependencies beyond Google Fonts.
+- Offline-friendly. The deployed file opens directly from `file://` and works without a server.
+- No npm dependencies at any stage. The build script uses only Node built-ins.
+
+## Architecture
+
+A unified deck engine. Every deck is a JSON file conforming to a shared schema. The engine renders three primitives — `cloze`, `text`, `choice` — under one SRS model (Leitner / SM-2 hybrid) with one scaffolding ladder keyed off mastery box.
+
+- `src/engine-core.js` — pure functions: SRS update, input validators, distractor selection, session selection. Importable from Node tests (CJS) and the browser (window global) via UMD pattern.
+- `src/engine-ui.js` — DOM controller: renders menu, drill view, dashboard; commits outcomes through `Storage`.
+- `src/storage.js` — the single persistence seam. `loadDeck`, `saveDeck`, `loadGlobal`, `saveGlobal`, `listDeckIds`, `exportAll`, `importAll`. Backed by `localStorage` today; future swap to IndexedDB/OPFS replaces only this module.
+- `src/categories.json` + `src/morphology/*.json` — allowlist of pool categories and morphology tables used by the build-time content validator.
+- `build/validator.js` — Layer 1 content lints (C1–C19 including categorical purity for distractor pools and cross-deck gender consistency).
+- `build/build.js` — runs the validator, inlines styles + decks + UMD modules into the template, writes `index.html`. Fails non-zero on any validator error.
+- `build/lint.js` — standalone lint command for fast author feedback without re-emitting HTML.
+- `build/snapshot.js` — Layer 3 helper that dumps every rendered question (prompt + answer + box-0/2/4 distractors) into `tests/snapshots/<deck>.txt`. The snapshot drift test fails on any unreviewed content change.
+- `decks/*.json` — deck content. Authoring workflow: edit JSON → `node build/build.js` → commit both the JSON and the built `index.html`.
+
+## Deck JSON authoring
+
+Every item is `cloze`, `text`, or `choice`. Prefer `cloze` (typed production in context) for grammar; `text` for vocabulary; `choice` only for genuinely categorical questions (gender, meaning ID).
+
+For `choice` items, two authoring modes:
+- **Mode A** (explicit `options`): when distractors are a small fixed set (gender → `["der","die","das"]`; particle meaning → curated semantic alternatives).
+- **Mode B** (`pool` reference): when distractors share a morphological category. Define the pool once at deck top level with a `category` from `src/categories.json`. The engine draws distractors automatically. This eliminates "dead distractor" failures (e.g., a `können` cloze with `kann/können/darf/muss` options, where `darf` and `muss` are different lemmas) by construction — the validator (C18) rejects Mode A whose options all match a single allowlisted category and suggests converting to Mode B.
+
+## Testing
+
+Three layers, all run by `npm test` (which calls `node --test`):
+1. **Build-time content lints** (Layer 1, `build/validator.js`). 18 rules. Build fails on error.
+2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
+3. **Snapshot + sampling + regression** (Layer 3, `tests/snapshot.test.js`, `tests/content.test.js`, `tests/known-issues.test.js`). Snapshots committed; content changes are visible diffs. Regression test seeded with past content scars.
+
+## Common commands
+
+```bash
+node build/build.js              # build index.html
+node build/lint.js               # fast lint without rebuilding HTML
+node --test                      # run all tests
+node build/snapshot.js           # regenerate snapshots after a deliberate content change
+```
+
+## Deployment
+
+Commit the changes — including the freshly built `index.html` at the repo root — and push to `main`. GitHub Pages serves the same file users see.
+
+## Storage backup
+
+Users export and import progress through `index.html`'s Export / Import buttons. The backup is a single JSON blob containing `gd_global` and all `gd_deck_<id>` entries. This is the only currently-supported persistence safety net; cloud sync is deferred.
