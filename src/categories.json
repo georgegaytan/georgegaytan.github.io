@@ -1,0 +1,25 @@
+{
+  "categories": [
+    "definite_article",
+    "indefinite_article",
+    "modal_verb_form",
+    "modal_lemma",
+    "partizip_2",
+    "aux_verb",
+    "personal_pronoun",
+    "possessive_pronoun",
+    "demonstrative_pronoun",
+    "interrogative_pronoun",
+    "indefinite_pronoun",
+    "reflexive_pronoun",
+    "adj_ending",
+    "noun_gender",
+    "particle_meaning",
+    "particle_form",
+    "verb_form_finite",
+    "verb_form_nonfinite",
+    "preposition",
+    "conjunction",
+    "free_text"
+  ]
+}
