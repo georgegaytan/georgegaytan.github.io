@@ -15,6 +15,8 @@
     return n;
   };
 
+  let bannerDismissed = false; // session-only; reset on full page reload
+
   function today() { return new Date().toISOString().slice(0, 10); }
   function nowIso() { return new Date().toISOString(); }
 
@@ -87,6 +89,18 @@
       list.appendChild(card);
     }
     menu.appendChild(list);
+    if (Storage.isDegraded && Storage.isDegraded() && !bannerDismissed) {
+      const banner = el('div', { class: 'storage-banner', id: 'storageBanner' });
+      banner.appendChild(el('div', { class: 'body' },
+        'Your browser couldn’t open persistent storage. Progress in this session may not survive a reload. Use Export below to back up.'
+      ));
+      banner.appendChild(el('button', {
+        class: 'close',
+        'aria-label': 'Dismiss',
+        onclick: () => { bannerDismissed = true; const b = document.getElementById('storageBanner'); if (b) b.classList.add('hidden'); },
+      }, '×'));
+      menu.appendChild(banner);
+    }
     const backup = el('div', { class: 'backup-row' },
       el('button', { class: 'backup-btn', onclick: exportProgress }, '↓ Export'),
       el('button', { class: 'backup-btn', onclick: importProgress }, '↑ Import')
