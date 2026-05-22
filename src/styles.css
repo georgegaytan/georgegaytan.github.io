@@ -4,6 +4,7 @@ html, body { min-height: 100%; }
 body {
   font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: #0f0f1a; color: #e0e0e0;
+  color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: contain;
 }
@@ -44,6 +45,13 @@ body.drill-open { overflow: hidden; height: 100vh; }
 .blank.correct { border-bottom-color: #4ade80; }
 .blank.wrong { border-bottom-color: #ef4444; color: #fca5a5; }
 .blank input { background: transparent; border: none; color: inherit; font: inherit; outline: none; width: 100%; }
+/* Standalone inputs (the "type the correct answer" box and text-answer field)
+   carry the .blank class directly rather than wrapping one, so the rule above
+   doesn't reach them — without this they keep the browser's default white
+   background and render white-on-white. */
+input.blank { -webkit-appearance: none; appearance: none; background-color: #16162a; color: #fff; caret-color: #fff; border: 1px solid #2a2a4a; border-radius: 8px; padding: 8px 12px; }
+input.blank::placeholder { color: #6b6b8a; }
+input.blank:focus { border-color: #7f5af0; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .chip { background: #1e1e3a; color: #ddd; border: 1px solid #2a2a4a; border-radius: 18px; padding: 8px 14px; cursor: pointer; font-size: 14px; user-select: none; }

@@ -226,3 +226,47 @@ test('selectNextItem: falls through to new items only after overdue + low-box ex
   const id = EngineCore.selectNextItem(state, '2026-05-14', { sessionSeen: [], newToday: 0 });
   assert.strictEqual(id, 'overdue');
 });
+
+test('selectNextItem: low-box card already seen today is not re-served (spec: not-seen-today)', () => {
+  const today = '2026-05-14';
+  const state = { items: {
+    'seen': { box: 1, due: '2026-05-15', topics: ['t1'], lastSeen: '2026-05-14T09:00:00.000Z' },
+  } };
+  // Only candidate was seen today -> nothing to serve (no new cards available).
+  const id = EngineCore.selectNextItem(state, today, { sessionSeen: [], newToday: 0, newCap: 5 });
+  assert.strictEqual(id, null);
+});
+
+test('selectNextItem: low-box card seen on a prior day is still served', () => {
+  const today = '2026-05-14';
+  const state = { items: {
+    'old': { box: 1, due: '2026-05-15', topics: ['t1'], lastSeen: '2026-05-12T09:00:00.000Z' },
+  } };
+  const id = EngineCore.selectNextItem(state, today, { sessionSeen: [], newToday: 0, newCap: 5 });
+  assert.strictEqual(id, 'old');
+});
+
+test('selectDistractors: never offers a case-variant of the answer', () => {
+  // Sentence-initial answer "Nach" with a lowercase pool twin "nach".
+  const pool = ['nach', 'noch', 'schon', 'doch', 'mal', 'erst', 'ja', 'denn', 'wohl'];
+  const d = EngineCore.selectDistractors(pool, 'Nach', 4, 3, 7); // box 4 = nearest-first, would pick "nach"
+  assert.ok(!d.some(x => x.toLowerCase() === 'nach'), 'distractors must not include a case-variant of the answer');
+});
+
+test('selectNextItem: new-card order varies with rng (no fixed deck order)', () => {
+  const mk = () => { const it = {}; for (let i = 0; i < 8; i++) it['n' + i] = { box: 0, due: null, topics: ['t' + i] }; return { items: it }; };
+  // A deterministic rng that reverses order should pick a different first card
+  // than the natural order, proving the tier is shuffled rather than fixed.
+  let calls = 0;
+  const rngHigh = () => { calls++; return 0.99; }; // pushes later elements forward
+  const a = EngineCore.selectNextItem(mk(), '2026-05-20', { sessionSeen: [], newToday: 0, newCap: 15, rng: rngHigh });
+  const b = EngineCore.selectNextItem(mk(), '2026-05-20', { sessionSeen: [], newToday: 0, newCap: 15, rng: () => 0.01 });
+  assert.ok(a && b, 'both return a new card');
+  assert.notStrictEqual(a, b, 'different rng yields a different lead card');
+});
+
+test('selectNextItem: respects raised cap (15 new allowed)', () => {
+  const it = {}; for (let i = 0; i < 8; i++) it['n' + i] = { box: 0, due: null, topics: ['t' + i] };
+  assert.ok(EngineCore.selectNextItem({ items: it }, '2026-05-20', { sessionSeen: [], newToday: 14, newCap: 15 }));
+  assert.strictEqual(EngineCore.selectNextItem({ items: it }, '2026-05-20', { sessionSeen: [], newToday: 15, newCap: 15 }), null);
+});

@@ -87,7 +87,8 @@
   }
 
   function selectDistractors(pool, answer, box, count, seed) {
-    const eligible = pool.filter(p => p !== answer);
+    const ansKey = String(answer).toLowerCase();
+    const eligible = pool.filter(p => String(p).toLowerCase() !== ansKey);
     if (eligible.length < count) {
       throw new Error('pool too small: need ' + count + ' distractors, have ' + eligible.length);
     }
@@ -121,6 +122,18 @@
   EngineCore.selectDistractors = selectDistractors;
   EngineCore._levenshtein = levenshtein;
 
+  // Fisher-Yates shuffle. rng defaults to Math.random so callers get fresh
+  // variety each session; tests can pass a seeded rng for determinism.
+  function shuffle(arr, rndFn) {
+    const r = rndFn || Math.random;
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(r() * (i + 1));
+      const t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+  EngineCore.shuffle = shuffle;
+
   function selectNextItem(deckState, today, options) {
     options = options || {};
     const sessionSeen = new Set(options.sessionSeen || []);
@@ -130,6 +143,7 @@
 
     const items = deckState.items || {};
     const ids = Object.keys(items).filter(id => !sessionSeen.has(id));
+    const rnd = options.rng || Math.random;
 
     function topicsDisjoint(id) {
       if (lastTopics.size === 0) return true;
@@ -138,23 +152,34 @@
       return true;
     }
 
+    // Each tier is shuffled before its priority sort so that items of equal
+    // priority (same due date / same box / any new card) appear in a different
+    // order every session instead of always following deck insertion order.
+    // JS sort is stable, so the shuffle becomes the tiebreak.
+
     // Tier 1: overdue
-    const overdue = ids
-      .filter(id => items[id].due && items[id].due <= today && items[id].box > 0)
+    const overdue = shuffle(ids
+      .filter(id => items[id].due && items[id].due <= today && items[id].box > 0), rnd)
       .sort((a, b) => items[a].due < items[b].due ? -1 : items[a].due > items[b].due ? 1 : 0);
     for (const id of overdue) if (topicsDisjoint(id)) return id;
     if (overdue.length) return overdue[0];
 
-    // Tier 2: low-box not new
-    const lowBox = ids
+    // Tier 2: low-box not new, and not already seen today.
+    // (The design calls this tier "low-box-not-seen-today". Previously the
+    // "not seen today" part was enforced only via in-session sessionSeen, which
+    // resets on every deck re-entry — so a card learned minutes ago, now due
+    // tomorrow, would be served again the same day. lastSeen makes the
+    // exclusion persist across sessions within the same day.)
+    const lowBox = shuffle(ids
       .filter(id => items[id].box > 0 && items[id].box < 4)
+      .filter(id => !(items[id].lastSeen && String(items[id].lastSeen).slice(0, 10) === today)), rnd)
       .sort((a, b) => items[a].box - items[b].box);
     for (const id of lowBox) if (topicsDisjoint(id)) return id;
     if (lowBox.length) return lowBox[0];
 
-    // Tier 3: new (box 0)
+    // Tier 3: new (box 0), introduced in random order
     if (newToday < newCap) {
-      const fresh = ids.filter(id => items[id].box === 0);
+      const fresh = shuffle(ids.filter(id => items[id].box === 0), rnd);
       for (const id of fresh) if (topicsDisjoint(id)) return id;
       if (fresh.length) return fresh[0];
     }

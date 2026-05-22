@@ -38,19 +38,17 @@
     {
       "id": "cham_nach_according_to_001",
       "kind": "cloze",
-      "prompt": "{0} meiner Meinung fährt er zu schnell.",
+      "prompt": "Meiner Meinung {0} fährt er zu schnell.",
       "blanks": [
         {
-          "answer": "Nach",
-          "alts": [
-            "nach"
-          ],
+          "answer": "nach",
+          "alts": [],
           "topic": "nach_according_to",
           "scaffoldPool": "chameleon_particles"
         }
       ],
       "translation": "In my opinion, he drives too fast.",
-      "explanation": "*nach* + dative meaning *according to*; common with *Meinung*: *nach meiner Meinung* = *in my opinion*."
+      "explanation": "Postposed *nach* in *meiner Meinung nach* = *in my opinion* — *nach* follows the noun phrase. Different from *nach* + city = *to* or *nach* + time = *after*."
     },
     {
       "id": "cham_nach_meaning_001",
@@ -83,7 +81,7 @@
     {
       "id": "cham_noch_still_001",
       "kind": "cloze",
-      "prompt": "Er wohnt {0} in Berlin.",
+      "prompt": "Auch nach vielen Jahren wohnt er {0} in Berlin.",
       "blanks": [
         {
           "answer": "noch",
@@ -98,7 +96,7 @@
     {
       "id": "cham_noch_not_yet_001",
       "kind": "cloze",
-      "prompt": "Sie hat den Film {0} nicht gesehen.",
+      "prompt": "Sie hat den Film bisher {0} nicht gesehen.",
       "blanks": [
         {
           "answer": "noch",
@@ -113,7 +111,7 @@
     {
       "id": "cham_noch_another_001",
       "kind": "cloze",
-      "prompt": "Möchtest du {0} ein Stück Kuchen?",
+      "prompt": "Dein Teller ist leer. Möchtest du {0} ein Stück Kuchen?",
       "blanks": [
         {
           "answer": "noch",
@@ -128,7 +126,7 @@
     {
       "id": "cham_noch_even_001",
       "kind": "cloze",
-      "prompt": "Das Buch ist {0} besser als der Film.",
+      "prompt": "Der Film war gut, aber das Buch ist {0} besser.",
       "blanks": [
         {
           "answer": "noch",
@@ -171,7 +169,7 @@
     {
       "id": "cham_schon_already_001",
       "kind": "cloze",
-      "prompt": "Ich habe das Buch {0} gelesen.",
+      "prompt": "Du musst das Buch nicht kaufen — ich habe es {0} gelesen.",
       "blanks": [
         {
           "answer": "schon",
@@ -186,7 +184,7 @@
     {
       "id": "cham_schon_ever_001",
       "kind": "cloze",
-      "prompt": "Bist du {0} mal in Japan gewesen?",
+      "prompt": "Bist du {0} mal in Japan gewesen, oder wäre es das erste Mal?",
       "blanks": [
         {
           "answer": "schon",
@@ -201,7 +199,7 @@
     {
       "id": "cham_schon_yet_again_001",
       "kind": "cloze",
-      "prompt": "Du bist {0} wieder zu spät gekommen.",
+      "prompt": "Unglaublich! Du bist {0} wieder zu spät gekommen.",
       "blanks": [
         {
           "answer": "schon",
@@ -259,7 +257,7 @@
     {
       "id": "cham_doch_insistence_001",
       "kind": "cloze",
-      "prompt": "Ich habe ihm {0} geholfen!",
+      "prompt": "Das stimmt nicht — ich habe ihm {0} geholfen!",
       "blanks": [
         {
           "answer": "doch",
@@ -274,7 +272,7 @@
     {
       "id": "cham_doch_surprise_001",
       "kind": "cloze",
-      "prompt": "Sie ist {0} gekommen!",
+      "prompt": "Ich dachte, sie bleibt zu Hause, aber sie ist {0} gekommen!",
       "blanks": [
         {
           "answer": "doch",
@@ -332,7 +330,7 @@
     {
       "id": "cham_mal_softener_001",
       "kind": "cloze",
-      "prompt": "Kannst du mir {0} helfen?",
+      "prompt": "Kannst du mir {0} kurz helfen?",
       "blanks": [
         {
           "answer": "mal",
@@ -376,7 +374,7 @@
     {
       "id": "cham_erst_not_until_001",
       "kind": "cloze",
-      "prompt": "Der Zug fährt {0} um 10 Uhr ab.",
+      "prompt": "Wir müssen warten: Der Zug fährt {0} um 10 Uhr ab.",
       "blanks": [
         {
           "answer": "erst",
@@ -391,7 +389,7 @@
     {
       "id": "cham_erst_only_just_001",
       "kind": "cloze",
-      "prompt": "Sie ist {0} gestern angekommen.",
+      "prompt": "Sie ist neu hier — sie ist {0} gestern angekommen.",
       "blanks": [
         {
           "answer": "erst",
@@ -406,7 +404,7 @@
     {
       "id": "cham_erst_first_001",
       "kind": "cloze",
-      "prompt": "Ich muss {0} die E-Mail lesen.",
+      "prompt": "Ich lese {0} die E-Mail und dann das Dokument.",
       "blanks": [
         {
           "answer": "erst",
@@ -464,7 +462,7 @@
     {
       "id": "cham_ja_warning_001",
       "kind": "cloze",
-      "prompt": "Du darfst das {0} nicht vergessen!",
+      "prompt": "Pass auf: Du darfst das {0} nicht vergessen!",
       "blanks": [
         {
           "answer": "ja",
@@ -507,7 +505,7 @@
     {
       "id": "cham_denn_question_001",
       "kind": "cloze",
-      "prompt": "Was ist {0} los?",
+      "prompt": "Du siehst traurig aus. Was ist {0} los?",
       "blanks": [
         {
           "answer": "denn",
@@ -522,7 +520,7 @@
     {
       "id": "cham_denn_question_002",
       "kind": "cloze",
-      "prompt": "Wo warst du {0}?",
+      "prompt": "Ich habe dich überall gesucht. Wo warst du {0}?",
       "blanks": [
         {
           "answer": "denn",
@@ -551,7 +549,7 @@
     {
       "id": "cham_wohl_probably_001",
       "kind": "cloze",
-      "prompt": "Er hat {0} keine Zeit.",
+      "prompt": "Er antwortet nicht — er hat {0} keine Zeit.",
       "blanks": [
         {
           "answer": "wohl",

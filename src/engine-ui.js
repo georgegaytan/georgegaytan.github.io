@@ -17,6 +17,10 @@
 
   let bannerDismissed = false; // session-only; reset on full page reload
 
+  // Daily cap on how many brand-new cards a deck introduces per day. Keeps new
+  // material from piling up faster than spaced repetition can consolidate it.
+  const NEW_CARD_LIMIT = 15;
+
   function today() { return new Date().toISOString().slice(0, 10); }
   function nowIso() { return new Date().toISOString(); }
 
@@ -116,19 +120,30 @@
   // ----- Daily Review (cross-deck) -----
   function dailyReviewQueue() {
     const t = today();
-    const allDue = [];
+    const NEW_CAP = NEW_CARD_LIMIT; // cross-deck cap on freshly-introduced cards per daily review
+    const overdueOrLow = [];
+    const fresh = [];
     for (const deckDef of window.DECKS) {
       const state = Storage.loadDeck(deckDef.id);
       if (!state || !state.items) continue;
       for (const itemDef of deckDef.items) {
         const s = state.items[itemDef.id];
-        if (!s || !s.due || s.box <= 0) continue;
-        if (s.due <= t) {
-          allDue.push({ deckId: deckDef.id, deckDef, itemDef, state: s, dueDate: s.due, topics: topicsOf(itemDef) });
+        if (!s) continue;
+        const seenToday = s.lastSeen && String(s.lastSeen).slice(0, 10) === t;
+        const entry = { deckId: deckDef.id, deckDef, itemDef, state: s, dueDate: s.due || '', topics: topicsOf(itemDef) };
+        if (s.box > 0 && s.due && s.due <= t) {
+          overdueOrLow.push(entry);            // genuinely due
+        } else if (s.box > 0 && s.box < 4 && !seenToday) {
+          overdueOrLow.push(entry);            // struggling, not yet seen today
+        } else if (s.box === 0) {
+          fresh.push(entry);                   // never introduced
         }
       }
     }
-    allDue.sort((a, b) => a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0);
+    // Due/struggling first (oldest due first), then a capped slice of new cards
+    // in random order so the same new cards don't always lead.
+    overdueOrLow.sort((a, b) => a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0);
+    const allDue = overdueOrLow.concat(EngineCore.shuffle(fresh).slice(0, NEW_CAP));
 
     const queue = [];
     const remaining = allDue.slice();
@@ -186,6 +201,7 @@
 
   function advanceMixed() {
     if (DRILL.qIdx >= DRILL.queue.length) return endSession();
+    setProgress(`Daily Review · ${Math.min(DRILL.sessionCount + 1, DRILL.sessionCap)} / ${DRILL.sessionCap}`);
     const entry = DRILL.queue[DRILL.qIdx];
     DRILL.deckId = entry.deckId;
     DRILL.deckDef = entry.deckDef;
@@ -227,6 +243,30 @@
   // ----- Drill -----
   let DRILL = null;
 
+  // Bug fix: the progress counter used to be written once at session start and
+  // never updated. Refresh it on every item.
+  function setProgress(text) {
+    const p = document.querySelector('.drill-progress');
+    if (p) p.textContent = text;
+  }
+
+  // Estimate how many items a single-deck session can actually serve today, so
+  // the "/ N" denominator reflects reality (overdue + low-box-not-seen-today +
+  // new up to the daily cap) instead of always claiming 20.
+  function actionableCount(state, deckDef, t, newToday, newCap) {
+    const view = hydratedStateView(state, deckDef).items;
+    let overdue = 0, lowBox = 0, fresh = 0;
+    for (const id in view) {
+      const it = view[id];
+      const seenToday = it.lastSeen && String(it.lastSeen).slice(0, 10) === t;
+      if (it.due && it.due <= t && it.box > 0) overdue++;
+      else if (it.box > 0 && it.box < 4 && !seenToday) lowBox++;
+      else if (it.box === 0) fresh++;
+    }
+    const newAllowed = Math.max(0, newCap - newToday);
+    return overdue + lowBox + Math.min(fresh, newAllowed);
+  }
+
   function enterDrillView() {
     document.body.classList.add('drill-open');
     if (typeof history !== 'undefined' && history.pushState) {
@@ -248,15 +288,18 @@
   function openDeck(deckId) {
     const deckDef = window.DECKS.find(d => d.id === deckId);
     const state = loadOrInitDeckState(deckId, deckDef);
+    const newToday = state.sessionMeta.newToday || 0;
+    const newCap = NEW_CARD_LIMIT;
+    const cap = Math.min(20, actionableCount(state, deckDef, today(), newToday, newCap));
     DRILL = {
       deckId,
       deckDef,
       state,
       sessionSeen: [],
       sessionCount: 0,
-      sessionCap: 20,
-      newToday: state.sessionMeta.newToday || 0,
-      newCap: 5,
+      sessionCap: Math.max(1, cap),
+      newToday,
+      newCap,
       lastTopics: [],
       firstTryCorrect: 0,
       advanced: 0,
@@ -301,6 +344,7 @@
     DRILL.currentItemId = id;
     DRILL.attemptedThisItem = false;
     DRILL.usedScaffolding = false;
+    setProgress(`${Math.min(DRILL.sessionCount + 1, DRILL.sessionCap)} / ${DRILL.sessionCap}`);
     const itemDef = DRILL.deckDef.items.find(it => it.id === id);
     renderItem(itemDef);
   }
@@ -339,19 +383,31 @@
     body.appendChild(promptHtml);
 
     if (state.box <= 1) {
-      const chipSet = new Set();
-      for (const b of blanks) if (b.answer) chipSet.add(b.answer);
+      // Build the chip palette with case-insensitive de-duplication so a
+      // sentence-initial answer ("Nach") and its lowercase pool twin ("nach")
+      // don't both appear, and uniform-case the display so the lone capitalized
+      // chip doesn't silently flag the answer.
+      const seen = new Set();
+      const chipRaw = [];
+      const addChip = (w) => {
+        if (!w) return;
+        const k = String(w).toLowerCase();
+        if (seen.has(k)) return;
+        seen.add(k);
+        chipRaw.push(w);
+      };
+      for (const b of blanks) addChip(b.answer);
       const deckPools = DRILL.deckDef.pools || {};
       for (const b of blanks) {
         if (b.scaffoldPool && deckPools[b.scaffoldPool]) {
-          for (const e of deckPools[b.scaffoldPool].items) chipSet.add(e);
+          for (const e of deckPools[b.scaffoldPool].items) addChip(e);
         }
       }
-      if (chipSet.size > blanks.length) {
+      if (chipRaw.length > blanks.length) {
         DRILL.usedScaffolding = true;
       }
       const chipsEl = el('div', { class: 'chips' });
-      const chipList = Array.from(chipSet).slice(0, 12);
+      const chipList = uniformFirstCase(chipRaw).slice(0, 12);
       shuffleDeterministic(chipList, hashCode(item.id));
       for (const w of chipList) {
         chipsEl.appendChild(el('div', { class: 'chip', onclick: (e) => fillFirstEmpty(inputs, w, e.target) }, w));
@@ -409,29 +465,47 @@
   function renderChoice(body, item, state) {
     const promptHtml = el('div', { class: 'prompt' }, item.prompt);
     body.appendChild(promptHtml);
+    const seed = hashCode(item.id + ':' + (DRILL.state.items[item.id].seenCount || 0));
     let options;
     if (Array.isArray(item.options)) {
       options = item.options.slice();
     } else {
       const pool = DRILL.deckDef.pools[item.pool].items;
-      const seed = hashCode(item.id + ':' + (DRILL.state.items[item.id].seenCount || 0));
       const distractors = EngineCore.selectDistractors(pool, item.answer, state.box, 3, seed);
       options = [item.answer].concat(distractors);
-      shuffleDeterministic(options, seed + 1);
     }
+    // Always shuffle (inline options used to keep their authored order, which put
+    // the answer in a predictable slot — e.g. always first in the past/future deck).
+    shuffleDeterministic(options, seed + 1);
+    const labels = uniformFirstCase(options);
     const wrap = el('div', { class: 'choice-options' });
-    for (const opt of options) {
+    let answerBtn = null;
+    options.forEach((opt, i) => {
       const btn = el('button', { class: 'choice-btn', onclick: () => {
         const ok = opt === item.answer;
         btn.classList.add(ok ? 'correct' : 'wrong');
-        if (!ok) {
-          for (const b of wrap.children) if (b.textContent === item.answer) b.classList.add('correct');
-        }
+        if (!ok && answerBtn) answerBtn.classList.add('correct');
         finalizeAttempt(item, ok, [{ inp: { value: opt }, blank: btn, def: { answer: item.answer } }]);
-      } }, opt);
+      } }, labels[i]);
+      if (opt === item.answer) answerBtn = btn;
       wrap.appendChild(btn);
-    }
+    });
     body.appendChild(wrap);
+  }
+
+  // If options disagree on first-letter case (e.g. one capitalized gloss among
+  // lowercase ones), the odd one out silently flags the answer. Normalize the
+  // display to a single first-letter case so casing carries no signal. The
+  // underlying option values are untouched, so answer matching is unaffected.
+  function uniformFirstCase(opts) {
+    const isLetter = c => c && c.toLowerCase() !== c.toUpperCase();
+    const firsts = opts.filter(o => o && o.length).map(o => o[0]);
+    const anyUpper = firsts.some(c => isLetter(c) && c === c.toUpperCase());
+    const anyLower = firsts.some(c => isLetter(c) && c === c.toLowerCase());
+    if (anyUpper && anyLower) {
+      return opts.map(o => (o && o.length) ? o[0].toLowerCase() + o.slice(1) : o);
+    }
+    return opts.slice();
   }
 
   function hashCode(s) {
@@ -455,9 +529,17 @@
       fb.appendChild(el('div', null, 'Correct.'));
       if (item.translation) fb.appendChild(el('div', { class: 'translation' }, item.translation));
     } else {
-      const correctForm = item.kind === 'cloze'
-        ? item.blanks.map(b => b.answer).join(' / ')
-        : item.answer;
+      // Show the correct answer in the same format the user is asked to type
+      // below (space-joined words/endings), rather than a "word / ending" slash
+      // form that doesn't match the expected input.
+      let correctForm;
+      if (item.kind === 'cloze') {
+        correctForm = (Array.isArray(item.acceptAny) && item.acceptAny.length > 0)
+          ? item.acceptAny[0].join(' ')
+          : item.blanks.map(b => b.answer).join(' ');
+      } else {
+        correctForm = item.answer;
+      }
       fb.appendChild(el('div', null, 'Correct answer: '));
       fb.appendChild(el('div', { class: 'correct-form' }, correctForm));
       if (item.translation) fb.appendChild(el('div', { class: 'translation' }, item.translation));
@@ -551,6 +633,33 @@
   function endSession() {
     const body = $('#drillBody');
     if (body) body.innerHTML = '';
+    const newCap = DRILL.newCap || NEW_CARD_LIMIT;
+    const capReached = !DRILL.mixed && (DRILL.newToday || 0) >= newCap;
+    const note = (text) => el('div', {
+      style: { marginTop: '16px', maxWidth: '340px', color: '#999', fontSize: '14px', lineHeight: '1.55' },
+    }, text);
+
+    if (DRILL.sessionCount === 0) {
+      let headline, detail;
+      if (DRILL.mixed) {
+        headline = 'All caught up';
+        detail = 'Nothing is due across your decks right now. New cards and due reviews show up here as they come up — check back later, or open a single deck to keep going.';
+      } else if (capReached) {
+        headline = 'Daily limit reached';
+        detail = `You've already introduced today's ${newCap} new cards for this deck. The limit spaces new material out so it sticks instead of piling up. The cards you've studied will return for review on their scheduled days — come back tomorrow for ${newCap} more.`;
+      } else {
+        headline = 'Nothing due right now';
+        detail = 'Everything you\u2019ve learned in this deck is scheduled for a later day. Check back when those cards come due.';
+      }
+      const empty = el('div', { class: 'session-end' },
+        el('div', { class: 'stat-val' }, '✓'),
+        el('div', { class: 'stat' }, headline),
+        note(detail),
+        el('button', { class: 'btn-primary', style: { marginTop: '24px' }, onclick: closeDrill }, 'Back to menu')
+      );
+      if (body) body.appendChild(empty);
+      return;
+    }
     const summary = el('div', { class: 'session-end' },
       el('div', { class: 'stat-val' }, String(DRILL.sessionCount)),
       el('div', { class: 'stat' }, 'items seen'),
@@ -562,6 +671,12 @@
       el('div', { class: 'stat' }, 'lapsed'),
       el('button', { class: 'btn-primary', style: { marginTop: '24px' }, onclick: closeDrill }, 'Back to menu')
     );
+    if (capReached) {
+      summary.insertBefore(
+        note(`That's today's ${newCap} new cards for this deck. Come back tomorrow for ${newCap} more, and your studied cards will return for review when they're due.`),
+        summary.lastChild
+      );
+    }
     if (body) body.appendChild(summary);
   }
 

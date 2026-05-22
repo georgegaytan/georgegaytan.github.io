@@ -87,7 +87,7 @@
       "id": "modal_können_3pl_kii_001",
       "kind": "cloze",
       "prompt": "{0} Sie mir bitte helfen?",
-      "blanks": [{ "answer": "Könnten", "alts": ["könnten", "Koennten", "koennten"], "topic": "koennen_3pl_kii", "scaffoldPool": "können_all_forms" }],
+      "blanks": [{ "answer": "Könnten", "alts": ["könnten", "Koennten"], "topic": "koennen_3pl_kii", "scaffoldPool": "können_all_forms" }],
       "translation": "Could you please help me?",
       "explanation": "Konjunktiv II of *können* uses umlauted Präteritum stem + *-en*: *könnten* (would be able)."
     },
