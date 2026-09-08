@@ -2,17 +2,29 @@
   const EngineCore = {};
 
   const EASE_FLOOR = 1.3;
+  const EASE_START = 2.5;
   const EASE_DROP_ON_LAPSE = 0.15;
+  // Unaided recall pays back some of what a lapse took, capped at the starting
+  // ease. Without this, ease is a ratchet: every card you ever missed drifts to
+  // the 1.3 floor and its intervals stay short forever, however well you go on
+  // to know it. Aided recall deliberately earns no ease back.
+  const EASE_GAIN_ON_RECALL = 0.1;
   const AIDED_INTERVAL_MULTIPLIER = 0.5;
 
   function srsUpdate(item, outcome) {
     const next = { box: item.box, ease: item.ease, interval: item.interval, lapses: item.lapses };
     if (outcome === 'correct') {
       next.box = item.box + 1;
+      next.ease = Math.min(EASE_START, +(item.ease + EASE_GAIN_ON_RECALL).toFixed(2));
       next.interval = item.interval === 0
         ? 1
         : Math.max(1, Math.round(item.interval * item.ease));
     } else if (outcome === 'correct-aided') {
+      // Aided recall still advances the box. It must: chips are shown at box
+      // <= 1, so holding the box here made the ladder a closed loop - the card
+      // could never reach box 2, never lose its chips, and never be mastered.
+      // The halved interval is the penalty for needing the scaffold.
+      next.box = item.box + 1;
       next.interval = item.interval === 0
         ? 1
         : Math.max(1, Math.round(item.interval * item.ease * AIDED_INTERVAL_MULTIPLIER));

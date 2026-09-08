@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0f0f1a">
 <meta name="color-scheme" content="dark">
 <title>German Drills</title>
-<style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Loaded as print media so it never blocks first paint, then promoted to
+     all once it arrives. The body font stack falls back to the system UI font,
+     so text is readable immediately and offline. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"></noscript>
+<style>* { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { min-height: 100%; }
 body {
   font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -14,6 +21,9 @@ body {
   color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: contain;
+  /* Suppresses double-tap-to-zoom (and its 300ms tap delay) without disabling
+     pinch-zoom, which user-scalable=no used to block outright. */
+  touch-action: manipulation;
 }
 
 /* When a drill is open it sits fixed over everything; lock body scroll to
@@ -1226,17 +1236,29 @@ input.blank:focus { border-color: #7f5af0; }
   const EngineCore = {};
 
   const EASE_FLOOR = 1.3;
+  const EASE_START = 2.5;
   const EASE_DROP_ON_LAPSE = 0.15;
+  // Unaided recall pays back some of what a lapse took, capped at the starting
+  // ease. Without this, ease is a ratchet: every card you ever missed drifts to
+  // the 1.3 floor and its intervals stay short forever, however well you go on
+  // to know it. Aided recall deliberately earns no ease back.
+  const EASE_GAIN_ON_RECALL = 0.1;
   const AIDED_INTERVAL_MULTIPLIER = 0.5;
 
   function srsUpdate(item, outcome) {
     const next = { box: item.box, ease: item.ease, interval: item.interval, lapses: item.lapses };
     if (outcome === 'correct') {
       next.box = item.box + 1;
+      next.ease = Math.min(EASE_START, +(item.ease + EASE_GAIN_ON_RECALL).toFixed(2));
       next.interval = item.interval === 0
         ? 1
         : Math.max(1, Math.round(item.interval * item.ease));
     } else if (outcome === 'correct-aided') {
+      // Aided recall still advances the box. It must: chips are shown at box
+      // <= 1, so holding the box here made the ladder a closed loop - the card
+      // could never reach box 2, never lose its chips, and never be mastered.
+      // The halved interval is the penalty for needing the scaffold.
+      next.box = item.box + 1;
       next.interval = item.interval === 0
         ? 1
         : Math.max(1, Math.round(item.interval * item.ease * AIDED_INTERVAL_MULTIPLIER));
@@ -1888,9 +1910,6 @@ input.blank:focus { border-color: #7f5af0; }
       const chipRaw = EngineCore.buildChipPalette(
         blanks, DRILL.deckDef.pools, hashCode(item.id), 12
       );
-      if (chipRaw.length > blanks.length) {
-        DRILL.usedScaffolding = true;
-      }
       const chipsEl = el('div', { class: 'chips' });
       const chipList = uniformFirstCase(chipRaw);
       shuffleDeterministic(chipList, hashCode(item.id));
@@ -1908,7 +1927,15 @@ input.blank:focus { border-color: #7f5af0; }
 
   function fillFirstEmpty(inputs, word, chipEl) {
     for (const i of inputs) {
-      if (!i.inp.value) { i.inp.value = word; chipEl.classList.add('used'); return; }
+      if (!i.inp.value) {
+        i.inp.value = word;
+        chipEl.classList.add('used');
+        // The attempt counts as aided only once a chip is actually used.
+        // Setting this merely because chips were rendered graded every
+        // scaffolded answer as aided, including ones typed out unaided.
+        DRILL.usedScaffolding = true;
+        return;
+      }
     }
   }
 
@@ -2190,6 +2217,15 @@ input.blank:focus { border-color: #7f5af0; }
     global.EngineUI = { renderMenu, openDeck, openDailyReview };
   }
 })(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+// Offline support. Skipped on file:// (no service workers there, and the
+// single file already works standalone) and harmless if registration fails.
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
 </script>
 </body>
 </html>

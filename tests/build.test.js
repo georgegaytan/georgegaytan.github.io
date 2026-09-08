@@ -42,3 +42,37 @@ test('build: fails non-zero on validator error', () => {
   assert.notStrictEqual(res.status, 0, 'build should exit non-zero on validator error');
   fs.rmSync(dir, { recursive: true, force: true });
 });
+
+test('build: emits a service worker keyed to the built HTML', () => {
+  const sw = fs.readFileSync(path.join(REPO, 'sw.js'), 'utf8');
+  assert.ok(!sw.includes('__BUILD_HASH__'), 'the build hash placeholder must be stamped');
+  const m = sw.match(/const BUILD = '([0-9a-f]{12})'/);
+  assert.ok(m, 'sw.js should declare a hash-keyed build constant');
+  assert.ok(sw.includes("const CACHE = 'german-drills-' + BUILD"), 'cache name derives from the build hash');
+
+  // The hash must track index.html, or a deploy would leave users pinned to a
+  // stale cached shell.
+  const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+  const expected = require('node:crypto').createHash('sha256').update(html).digest('hex').slice(0, 12);
+  assert.strictEqual(m[1], expected, 'cache name must match a hash of the built index.html');
+});
+
+test('build: the page registers the worker but never on file://', () => {
+  const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+  assert.ok(html.includes("navigator.serviceWorker.register('sw.js')"));
+  assert.ok(html.includes("location.protocol.indexOf('http') === 0"),
+    'registration must be skipped on file:// so the standalone copy still works');
+});
+
+test('build: no render-blocking font import, and zoom is not disabled', () => {
+  const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+  assert.ok(!html.includes('@import'), 'the font @import blocked first paint; it should be a non-blocking link');
+  assert.ok(html.includes("media=\"print\" onload=\"this.media='all'\""), 'font stylesheet should load non-blocking');
+  // Match the meta tag itself - the phrase also appears in a CSS comment
+  // explaining why it was removed.
+  const viewport = html.match(/<meta name="viewport" content="([^"]*)"/);
+  assert.ok(viewport, 'viewport meta should exist');
+  assert.ok(!/user-scalable\s*=\s*no/.test(viewport[1]),
+    `pinch-zoom must not be disabled, got: ${viewport[1]}`);
+  assert.ok(!/maximum-scale\s*=\s*1/.test(viewport[1]), 'and must not be capped at 1x');
+});

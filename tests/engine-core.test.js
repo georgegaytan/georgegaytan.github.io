@@ -24,12 +24,47 @@ test('srsUpdate: box 2 correct → box 3, interval grows by ease', () => {
   assert.strictEqual(updated.interval, 8);
 });
 
-test('srsUpdate: correct-aided holds box, grows interval by ease * 0.5', () => {
+test('srsUpdate: correct-aided advances the box at half the interval', () => {
   const item = { box: 2, ease: 2.5, interval: 4, lapses: 0 };
   const updated = EngineCore.srsUpdate(item, 'correct-aided');
-  assert.strictEqual(updated.box, 2);
-  assert.strictEqual(updated.ease, 2.5);
+  assert.strictEqual(updated.box, 3, 'aided recall still advances - see the ladder test below');
+  assert.strictEqual(updated.ease, 2.5, 'but earns no ease back');
   assert.strictEqual(updated.interval, 5);
+});
+
+test('srsUpdate: the scaffolding ladder terminates (aided answers reach box 2)', () => {
+  // Regression: chips are shown at box <= 1 and every shown-chip answer was
+  // graded 'correct-aided', which used to hold the box. That closed the loop -
+  // a scaffolded cloze could never reach box 2, never lose its chips, and never
+  // be mastered. Declension's progress bar was pinned at 0/41 forever.
+  let st = { box: 0, ease: 2.5, interval: 0, lapses: 0 };
+  const boxes = [];
+  for (let i = 0; i < 4; i++) {
+    st = EngineCore.srsUpdate(st, st.box <= 1 ? 'correct-aided' : 'correct');
+    boxes.push(st.box);
+  }
+  assert.deepStrictEqual(boxes, [1, 2, 3, 4]);
+  assert.ok(st.box >= 4, 'a card answered correctly every time must reach mastery');
+});
+
+test('srsUpdate: unaided recall pays ease back, capped at the 2.5 start', () => {
+  const lapsed = EngineCore.srsUpdate({ box: 3, ease: 2.5, interval: 12, lapses: 0 }, 'wrong');
+  assert.strictEqual(lapsed.ease, 2.35);
+  const back = EngineCore.srsUpdate(lapsed, 'correct');
+  assert.strictEqual(back.ease, 2.45, 'unaided correct recovers 0.1');
+  const capped = EngineCore.srsUpdate({ box: 5, ease: 2.5, interval: 30, lapses: 0 }, 'correct');
+  assert.strictEqual(capped.ease, 2.5, 'never climbs above the starting ease');
+});
+
+test('srsUpdate: aided recall does not pay ease back', () => {
+  const item = { box: 1, ease: 2.0, interval: 2, lapses: 1 };
+  assert.strictEqual(EngineCore.srsUpdate(item, 'correct-aided').ease, 2.0);
+});
+
+test('srsUpdate: ease recovers from the floor over repeated unaided recalls', () => {
+  let st = { box: 2, ease: 1.3, interval: 5, lapses: 9 };
+  for (let i = 0; i < 20; i++) st = EngineCore.srsUpdate(st, 'correct');
+  assert.strictEqual(st.ease, 2.5, 'a card you now know well escapes the 1.3 floor');
 });
 
 test('srsUpdate: wrong resets box to 1, drops ease by 0.15, interval to 1, lapses++', () => {

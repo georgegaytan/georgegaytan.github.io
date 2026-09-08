@@ -73,3 +73,25 @@ test('regression: no choice item has fewer than 2 plausible options at any box',
     }
   }
 });
+
+test('regression: every deck can reach 100% mastery', () => {
+  // Scar: cloze items with a scaffold pool were graded 'correct-aided' merely
+  // because chips were rendered, and 'correct-aided' held the box. Chips show
+  // at box <= 1, so those cards could never reach box 2 to lose the chips.
+  // 148 of 449 items were unmasterable; declension's bar was stuck at 0%.
+  const DECKS_DIR = require('node:path').resolve(__dirname, '..', 'decks');
+  const fs = require('node:fs');
+  const EngineCore = require('../src/engine-core.js');
+  for (const f of fs.readdirSync(DECKS_DIR).filter(x => x.endsWith('.json'))) {
+    const deck = JSON.parse(fs.readFileSync(require('node:path').join(DECKS_DIR, f), 'utf8'));
+    for (const item of deck.items) {
+      // Worst case: the learner leans on the scaffold every time it is offered.
+      let st = { box: 0, ease: 2.5, interval: 0, lapses: 0 };
+      for (let i = 0; i < 12 && st.box < 4; i++) {
+        st = EngineCore.srsUpdate(st, st.box <= 1 ? 'correct-aided' : 'correct');
+      }
+      assert.ok(st.box >= 4,
+        `${deck.id}:${item.id} cannot reach mastery even when always answered correctly`);
+    }
+  }
+});

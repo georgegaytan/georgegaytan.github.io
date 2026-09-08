@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const { validateDecks } = require('./validator.js');
 
 const REPO = path.resolve(__dirname, '..');
 const SRC = path.join(REPO, 'src');
 const DECKS_DIR = path.join(REPO, 'decks');
 const OUT = path.join(REPO, 'index.html');
+const SW_OUT = path.join(REPO, 'sw.js');
 
 function read(p) { return fs.readFileSync(p, 'utf8'); }
 
@@ -59,6 +61,16 @@ function build() {
 
   fs.writeFileSync(OUT, html);
   console.log(`Built ${OUT} (${decks.length} deck${decks.length === 1 ? '' : 's'}, ${warns.length} warning(s))`);
+
+  // Service worker. Its cache name is keyed to a hash of the HTML just built,
+  // so a deploy always installs a fresh cache and evicts the previous one -
+  // otherwise a cache-first worker would pin users to an old build.
+  const swTemplate = readIfExists(path.join(SRC, 'sw.js'));
+  if (swTemplate) {
+    const buildHash = crypto.createHash('sha256').update(html).digest('hex').slice(0, 12);
+    fs.writeFileSync(SW_OUT, swTemplate.replace(/__BUILD_HASH__/g, () => buildHash));
+    console.log(`Built ${SW_OUT} (cache german-drills-${buildHash})`);
+  }
 
   // Snapshot drift check — informational; doesn't fail the build.
   const snapDir = path.join(REPO, 'tests', 'snapshots');

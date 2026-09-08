@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0f0f1a">
 <meta name="color-scheme" content="dark">
 <title>German Drills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Loaded as print media so it never blocks first paint, then promoted to
+     all once it arrives. The body font stack falls back to the system UI font,
+     so text is readable immediately and offline. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"></noscript>
 <style>/*__STYLES__*/</style>
 <style>/*__EXTRA_STYLES__*/</style>
 </head>
@@ -15,5 +23,14 @@
 <script>/*__EXTRA_VOCAB__*/</script>
 <script>/*__ENGINE_CORE__*/</script>
 <script>/*__ENGINE_UI__*/</script>
+<script>
+// Offline support. Skipped on file:// (no service workers there, and the
+// single file already works standalone) and harmless if registration fails.
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+</script>
 </body>
 </html>

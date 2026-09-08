@@ -412,9 +412,6 @@
       const chipRaw = EngineCore.buildChipPalette(
         blanks, DRILL.deckDef.pools, hashCode(item.id), 12
       );
-      if (chipRaw.length > blanks.length) {
-        DRILL.usedScaffolding = true;
-      }
       const chipsEl = el('div', { class: 'chips' });
       const chipList = uniformFirstCase(chipRaw);
       shuffleDeterministic(chipList, hashCode(item.id));
@@ -432,7 +429,15 @@
 
   function fillFirstEmpty(inputs, word, chipEl) {
     for (const i of inputs) {
-      if (!i.inp.value) { i.inp.value = word; chipEl.classList.add('used'); return; }
+      if (!i.inp.value) {
+        i.inp.value = word;
+        chipEl.classList.add('used');
+        // The attempt counts as aided only once a chip is actually used.
+        // Setting this merely because chips were rendered graded every
+        // scaffolded answer as aided, including ones typed out unaided.
+        DRILL.usedScaffolding = true;
+        return;
+      }
     }
   }
 
