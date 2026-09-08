@@ -48,7 +48,11 @@ function build() {
   const engineCore = readIfExists(path.join(SRC, 'engine-core.js'));
   const engineUi = readIfExists(path.join(SRC, 'engine-ui.js'));
 
-  const decksJs = `window.DECKS = ${JSON.stringify(decks)};`;
+  // The deck JSON is inlined inside a <script>; a literal "</" in any string
+  // (e.g. an explanation quoting "</script>") would terminate the block and
+  // blank the whole app. "<\/" is the same string to JS but inert to the HTML
+  // parser. Nothing in the decks contains it today - this is a guard.
+  const decksJs = `window.DECKS = ${JSON.stringify(decks).replace(/<\//g, '<\\/')};`;
 
   const html = template
     .replace('/*__STYLES__*/', () => styles)

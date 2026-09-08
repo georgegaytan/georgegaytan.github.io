@@ -1489,6 +1489,209 @@ input.blank:focus { border-color: #7f5af0; }
 
   EngineCore.buildChipPalette = buildChipPalette;
 
+  // ---------------------------------------------------------------------------
+  // Session logic lifted out of engine-ui so it can be tested without a DOM.
+  // Everything below is pure: `today` is always passed in, never read from
+  // the clock, and nothing here touches Storage.
+  // ---------------------------------------------------------------------------
+
+  const NEW_CARD_LIMIT = 15;
+  EngineCore.NEW_CARD_LIMIT = NEW_CARD_LIMIT;
+
+  // Calendar day in the *local* timezone, as 'YYYY-MM-DD'. The app used to
+  // derive "today" from toISOString(), i.e. UTC, so the learning day rolled
+  // over at 02:00 in Zurich and mid-afternoon on the US west coast - resetting
+  // the new-card cap and un-marking "seen today" partway through a sitting.
+  // Accepts a Date or anything Date can parse (the stored ISO lastSeen).
+  function localDay(d) {
+    const x = d instanceof Date ? d : new Date(d);
+    if (isNaN(x.getTime())) return null;
+    const m = x.getMonth() + 1, day = x.getDate();
+    return x.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+  EngineCore.localDay = localDay;
+
+  // Pure calendar arithmetic on a 'YYYY-MM-DD' string; timezone-independent.
+  function addDays(yyyymmdd, days) {
+    const d = new Date(yyyymmdd + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().slice(0, 10);
+  }
+  EngineCore.addDays = addDays;
+
+  function freshItemState() {
+    return { box: 0, ease: EASE_START, interval: 0, due: null, lapses: 0, lastSeen: null, seenCount: 0 };
+  }
+
+  function freshSessionMeta(today) {
+    return { todayCount: 0, newToday: 0, todayDate: today, firstTryCorrectToday: 0 };
+  }
+
+  // Bring a stored deck state up to date for `today`: create it if missing,
+  // add entries for items authored since it was saved, and reset the daily
+  // counters on a new day. Tolerates a state with no items/sessionMeta (an
+  // imported or hand-edited backup) instead of throwing on first open.
+  //
+  // Mutates and returns `saved` when given one, because the caller keeps that
+  // same object reference in Storage's map and saves it after each answer.
+  function initDeckState(saved, deckDef, today) {
+    const s = saved && typeof saved === 'object' ? saved : {};
+    if (!s.deckId) s.deckId = deckDef.id;
+    if (!s.version) s.version = 1;
+    if (!s.items || typeof s.items !== 'object') s.items = {};
+    for (const item of deckDef.items) {
+      if (!s.items[item.id]) s.items[item.id] = freshItemState();
+    }
+    if (!s.sessionMeta || typeof s.sessionMeta !== 'object' || s.sessionMeta.todayDate !== today) {
+      s.sessionMeta = freshSessionMeta(today);
+    }
+    return s;
+  }
+  EngineCore.initDeckState = initDeckState;
+
+  function topicsOf(itemDef) {
+    if (itemDef.kind === 'cloze' && Array.isArray(itemDef.blanks)) {
+      const set = new Set();
+      for (const b of itemDef.blanks) if (b.topic) set.add(b.topic);
+      return Array.from(set);
+    }
+    return itemDef.topic ? [itemDef.topic] : [];
+  }
+  EngineCore.topicsOf = topicsOf;
+
+  function hydratedStateView(state, deckDef) {
+    const items = {};
+    for (const def of deckDef.items) {
+      const s = (state && state.items && state.items[def.id]) || {};
+      items[def.id] = Object.assign({}, s, { topics: topicsOf(def) });
+    }
+    return { items };
+  }
+  EngineCore.hydratedStateView = hydratedStateView;
+
+  function seenOn(itemState, today) {
+    return !!(itemState && itemState.lastSeen && localDay(itemState.lastSeen) === today);
+  }
+
+  // A card is "introduced" the first time it leaves box 0 - whatever the
+  // outcome. Counting only correct answers let wrong answers on new cards slip
+  // past the daily cap: the card moved to box 1 but was never tallied, so a
+  // learner who missed every new card could introduce an unlimited number.
+  function isIntroduction(itemStateBefore) {
+    return !!itemStateBefore && itemStateBefore.box === 0;
+  }
+  EngineCore.isIntroduction = isIntroduction;
+
+  function deckProgress(state) {
+    if (!state || !state.items) return null;
+    const ids = Object.keys(state.items);
+    if (ids.length === 0) return null;
+    const mastered = ids.filter(id => state.items[id].box >= 4).length;
+    return { mastered, total: ids.length, pct: Math.round(mastered / ids.length * 100), label: `${mastered}/${ids.length} mastered` };
+  }
+  EngineCore.deckProgress = deckProgress;
+
+  // How many items a single-deck session can actually serve today: overdue +
+  // low-box-not-seen-today + new up to the remaining daily allowance.
+  function actionableCount(state, deckDef, today, newToday, newCap) {
+    const view = hydratedStateView(state, deckDef).items;
+    let overdue = 0, lowBox = 0, fresh = 0;
+    for (const id in view) {
+      const it = view[id];
+      if (it.due && it.due <= today && it.box > 0) overdue++;
+      else if (it.box > 0 && it.box < 4 && !seenOn(it, today)) lowBox++;
+      else if (it.box === 0) fresh++;
+    }
+    const newAllowed = Math.max(0, newCap - newToday);
+    return overdue + lowBox + Math.min(fresh, newAllowed);
+  }
+  EngineCore.actionableCount = actionableCount;
+
+  // Cross-deck daily review. `statesById` must hold an (initDeckState'd) state
+  // for every deck that should take part - a deck the learner has never opened
+  // contributes its new cards like any other, which the old UI code silently
+  // skipped, so a fresh install saw "No items due today".
+  //
+  // Due and struggling cards come first, oldest due first. New cards are
+  // drawn per deck within that deck's remaining daily allowance (so a deck
+  // drill plus a daily review can't introduce 30 from one deck), then capped
+  // overall. The result is interleaved to avoid the same deck or topic twice
+  // in a row wherever the pool allows it.
+  function buildDailyReviewQueue(decks, statesById, today, opts) {
+    opts = opts || {};
+    const newCap = opts.newCap == null ? NEW_CARD_LIMIT : opts.newCap;
+    const limit = opts.limit == null ? 30 : opts.limit;
+    const rnd = opts.rng || Math.random;
+
+    const due = [];
+    const fresh = [];
+    for (const deckDef of decks) {
+      const state = statesById[deckDef.id];
+      if (!state || !state.items) continue;
+      const introduced = (state.sessionMeta && state.sessionMeta.newToday) || 0;
+      const allowance = Math.max(0, newCap - introduced);
+      const deckFresh = [];
+      for (const itemDef of deckDef.items) {
+        const s = state.items[itemDef.id];
+        if (!s) continue;
+        const entry = { deckId: deckDef.id, deckDef, itemDef, state, dueDate: s.due || '', topics: topicsOf(itemDef) };
+        if (s.box > 0 && s.due && s.due <= today) due.push(entry);
+        else if (s.box > 0 && s.box < 4 && !seenOn(s, today)) due.push(entry);
+        else if (s.box === 0) deckFresh.push(entry);
+      }
+      Array.prototype.push.apply(fresh, shuffle(deckFresh, rnd).slice(0, allowance));
+    }
+    due.sort((a, b) => a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0);
+    const remaining = due.concat(shuffle(fresh, rnd).slice(0, newCap));
+
+    const queue = [];
+    let lastDeck = null;
+    let lastTopics = new Set();
+    while (queue.length < limit && remaining.length > 0) {
+      let pickIdx = remaining.findIndex(c =>
+        c.deckId !== lastDeck && !c.topics.some(t => lastTopics.has(t))
+      );
+      if (pickIdx === -1) pickIdx = 0;
+      const pick = remaining.splice(pickIdx, 1)[0];
+      queue.push(pick);
+      lastDeck = pick.deckId;
+      lastTopics = new Set(pick.topics);
+    }
+    return queue;
+  }
+  EngineCore.buildDailyReviewQueue = buildDailyReviewQueue;
+
+  // Display helpers that decide what the learner sees - kept here so the
+  // decisions are testable even though the rendering is not.
+
+  // If options disagree on first-letter case (one capitalized gloss among
+  // lowercase ones), the odd one out silently flags the answer. Normalize the
+  // display to one case so casing carries no signal; values are untouched.
+  function uniformFirstCase(opts) {
+    const isLetter = c => c && c.toLowerCase() !== c.toUpperCase();
+    const firsts = opts.filter(o => o && o.length).map(o => o[0]);
+    const anyUpper = firsts.some(c => isLetter(c) && c === c.toUpperCase());
+    const anyLower = firsts.some(c => isLetter(c) && c === c.toLowerCase());
+    if (anyUpper && anyLower) {
+      return opts.map(o => (o && o.length) ? o[0].toLowerCase() + o.slice(1) : o);
+    }
+    return opts.slice();
+  }
+  EngineCore.uniformFirstCase = uniformFirstCase;
+
+  function hashCode(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  EngineCore.hashCode = hashCode;
+
+  // In-place seeded Fisher-Yates; same generator as selectDistractors.
+  function shuffleDeterministic(arr, seed) {
+    return shuffle(arr, rng(seed >>> 0));
+  }
+  EngineCore.shuffleDeterministic = shuffleDeterministic;
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = EngineCore;
   } else {
@@ -1517,52 +1720,20 @@ input.blank:focus { border-color: #7f5af0; }
 
   // Daily cap on how many brand-new cards a deck introduces per day. Keeps new
   // material from piling up faster than spaced repetition can consolidate it.
-  const NEW_CARD_LIMIT = 15;
+  const NEW_CARD_LIMIT = EngineCore.NEW_CARD_LIMIT;
 
-  function today() { return new Date().toISOString().slice(0, 10); }
+  // The learning day is the local calendar day, not UTC (EngineCore.localDay).
+  function today() { return EngineCore.localDay(new Date()); }
   function nowIso() { return new Date().toISOString(); }
 
+  // Session logic lives in EngineCore so it is covered by tests/session.test.js;
+  // this file only binds it to Storage and the DOM.
   function loadOrInitDeckState(deckId, deckDef) {
-    let s = Storage.loadDeck(deckId);
-    if (!s) {
-      s = { deckId, version: 1, items: {}, sessionMeta: { todayCount: 0, newToday: 0, todayDate: today(), firstTryCorrectToday: 0 } };
-    }
-    for (const item of deckDef.items) {
-      if (!s.items[item.id]) {
-        s.items[item.id] = { box: 0, ease: 2.5, interval: 0, due: null, lapses: 0, lastSeen: null, seenCount: 0 };
-      }
-    }
-    if (s.sessionMeta.todayDate !== today()) {
-      s.sessionMeta = { todayCount: 0, newToday: 0, todayDate: today(), firstTryCorrectToday: 0 };
-    }
-    return s;
-  }
-
-  function topicsOf(itemDef) {
-    if (itemDef.kind === 'cloze' && Array.isArray(itemDef.blanks)) {
-      const set = new Set();
-      for (const b of itemDef.blanks) if (b.topic) set.add(b.topic);
-      return Array.from(set);
-    }
-    return itemDef.topic ? [itemDef.topic] : [];
-  }
-
-  function hydratedStateView(state, deckDef) {
-    const items = {};
-    for (const def of deckDef.items) {
-      const s = state.items[def.id] || {};
-      items[def.id] = Object.assign({}, s, { topics: topicsOf(def) });
-    }
-    return { items };
+    return EngineCore.initDeckState(Storage.loadDeck(deckId), deckDef, today());
   }
 
   function getProgress(deckId) {
-    const s = Storage.loadDeck(deckId);
-    if (!s || !s.items) return null;
-    const ids = Object.keys(s.items);
-    if (ids.length === 0) return null;
-    const mastered = ids.filter(id => s.items[id].box >= 4).length;
-    return { pct: Math.round(mastered / ids.length * 100), label: `${mastered}/${ids.length} mastered` };
+    return EngineCore.deckProgress(Storage.loadDeck(deckId));
   }
 
   // ----- Menu -----
@@ -1639,47 +1810,14 @@ input.blank:focus { border-color: #7f5af0; }
   // ----- Daily Review (cross-deck) -----
   function dailyReviewQueue() {
     const t = today();
-    const NEW_CAP = NEW_CARD_LIMIT; // cross-deck cap on freshly-introduced cards per daily review
-    const overdueOrLow = [];
-    const fresh = [];
+    // Every deck takes part, opened before or not. initDeckState only creates
+    // or refreshes the state object in memory; nothing is persisted until an
+    // answer is committed, and that saves this same object.
+    const statesById = {};
     for (const deckDef of window.DECKS) {
-      const state = Storage.loadDeck(deckDef.id);
-      if (!state || !state.items) continue;
-      for (const itemDef of deckDef.items) {
-        const s = state.items[itemDef.id];
-        if (!s) continue;
-        const seenToday = s.lastSeen && String(s.lastSeen).slice(0, 10) === t;
-        const entry = { deckId: deckDef.id, deckDef, itemDef, state: s, dueDate: s.due || '', topics: topicsOf(itemDef) };
-        if (s.box > 0 && s.due && s.due <= t) {
-          overdueOrLow.push(entry);            // genuinely due
-        } else if (s.box > 0 && s.box < 4 && !seenToday) {
-          overdueOrLow.push(entry);            // struggling, not yet seen today
-        } else if (s.box === 0) {
-          fresh.push(entry);                   // never introduced
-        }
-      }
+      statesById[deckDef.id] = loadOrInitDeckState(deckDef.id, deckDef);
     }
-    // Due/struggling first (oldest due first), then a capped slice of new cards
-    // in random order so the same new cards don't always lead.
-    overdueOrLow.sort((a, b) => a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0);
-    const allDue = overdueOrLow.concat(EngineCore.shuffle(fresh).slice(0, NEW_CAP));
-
-    const queue = [];
-    const remaining = allDue.slice();
-    let lastDeck = null;
-    let lastTopics = new Set();
-    while (queue.length < 30 && remaining.length > 0) {
-      let pickIdx = remaining.findIndex(c =>
-        c.deckId !== lastDeck &&
-        !c.topics.some(t => lastTopics.has(t))
-      );
-      if (pickIdx === -1) pickIdx = 0;
-      const pick = remaining.splice(pickIdx, 1)[0];
-      queue.push(pick);
-      lastDeck = pick.deckId;
-      lastTopics = new Set(pick.topics);
-    }
-    return queue;
+    return EngineCore.buildDailyReviewQueue(window.DECKS, statesById, t, { newCap: NEW_CARD_LIMIT, limit: 30 });
   }
 
   function openDailyReview() {
@@ -1724,7 +1862,9 @@ input.blank:focus { border-color: #7f5af0; }
     const entry = DRILL.queue[DRILL.qIdx];
     DRILL.deckId = entry.deckId;
     DRILL.deckDef = entry.deckDef;
-    DRILL.state = Storage.loadDeck(entry.deckId);
+    // The queue carries the hydrated state object per deck; a deck opened for
+    // the first time here has no Storage entry yet until an answer saves it.
+    DRILL.state = entry.state;
     DRILL.usedScaffolding = false;
     DRILL.attemptedThisItem = false;
     renderItem(entry.itemDef);
@@ -1740,7 +1880,9 @@ input.blank:focus { border-color: #7f5af0; }
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    // Revoking synchronously can cancel the download in some browsers before
+    // it has actually started reading the blob.
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   function importProgress() { $('#importFile').click(); }
   function handleImport(evt) {
@@ -1751,10 +1893,17 @@ input.blank:focus { border-color: #7f5af0; }
       try {
         const backup = JSON.parse(e.target.result);
         if (!confirm('Replace current progress with backup?')) return;
-        Storage.importAll(backup);
+        // importAll returns false for a well-formed JSON file that isn't a
+        // backup (wrong version / shape); that used to pass silently as success.
+        if (!Storage.importAll(backup)) { alert('That file is not a German Drills backup.'); return; }
         renderMenu();
-      } catch (ex) { alert('Could not parse backup file.'); }
-      evt.target.value = '';
+      } catch (ex) {
+        alert('Could not parse backup file.');
+      } finally {
+        // Always clear, including after Cancel - otherwise choosing the same
+        // file again fires no change event and the button appears dead.
+        evt.target.value = '';
+      }
     };
     r.readAsText(f);
   }
@@ -1767,23 +1916,6 @@ input.blank:focus { border-color: #7f5af0; }
   function setProgress(text) {
     const p = document.querySelector('.drill-progress');
     if (p) p.textContent = text;
-  }
-
-  // Estimate how many items a single-deck session can actually serve today, so
-  // the "/ N" denominator reflects reality (overdue + low-box-not-seen-today +
-  // new up to the daily cap) instead of always claiming 20.
-  function actionableCount(state, deckDef, t, newToday, newCap) {
-    const view = hydratedStateView(state, deckDef).items;
-    let overdue = 0, lowBox = 0, fresh = 0;
-    for (const id in view) {
-      const it = view[id];
-      const seenToday = it.lastSeen && String(it.lastSeen).slice(0, 10) === t;
-      if (it.due && it.due <= t && it.box > 0) overdue++;
-      else if (it.box > 0 && it.box < 4 && !seenToday) lowBox++;
-      else if (it.box === 0) fresh++;
-    }
-    const newAllowed = Math.max(0, newCap - newToday);
-    return overdue + lowBox + Math.min(fresh, newAllowed);
   }
 
   function enterDrillView() {
@@ -1809,7 +1941,7 @@ input.blank:focus { border-color: #7f5af0; }
     const state = loadOrInitDeckState(deckId, deckDef);
     const newToday = state.sessionMeta.newToday || 0;
     const newCap = NEW_CARD_LIMIT;
-    const cap = Math.min(20, actionableCount(state, deckDef, today(), newToday, newCap));
+    const cap = Math.min(20, EngineCore.actionableCount(state, deckDef, today(), newToday, newCap));
     DRILL = {
       deckId,
       deckDef,
@@ -1852,7 +1984,7 @@ input.blank:focus { border-color: #7f5af0; }
 
   function advance() {
     if (DRILL.sessionCount >= DRILL.sessionCap) return endSession();
-    const view = hydratedStateView(DRILL.state, DRILL.deckDef);
+    const view = EngineCore.hydratedStateView(DRILL.state, DRILL.deckDef);
     const id = EngineCore.selectNextItem(view, today(), {
       sessionSeen: DRILL.sessionSeen,
       lastTopics: DRILL.lastTopics,
@@ -1907,12 +2039,13 @@ input.blank:focus { border-color: #7f5af0; }
       // don't both appear) and fair per-blank distribution under the cap.
       // uniformFirstCase then normalizes the display so a lone capitalized chip
       // doesn't silently flag the answer.
-      const chipRaw = EngineCore.buildChipPalette(
-        blanks, DRILL.deckDef.pools, hashCode(item.id), 12
-      );
+      // Seeded per showing (seenCount), not per item, so the distractor set
+      // and layout change between appearances - the same as choice options.
+      const chipSeed = EngineCore.hashCode(item.id + ':' + (state.seenCount || 0));
+      const chipRaw = EngineCore.buildChipPalette(blanks, DRILL.deckDef.pools, chipSeed, 12);
       const chipsEl = el('div', { class: 'chips' });
-      const chipList = uniformFirstCase(chipRaw);
-      shuffleDeterministic(chipList, hashCode(item.id));
+      const chipList = EngineCore.uniformFirstCase(chipRaw);
+      EngineCore.shuffleDeterministic(chipList, chipSeed + 1);
       for (const w of chipList) {
         chipsEl.appendChild(el('div', { class: 'chip', onclick: (e) => fillFirstEmpty(inputs, w, e.target) }, w));
       }
@@ -1977,7 +2110,7 @@ input.blank:focus { border-color: #7f5af0; }
   function renderChoice(body, item, state) {
     const promptHtml = el('div', { class: 'prompt' }, item.prompt);
     body.appendChild(promptHtml);
-    const seed = hashCode(item.id + ':' + (DRILL.state.items[item.id].seenCount || 0));
+    const seed = EngineCore.hashCode(item.id + ':' + (DRILL.state.items[item.id].seenCount || 0));
     let options;
     if (Array.isArray(item.options)) {
       options = item.options.slice();
@@ -1988,8 +2121,8 @@ input.blank:focus { border-color: #7f5af0; }
     }
     // Always shuffle (inline options used to keep their authored order, which put
     // the answer in a predictable slot — e.g. always first in the past/future deck).
-    shuffleDeterministic(options, seed + 1);
-    const labels = uniformFirstCase(options);
+    EngineCore.shuffleDeterministic(options, seed + 1);
+    const labels = EngineCore.uniformFirstCase(options);
     const wrap = el('div', { class: 'choice-options' });
     let answerBtn = null;
     options.forEach((opt, i) => {
@@ -2005,36 +2138,19 @@ input.blank:focus { border-color: #7f5af0; }
     body.appendChild(wrap);
   }
 
-  // If options disagree on first-letter case (e.g. one capitalized gloss among
-  // lowercase ones), the odd one out silently flags the answer. Normalize the
-  // display to a single first-letter case so casing carries no signal. The
-  // underlying option values are untouched, so answer matching is unaffected.
-  function uniformFirstCase(opts) {
-    const isLetter = c => c && c.toLowerCase() !== c.toUpperCase();
-    const firsts = opts.filter(o => o && o.length).map(o => o[0]);
-    const anyUpper = firsts.some(c => isLetter(c) && c === c.toUpperCase());
-    const anyLower = firsts.some(c => isLetter(c) && c === c.toLowerCase());
-    if (anyUpper && anyLower) {
-      return opts.map(o => (o && o.length) ? o[0].toLowerCase() + o.slice(1) : o);
-    }
-    return opts.slice();
-  }
-
-  function hashCode(s) {
-    let h = 0;
-    for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
-    return Math.abs(h);
-  }
-  function shuffleDeterministic(arr, seed) {
-    let s = seed >>> 0;
-    function r() { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
-    for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp; }
-  }
-
   function finalizeAttempt(item, correct, inputs) {
     if (DRILL.attemptedThisItem) return;
     DRILL.attemptedThisItem = true;
     const state = DRILL.state.items[item.id];
+    // Decide "was this card new?" before any outcome is committed, and tally
+    // it on BOTH paths below. Counting only correct answers let a new card
+    // answered wrong move to box 1 without ever hitting the daily cap.
+    const wasNew = EngineCore.isIntroduction(state);
+    const noteIntroduction = () => {
+      if (!wasNew) return;
+      DRILL.newToday = (DRILL.newToday || 0) + 1;
+      DRILL.state.sessionMeta.newToday = (DRILL.state.sessionMeta.newToday || 0) + 1;
+    };
     const body = $('#drillBody');
     const fb = el('div', { class: 'feedback ' + (correct ? 'correct' : 'wrong') });
     if (correct) {
@@ -2084,6 +2200,7 @@ input.blank:focus { border-color: #7f5af0; }
         }
         if (ok) {
           commitOutcome(item, 'wrong');
+          noteIntroduction();
           DRILL.lapsed++;
           nextItem(item);
         } else {
@@ -2095,14 +2212,10 @@ input.blank:focus { border-color: #7f5af0; }
       setTimeout(() => corrInp.focus(), 0);
     } else {
       const outcome = DRILL.usedScaffolding ? 'correct-aided' : 'correct';
-      const wasNew = state.box === 0;
       commitOutcome(item, outcome);
+      noteIntroduction();
       if (outcome === 'correct') DRILL.firstTryCorrect++;
       DRILL.advanced++;
-      if (wasNew) {
-        DRILL.newToday++;
-        DRILL.state.sessionMeta.newToday = (DRILL.state.sessionMeta.newToday || 0) + 1;
-      }
       const advanceBtn = el('button', { class: 'btn-primary', onclick: () => nextItem(item) }, 'Next');
       body.appendChild(el('div', { class: 'drill-actions' }, advanceBtn));
       setTimeout(() => advanceBtn.focus(), 0);
@@ -2112,7 +2225,7 @@ input.blank:focus { border-color: #7f5af0; }
   function commitOutcome(item, outcome) {
     const state = DRILL.state.items[item.id];
     const updated = EngineCore.srsUpdate(state, outcome);
-    updated.due = addDays(today(), updated.interval);
+    updated.due = EngineCore.addDays(today(), updated.interval);
     updated.lastSeen = nowIso();
     updated.seenCount = (state.seenCount || 0) + 1;
     DRILL.state.items[item.id] = updated;
@@ -2121,7 +2234,7 @@ input.blank:focus { border-color: #7f5af0; }
 
   var nextItem = function (prevItem) {
     if (DRILL.mixed) {
-      DRILL.lastTopics = topicsOf(prevItem);
+      DRILL.lastTopics = EngineCore.topicsOf(prevItem);
       DRILL.qIdx++;
       DRILL.sessionCount++;
       Storage.saveDeck(DRILL.deckId, DRILL.state);
@@ -2129,18 +2242,12 @@ input.blank:focus { border-color: #7f5af0; }
       return;
     }
     DRILL.sessionSeen.push(prevItem.id);
-    DRILL.lastTopics = topicsOf(prevItem);
+    DRILL.lastTopics = EngineCore.topicsOf(prevItem);
     DRILL.sessionCount++;
     DRILL.state.sessionMeta.todayCount++;
     Storage.saveDeck(DRILL.deckId, DRILL.state);
     advance();
   };
-
-  function addDays(yyyymmdd, days) {
-    const d = new Date(yyyymmdd + 'T00:00:00Z');
-    d.setUTCDate(d.getUTCDate() + days);
-    return d.toISOString().slice(0, 10);
-  }
 
   function endSession() {
     const body = $('#drillBody');

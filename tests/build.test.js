@@ -76,3 +76,37 @@ test('build: no render-blocking font import, and zoom is not disabled', () => {
     `pinch-zoom must not be disabled, got: ${viewport[1]}`);
   assert.ok(!/maximum-scale\s*=\s*1/.test(viewport[1]), 'and must not be capped at 1x');
 });
+
+test('coverage ratchet: session logic stays out of engine-ui.js', () => {
+  // engine-ui.js has no DOM-free test path (no jsdom, no npm). Every bug found
+  // in the 2026-09 audit lived in decision logic that had drifted into it. This
+  // pins the extracted functions to EngineCore so they cannot quietly grow back
+  // an untested twin in the UI file.
+  const ui = fs.readFileSync(path.join(REPO, 'src', 'engine-ui.js'), 'utf8');
+  const mustNotDefine = [
+    'function actionableCount', 'function addDays', 'function topicsOf',
+    'function hydratedStateView', 'function uniformFirstCase', 'function hashCode',
+    'function shuffleDeterministic', 'function buildDailyReviewQueue',
+  ];
+  for (const sig of mustNotDefine) {
+    assert.ok(!ui.includes(sig), `${sig} must live in engine-core.js, not engine-ui.js`);
+  }
+  assert.ok(!ui.includes('toISOString().slice(0, 10)'),
+    'the learning day must come from EngineCore.localDay, not UTC');
+  assert.ok(ui.includes('EngineCore.buildDailyReviewQueue('), 'daily review delegates to EngineCore');
+  assert.ok(ui.includes('EngineCore.isIntroduction('), 'new-card tally uses the shared rule');
+});
+
+test('build: a "</" inside deck content cannot terminate the inline script', () => {
+  const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+  const start = html.indexOf('window.DECKS = ');
+  const end = html.indexOf('</script>', start);
+  const decksBlock = html.slice(start, end);
+  assert.ok(!decksBlock.includes('</'), 'inlined deck JSON must have "</" escaped');
+  // The escaped text must still evaluate to exactly the deck content on disk.
+  const evaluated = new Function(decksBlock.replace(/^window\.DECKS = /, 'return '))();
+  const fromDisk = fs.readdirSync(path.join(REPO, 'decks'))
+    .filter(f => f.endsWith('.json'))
+    .map(f => JSON.parse(fs.readFileSync(path.join(REPO, 'decks', f), 'utf8')));
+  assert.deepStrictEqual(evaluated, fromDisk, 'escaping must not alter deck content');
+});

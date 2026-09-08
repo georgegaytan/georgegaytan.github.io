@@ -255,6 +255,209 @@
 
   EngineCore.buildChipPalette = buildChipPalette;
 
+  // ---------------------------------------------------------------------------
+  // Session logic lifted out of engine-ui so it can be tested without a DOM.
+  // Everything below is pure: `today` is always passed in, never read from
+  // the clock, and nothing here touches Storage.
+  // ---------------------------------------------------------------------------
+
+  const NEW_CARD_LIMIT = 15;
+  EngineCore.NEW_CARD_LIMIT = NEW_CARD_LIMIT;
+
+  // Calendar day in the *local* timezone, as 'YYYY-MM-DD'. The app used to
+  // derive "today" from toISOString(), i.e. UTC, so the learning day rolled
+  // over at 02:00 in Zurich and mid-afternoon on the US west coast - resetting
+  // the new-card cap and un-marking "seen today" partway through a sitting.
+  // Accepts a Date or anything Date can parse (the stored ISO lastSeen).
+  function localDay(d) {
+    const x = d instanceof Date ? d : new Date(d);
+    if (isNaN(x.getTime())) return null;
+    const m = x.getMonth() + 1, day = x.getDate();
+    return x.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+  EngineCore.localDay = localDay;
+
+  // Pure calendar arithmetic on a 'YYYY-MM-DD' string; timezone-independent.
+  function addDays(yyyymmdd, days) {
+    const d = new Date(yyyymmdd + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + days);
+    return d.toISOString().slice(0, 10);
+  }
+  EngineCore.addDays = addDays;
+
+  function freshItemState() {
+    return { box: 0, ease: EASE_START, interval: 0, due: null, lapses: 0, lastSeen: null, seenCount: 0 };
+  }
+
+  function freshSessionMeta(today) {
+    return { todayCount: 0, newToday: 0, todayDate: today, firstTryCorrectToday: 0 };
+  }
+
+  // Bring a stored deck state up to date for `today`: create it if missing,
+  // add entries for items authored since it was saved, and reset the daily
+  // counters on a new day. Tolerates a state with no items/sessionMeta (an
+  // imported or hand-edited backup) instead of throwing on first open.
+  //
+  // Mutates and returns `saved` when given one, because the caller keeps that
+  // same object reference in Storage's map and saves it after each answer.
+  function initDeckState(saved, deckDef, today) {
+    const s = saved && typeof saved === 'object' ? saved : {};
+    if (!s.deckId) s.deckId = deckDef.id;
+    if (!s.version) s.version = 1;
+    if (!s.items || typeof s.items !== 'object') s.items = {};
+    for (const item of deckDef.items) {
+      if (!s.items[item.id]) s.items[item.id] = freshItemState();
+    }
+    if (!s.sessionMeta || typeof s.sessionMeta !== 'object' || s.sessionMeta.todayDate !== today) {
+      s.sessionMeta = freshSessionMeta(today);
+    }
+    return s;
+  }
+  EngineCore.initDeckState = initDeckState;
+
+  function topicsOf(itemDef) {
+    if (itemDef.kind === 'cloze' && Array.isArray(itemDef.blanks)) {
+      const set = new Set();
+      for (const b of itemDef.blanks) if (b.topic) set.add(b.topic);
+      return Array.from(set);
+    }
+    return itemDef.topic ? [itemDef.topic] : [];
+  }
+  EngineCore.topicsOf = topicsOf;
+
+  function hydratedStateView(state, deckDef) {
+    const items = {};
+    for (const def of deckDef.items) {
+      const s = (state && state.items && state.items[def.id]) || {};
+      items[def.id] = Object.assign({}, s, { topics: topicsOf(def) });
+    }
+    return { items };
+  }
+  EngineCore.hydratedStateView = hydratedStateView;
+
+  function seenOn(itemState, today) {
+    return !!(itemState && itemState.lastSeen && localDay(itemState.lastSeen) === today);
+  }
+
+  // A card is "introduced" the first time it leaves box 0 - whatever the
+  // outcome. Counting only correct answers let wrong answers on new cards slip
+  // past the daily cap: the card moved to box 1 but was never tallied, so a
+  // learner who missed every new card could introduce an unlimited number.
+  function isIntroduction(itemStateBefore) {
+    return !!itemStateBefore && itemStateBefore.box === 0;
+  }
+  EngineCore.isIntroduction = isIntroduction;
+
+  function deckProgress(state) {
+    if (!state || !state.items) return null;
+    const ids = Object.keys(state.items);
+    if (ids.length === 0) return null;
+    const mastered = ids.filter(id => state.items[id].box >= 4).length;
+    return { mastered, total: ids.length, pct: Math.round(mastered / ids.length * 100), label: `${mastered}/${ids.length} mastered` };
+  }
+  EngineCore.deckProgress = deckProgress;
+
+  // How many items a single-deck session can actually serve today: overdue +
+  // low-box-not-seen-today + new up to the remaining daily allowance.
+  function actionableCount(state, deckDef, today, newToday, newCap) {
+    const view = hydratedStateView(state, deckDef).items;
+    let overdue = 0, lowBox = 0, fresh = 0;
+    for (const id in view) {
+      const it = view[id];
+      if (it.due && it.due <= today && it.box > 0) overdue++;
+      else if (it.box > 0 && it.box < 4 && !seenOn(it, today)) lowBox++;
+      else if (it.box === 0) fresh++;
+    }
+    const newAllowed = Math.max(0, newCap - newToday);
+    return overdue + lowBox + Math.min(fresh, newAllowed);
+  }
+  EngineCore.actionableCount = actionableCount;
+
+  // Cross-deck daily review. `statesById` must hold an (initDeckState'd) state
+  // for every deck that should take part - a deck the learner has never opened
+  // contributes its new cards like any other, which the old UI code silently
+  // skipped, so a fresh install saw "No items due today".
+  //
+  // Due and struggling cards come first, oldest due first. New cards are
+  // drawn per deck within that deck's remaining daily allowance (so a deck
+  // drill plus a daily review can't introduce 30 from one deck), then capped
+  // overall. The result is interleaved to avoid the same deck or topic twice
+  // in a row wherever the pool allows it.
+  function buildDailyReviewQueue(decks, statesById, today, opts) {
+    opts = opts || {};
+    const newCap = opts.newCap == null ? NEW_CARD_LIMIT : opts.newCap;
+    const limit = opts.limit == null ? 30 : opts.limit;
+    const rnd = opts.rng || Math.random;
+
+    const due = [];
+    const fresh = [];
+    for (const deckDef of decks) {
+      const state = statesById[deckDef.id];
+      if (!state || !state.items) continue;
+      const introduced = (state.sessionMeta && state.sessionMeta.newToday) || 0;
+      const allowance = Math.max(0, newCap - introduced);
+      const deckFresh = [];
+      for (const itemDef of deckDef.items) {
+        const s = state.items[itemDef.id];
+        if (!s) continue;
+        const entry = { deckId: deckDef.id, deckDef, itemDef, state, dueDate: s.due || '', topics: topicsOf(itemDef) };
+        if (s.box > 0 && s.due && s.due <= today) due.push(entry);
+        else if (s.box > 0 && s.box < 4 && !seenOn(s, today)) due.push(entry);
+        else if (s.box === 0) deckFresh.push(entry);
+      }
+      Array.prototype.push.apply(fresh, shuffle(deckFresh, rnd).slice(0, allowance));
+    }
+    due.sort((a, b) => a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0);
+    const remaining = due.concat(shuffle(fresh, rnd).slice(0, newCap));
+
+    const queue = [];
+    let lastDeck = null;
+    let lastTopics = new Set();
+    while (queue.length < limit && remaining.length > 0) {
+      let pickIdx = remaining.findIndex(c =>
+        c.deckId !== lastDeck && !c.topics.some(t => lastTopics.has(t))
+      );
+      if (pickIdx === -1) pickIdx = 0;
+      const pick = remaining.splice(pickIdx, 1)[0];
+      queue.push(pick);
+      lastDeck = pick.deckId;
+      lastTopics = new Set(pick.topics);
+    }
+    return queue;
+  }
+  EngineCore.buildDailyReviewQueue = buildDailyReviewQueue;
+
+  // Display helpers that decide what the learner sees - kept here so the
+  // decisions are testable even though the rendering is not.
+
+  // If options disagree on first-letter case (one capitalized gloss among
+  // lowercase ones), the odd one out silently flags the answer. Normalize the
+  // display to one case so casing carries no signal; values are untouched.
+  function uniformFirstCase(opts) {
+    const isLetter = c => c && c.toLowerCase() !== c.toUpperCase();
+    const firsts = opts.filter(o => o && o.length).map(o => o[0]);
+    const anyUpper = firsts.some(c => isLetter(c) && c === c.toUpperCase());
+    const anyLower = firsts.some(c => isLetter(c) && c === c.toLowerCase());
+    if (anyUpper && anyLower) {
+      return opts.map(o => (o && o.length) ? o[0].toLowerCase() + o.slice(1) : o);
+    }
+    return opts.slice();
+  }
+  EngineCore.uniformFirstCase = uniformFirstCase;
+
+  function hashCode(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  EngineCore.hashCode = hashCode;
+
+  // In-place seeded Fisher-Yates; same generator as selectDistractors.
+  function shuffleDeterministic(arr, seed) {
+    return shuffle(arr, rng(seed >>> 0));
+  }
+  EngineCore.shuffleDeterministic = shuffleDeterministic;
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = EngineCore;
   } else {

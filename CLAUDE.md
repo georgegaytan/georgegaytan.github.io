@@ -19,8 +19,8 @@ Hard design constraints (load-bearing):
 
 A unified deck engine. Every deck is a JSON file conforming to a shared schema. The engine renders three primitives — `cloze`, `text`, `choice` — under one SRS model (Leitner / SM-2 hybrid) with one scaffolding ladder keyed off mastery box.
 
-- `src/engine-core.js` — pure functions: SRS update, input validators, distractor selection, session selection. Importable from Node tests (CJS) and the browser (window global) via UMD pattern.
-- `src/engine-ui.js` — DOM controller: renders menu, drill view, dashboard; commits outcomes through `Storage`.
+- `src/engine-core.js` — pure functions: SRS update, input validators, distractor selection, session selection, chip palette, deck-state init, daily-review queue, local-day helpers. Importable from Node tests (CJS) and the browser (window global) via UMD pattern. Every decision that affects what the learner sees or how a card is scheduled belongs here, not in the UI.
+- `src/engine-ui.js` — DOM controller: renders menu, drill view, dashboard; binds `EngineCore` to `Storage` and the DOM. It has no test path (no jsdom, no npm), so a "coverage ratchet" test in `tests/build.test.js` fails if session logic is defined here again.
 - `src/storage.js` — the single persistence seam. `loadDeck`, `saveDeck`, `loadGlobal`, `saveGlobal`, `listDeckIds`, `exportAll`, `importAll`. Backed by `localStorage` today; future swap to IndexedDB/OPFS replaces only this module.
 - `src/categories.json` + `src/morphology/*.json` — allowlist of pool categories and morphology tables used by the build-time content validator.
 - `build/validator.js` — Layer 1 content lints (C1–C21, including categorical purity for distractor pools, cross-deck gender consistency, and cloze chip-palette sufficiency).
@@ -59,7 +59,7 @@ For `choice` items, two authoring modes:
 
 Three layers, all run by `npm test` (which calls `node --test`):
 1. **Build-time content lints** (Layer 1, `build/validator.js`). 20 rules (C17 retired). Build fails on error; C20/C21 are warnings.
-2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`, `tests/extra-vocab.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
+2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/session.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`, `tests/extra-vocab.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
 3. **Snapshot + sampling + regression** (Layer 3, `tests/snapshot.test.js`, `tests/content.test.js`, `tests/known-issues.test.js`). Snapshots committed; content changes are visible diffs. Regression test seeded with past content scars.
 
 ## Common commands
