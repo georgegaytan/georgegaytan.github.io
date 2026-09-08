@@ -270,3 +270,68 @@ test('selectNextItem: respects raised cap (15 new allowed)', () => {
   assert.ok(EngineCore.selectNextItem({ items: it }, '2026-05-20', { sessionSeen: [], newToday: 14, newCap: 15 }));
   assert.strictEqual(EngineCore.selectNextItem({ items: it }, '2026-05-20', { sessionSeen: [], newToday: 15, newCap: 15 }), null);
 });
+
+test('buildChipPalette: answers always survive the cap', () => {
+  const pools = { big: { items: Array.from({ length: 40 }, (_, i) => 'w' + i) } };
+  const blanks = [
+    { answer: 'alpha', scaffoldPool: 'big' },
+    { answer: 'omega', scaffoldPool: 'big' },
+  ];
+  const chips = EngineCore.buildChipPalette(blanks, pools, 123, 6);
+  assert.strictEqual(chips.length, 6);
+  assert.ok(chips.includes('alpha'));
+  assert.ok(chips.includes('omega'));
+});
+
+test('buildChipPalette: one large pool cannot crowd out another blank', () => {
+  // The regression this guards: concatenating pools and taking the first N left
+  // the second blank with zero distractors, so its answer was the only chip of
+  // its kind.
+  const pools = {
+    aux: { items: ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10'] },
+    part: { items: ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8', 'p9', 'p10'] },
+  };
+  const blanks = [
+    { answer: 'a1', scaffoldPool: 'aux' },
+    { answer: 'p1', scaffoldPool: 'part' },
+  ];
+  const chips = EngineCore.buildChipPalette(blanks, pools, 42, 12);
+  const aCount = chips.filter(c => /^a\d+$/.test(c)).length;
+  const pCount = chips.filter(c => /^p\d+$/.test(c)).length;
+  assert.strictEqual(chips.length, 12);
+  assert.ok(aCount >= 5, `expected a fair share of aux chips, got ${aCount}`);
+  assert.ok(pCount >= 5, `expected a fair share of participle chips, got ${pCount}`);
+});
+
+test('buildChipPalette: de-duplicates case-insensitively', () => {
+  const pools = { p: { items: ['nach', 'noch', 'schon'] } };
+  const blanks = [{ answer: 'Nach', scaffoldPool: 'p' }];
+  const chips = EngineCore.buildChipPalette(blanks, pools, 1, 12);
+  const lowered = chips.map(c => c.toLowerCase());
+  assert.strictEqual(new Set(lowered).size, lowered.length, 'no case-variant duplicates');
+  assert.ok(chips.includes('Nach'), 'the answer keeps its own casing');
+});
+
+test('buildChipPalette: distractors vary by seed, so no fixed pool prefix', () => {
+  const pools = { p: { items: Array.from({ length: 20 }, (_, i) => 'x' + i) } };
+  const blanks = [{ answer: 'ans', scaffoldPool: 'p' }];
+  const a = EngineCore.buildChipPalette(blanks, pools, 1, 8).join(',');
+  const b = EngineCore.buildChipPalette(blanks, pools, 999, 8).join(',');
+  assert.notStrictEqual(a, b, 'different items must not show the same distractor set');
+  const again = EngineCore.buildChipPalette(blanks, pools, 1, 8).join(',');
+  assert.strictEqual(a, again, 'same seed is deterministic');
+});
+
+test('buildChipPalette: blanks without a scaffoldPool contribute only their answer', () => {
+  const chips = EngineCore.buildChipPalette(
+    [{ answer: 'one' }, { answer: 'two' }], {}, 5, 12
+  );
+  assert.deepStrictEqual(chips, ['one', 'two']);
+});
+
+test('buildChipPalette: a missing pool reference is ignored, not fatal', () => {
+  const chips = EngineCore.buildChipPalette(
+    [{ answer: 'one', scaffoldPool: 'nope' }], { other: { items: ['z'] } }, 5, 12
+  );
+  assert.deepStrictEqual(chips, ['one']);
+});

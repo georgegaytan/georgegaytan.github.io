@@ -404,31 +404,19 @@
     body.appendChild(promptHtml);
 
     if (state.box <= 1) {
-      // Build the chip palette with case-insensitive de-duplication so a
-      // sentence-initial answer ("Nach") and its lowercase pool twin ("nach")
-      // don't both appear, and uniform-case the display so the lone capitalized
-      // chip doesn't silently flag the answer.
-      const seen = new Set();
-      const chipRaw = [];
-      const addChip = (w) => {
-        if (!w) return;
-        const k = String(w).toLowerCase();
-        if (seen.has(k)) return;
-        seen.add(k);
-        chipRaw.push(w);
-      };
-      for (const b of blanks) addChip(b.answer);
-      const deckPools = DRILL.deckDef.pools || {};
-      for (const b of blanks) {
-        if (b.scaffoldPool && deckPools[b.scaffoldPool]) {
-          for (const e of deckPools[b.scaffoldPool].items) addChip(e);
-        }
-      }
+      // EngineCore.buildChipPalette handles case-insensitive de-duplication (so
+      // a sentence-initial answer "Nach" and its lowercase pool twin "nach"
+      // don't both appear) and fair per-blank distribution under the cap.
+      // uniformFirstCase then normalizes the display so a lone capitalized chip
+      // doesn't silently flag the answer.
+      const chipRaw = EngineCore.buildChipPalette(
+        blanks, DRILL.deckDef.pools, hashCode(item.id), 12
+      );
       if (chipRaw.length > blanks.length) {
         DRILL.usedScaffolding = true;
       }
       const chipsEl = el('div', { class: 'chips' });
-      const chipList = uniformFirstCase(chipRaw).slice(0, 12);
+      const chipList = uniformFirstCase(chipRaw);
       shuffleDeterministic(chipList, hashCode(item.id));
       for (const w of chipList) {
         chipsEl.appendChild(el('div', { class: 'chip', onclick: (e) => fillFirstEmpty(inputs, w, e.target) }, w));

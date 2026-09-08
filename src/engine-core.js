@@ -189,6 +189,60 @@
 
   EngineCore.selectNextItem = selectNextItem;
 
+  // Chip palette shown under a cloze at box 0/1.
+  //
+  // Two properties matter and neither is free:
+  //   1. Every answer must survive the cap, so answers are seeded first.
+  //   2. Each blank must get its own distractors. Taking the first N entries of
+  //      the concatenated pools lets one large pool (say 15 participles) crowd
+  //      out another blank's entirely, leaving that blank's answer as the only
+  //      chip of its kind - trivially solvable, the exact failure the scaffold
+  //      is meant to prevent. So pools are dealt round-robin, one chip per
+  //      blank per round, until the cap is reached.
+  // Each pool is shuffled with the item's seed first, so the distractors vary
+  // per item instead of every item showing the same fixed prefix of the pool
+  // (which a learner could game by picking the unfamiliar chip).
+  function buildChipPalette(blanks, pools, seed, cap) {
+    blanks = blanks || [];
+    pools = pools || {};
+    cap = cap == null ? 12 : cap;
+
+    const seen = new Set();
+    const chips = [];
+    function add(w) {
+      if (w == null || w === '') return false;
+      const k = String(w).toLowerCase();
+      if (seen.has(k)) return false;
+      seen.add(k);
+      chips.push(w);
+      return true;
+    }
+
+    for (const b of blanks) add(b.answer);
+
+    const rand = rng(seed >>> 0);
+    const queues = blanks.map(b => {
+      const p = b.scaffoldPool && pools[b.scaffoldPool];
+      return p && Array.isArray(p.items) ? shuffle(p.items.slice(), rand) : [];
+    });
+
+    let dealt = true;
+    while (chips.length < cap && dealt) {
+      dealt = false;
+      for (const q of queues) {
+        if (chips.length >= cap) break;
+        // Draw until this queue yields one chip that isn't already shown.
+        while (q.length && chips.length < cap) {
+          dealt = true;
+          if (add(q.shift())) break;
+        }
+      }
+    }
+    return chips;
+  }
+
+  EngineCore.buildChipPalette = buildChipPalette;
+
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = EngineCore;
   } else {

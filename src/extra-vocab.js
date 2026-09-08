@@ -348,11 +348,11 @@
   }
 
   function renderPicker() {
-    let h = '<button type="button" class="ep ep-all' + (all ? ' on' : '') +
+    let h = '<button type="button" class="xv-ep xv-ep-all' + (all ? ' xv-on' : '') +
             '" data-ep="all" aria-pressed="' + all + '">Alle Folgen</button>';
     for (let e = 1; e <= EPISODES.length; e++) {
       const on = !all && !!sel[e];
-      h += '<button type="button" class="ep' + (on ? ' on' : '') + '" data-ep="' + e +
+      h += '<button type="button" class="xv-ep' + (on ? ' xv-on' : '') + '" data-ep="' + e +
            '" aria-pressed="' + on + '"><b>' + (e < 10 ? '0' + e : e) + '</b><span>' +
            esc(EPISODES[e - 1]) + '</span></button>';
     }
@@ -368,10 +368,10 @@
   }
 
   function gradesHTML() {
-    return '<div class="gradehead">Wusstest du es?</div><div class="grades">' +
-      '<button type="button" class="g0" data-g="0">Nein' +
+    return '<div class="xv-gradehead">Wusstest du es?</div><div class="xv-grades">' +
+      '<button type="button" class="xv-g0" data-g="0">Nein' +
         '<small><kbd>1</kbd>kommt in dieser Runde wieder</small></button>' +
-      '<button type="button" class="g1" data-g="1">Ja' +
+      '<button type="button" class="xv-g1" data-g="1">Ja' +
         '<small><kbd>2</kbd>für heute erledigt</small></button></div>';
   }
 
@@ -379,10 +379,10 @@
     const c = $x('ex-card');
     if (!c) return;
     if (current === null) {
-      c.className = 'idle';
+      c.className = 'xv-idle';
       c.removeAttribute('role');
       c.removeAttribute('tabindex');
-      c.innerHTML = '<div class="empty">Für diese Auswahl ist gerade nichts fällig.<br>' +
+      c.innerHTML = '<div class="xv-empty">Für diese Auswahl ist gerade nichts fällig.<br>' +
         'Wähl weitere Folgen dazu oder komm später wieder.</div>';
       $x('ex-controls').innerHTML = '';
       renderStats();
@@ -393,21 +393,21 @@
     const row = DATA[current];
     const front = dir === 'de' ? row[1] : row[2];
     const back = dir === 'de' ? row[2] : row[1];
-    let h = '<div class="term' + (front.length > 26 ? ' small' : '') + '">' + esc(front) + '</div>';
+    let h = '<div class="xv-term' + (front.length > 26 ? ' xv-small' : '') + '">' + esc(front) + '</div>';
     if (shown) {
-      h += '<div class="answer"><div class="gloss">' + esc(back) + '</div>' +
-           '<div class="ex">' + esc(row[3]) + '</div>' +
-           '<div class="ex-en">' + esc(row[4]) + '</div></div>' +
-           '<div class="tag">Folge ' + row[0] + ' · ' + esc(EPISODES[row[0] - 1]) + '</div>';
-      c.className = 'rev';
+      h += '<div class="xv-answer"><div class="xv-gloss">' + esc(back) + '</div>' +
+           '<div class="xv-ex">' + esc(row[3]) + '</div>' +
+           '<div class="xv-ex-en">' + esc(row[4]) + '</div></div>' +
+           '<div class="xv-tag">Folge ' + row[0] + ' · ' + esc(EPISODES[row[0] - 1]) + '</div>';
+      c.className = 'xv-rev';
     } else {
-      h += '<div class="hint">Antippen oder Leertaste zum Umdrehen</div>';
+      h += '<div class="xv-hint">Antippen oder Leertaste zum Umdrehen</div>';
       c.className = '';
     }
     c.innerHTML = h;
     $x('ex-controls').innerHTML = shown
       ? gradesHTML()
-      : '<div class="flipbar"><button type="button" id="ex-flip">Umdrehen</button></div>';
+      : '<div class="xv-flipbar"><button type="button" id="ex-flip">Umdrehen</button></div>';
     renderStats();
   }
 
@@ -443,7 +443,7 @@
     if (p.innerHTML) { closePanel(); return; }
     const idx = indices();
     const tsv = toTSV(DATA, idx);
-    p.innerHTML = '<div class="panel"><p>' + idx.length + ' Karten, tab-getrennt: Deutsch · Englisch · ' +
+    p.innerHTML = '<div class="xv-panel"><p>' + idx.length + ' Karten, tab-getrennt: Deutsch · Englisch · ' +
       'Beispiel · Übersetzung · Tag. In Anki über „Datei → Importieren“ einlesen, Feldtrenner Tab, letzte Spalte als Tags.</p>' +
       '<textarea id="ex-tsv" readonly></textarea>' +
       '<p style="margin:8px 0 0"><button type="button" id="ex-copy">Kopieren</button> ' +
@@ -504,27 +504,27 @@
   }
 
   const SHELL =
-    '<div class="wrap">' +
-      '<div class="mast">' +
-        '<button type="button" class="ex-back" id="ex-back">← Menü</button>' +
-        '<div class="logo">extr@</div>' +
+    '<div class="xv-wrap">' +
+      '<div class="xv-mast">' +
+        '<button type="button" class="xv-ex-back" id="ex-back">← Menü</button>' +
+        '<div class="xv-logo">extr@</div>' +
         '<h1>Vokabelkarten zur Serie</h1>' +
-        '<div class="count" id="ex-count"></div>' +
+        '<div class="xv-count" id="ex-count"></div>' +
       '</div>' +
-      '<div class="picker">' +
-        '<div class="picker-head">Folgen auswählen</div>' +
-        '<div class="eps" id="ex-eps"></div>' +
+      '<div class="xv-picker">' +
+        '<div class="xv-picker-head">Folgen auswählen</div>' +
+        '<div class="xv-eps" id="ex-eps"></div>' +
       '</div>' +
-      '<div class="stage"><div id="ex-card" role="button" tabindex="0" aria-live="polite"></div></div>' +
+      '<div class="xv-stage"><div id="ex-card" role="button" tabindex="0" aria-live="polite"></div></div>' +
       '<div id="ex-controls"></div>' +
-      '<div class="tools">' +
+      '<div class="xv-tools">' +
         '<button id="ex-dir" type="button"></button>' +
         '<button id="ex-shuffle" type="button">Neu mischen</button>' +
         '<button id="ex-export" type="button">Exportieren</button>' +
-        '<span class="spacer"></span>' +
+        '<span class="xv-spacer"></span>' +
         '<button id="ex-reset" type="button">Fortschritt löschen</button>' +
       '</div>' +
-      '<div class="stats" id="ex-stats"></div>' +
+      '<div class="xv-stats" id="ex-stats"></div>' +
       '<div id="ex-panel"></div>' +
     '</div>';
 
@@ -571,7 +571,7 @@
       if (!resetArmed) {
         resetArmed = true;
         this.textContent = 'Wirklich löschen?';
-        this.className = 'armed';
+        this.className = 'xv-armed';
         resetTimer = setTimeout(() => { if (resetArmed) disarmReset(); }, 4000);
         return;
       }

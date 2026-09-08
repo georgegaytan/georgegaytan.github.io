@@ -88,3 +88,53 @@ test('S2: cloze translations have non-zero content-word overlap with German prom
   }
   if (suspicious > 0) console.log(`(S2 soft) ${suspicious} cloze item(s) with suspect translations`);
 });
+
+test('S6: every cloze palette gives each blank real distractors', () => {
+  // C20 only counts total chips. This checks the thing C20 is a proxy for:
+  // that at box 0/1 no blank is left as the only chip of its kind, and that
+  // two items never show the same distractor set (which would let a learner
+  // pick the unfamiliar chip instead of recalling the answer).
+  const CAP = 12;
+  function hashCode(s) {
+    let h = 0;
+    for (let i = 0; i < s.length; i++) { h = ((h << 5) - h) + s.charCodeAt(i); h |= 0; }
+    return Math.abs(h);
+  }
+  for (const deck of allDecks()) {
+    const seenSets = new Map();
+    for (const item of deck.items) {
+      if (item.kind !== 'cloze' || !item.blanks) continue;
+      const chips = EngineCore.buildChipPalette(item.blanks, deck.pools, hashCode(item.id), CAP);
+      for (const b of item.blanks) {
+        assert.ok(chips.includes(b.answer),
+          `${deck.id}:${item.id} palette dropped the answer "${b.answer}"`);
+      }
+      // Each blank that declares a pool must see at least two of that pool's
+      // entries besides its own answer.
+      for (const b of item.blanks) {
+        if (!b.scaffoldPool || !deck.pools || !deck.pools[b.scaffoldPool]) continue;
+        const poolSet = new Set(deck.pools[b.scaffoldPool].items.map(x => x.toLowerCase()));
+        const fromPool = chips.filter(c =>
+          poolSet.has(c.toLowerCase()) && c.toLowerCase() !== String(b.answer).toLowerCase());
+        assert.ok(fromPool.length >= 2,
+          `${deck.id}:${item.id} blank "${b.answer}" got only ${fromPool.length} distractor(s) from ${b.scaffoldPool}`);
+      }
+      // Distinctness only matters where the cap actually truncates. When the
+      // pools are smaller than the cap every item shows the whole pool, which
+      // is fine - nothing is hidden, so there is no unfamiliar chip to spot.
+      const available = new Set();
+      for (const b of item.blanks) {
+        if (b.answer) available.add(String(b.answer).toLowerCase());
+        const p = b.scaffoldPool && deck.pools && deck.pools[b.scaffoldPool];
+        if (p) for (const e of p.items) available.add(String(e).toLowerCase());
+      }
+      if (available.size <= CAP) continue;
+
+      const key = chips.filter(c => !item.blanks.some(b => b.answer === c)).sort().join('|');
+      if (key && seenSets.has(key)) {
+        assert.fail(`${deck.id}: ${item.id} and ${seenSets.get(key)} show an identical distractor set`);
+      }
+      if (key) seenSets.set(key, item.id);
+    }
+  }
+});

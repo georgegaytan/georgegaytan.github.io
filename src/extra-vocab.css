@@ -39,33 +39,33 @@
     --ex-mustard: #f2b53a;
   }
 }
-#extraView .wrap { max-width: 760px; margin: 0 auto; }
+#extraView .xv-wrap { max-width: 760px; margin: 0 auto; }
 
-#extraView .mast { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid var(--ex-ink); padding-bottom: 8px; }
-#extraView .ex-back { font: inherit; font-size: 13px; background: transparent; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); color: var(--ex-ink); padding: 5px 9px; cursor: pointer; }
-#extraView .ex-back:hover { border-color: var(--ex-ink-soft); }
-#extraView .logo { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ex-magenta); }
-#extraView .mast h1 { font-size: 16px; font-weight: 600; margin: 0; }
-#extraView .count { margin-left: auto; font-size: 13px; color: var(--ex-ink-soft); font-variant-numeric: tabular-nums; }
+#extraView .xv-mast { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid var(--ex-ink); padding-bottom: 8px; }
+#extraView .xv-ex-back { font: inherit; font-size: 13px; background: transparent; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); color: var(--ex-ink); padding: 5px 9px; cursor: pointer; }
+#extraView .xv-ex-back:hover { border-color: var(--ex-ink-soft); }
+#extraView .xv-logo { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ex-magenta); }
+#extraView .xv-mast h1 { font-size: 16px; font-weight: 600; margin: 0; }
+#extraView .xv-count { margin-left: auto; font-size: 13px; color: var(--ex-ink-soft); font-variant-numeric: tabular-nums; }
 
-#extraView .picker { margin: 18px 0 4px; }
-#extraView .picker-head { font-size: 13px; color: var(--ex-ink-soft); margin-bottom: 8px; }
-#extraView .eps { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 6px; }
-#extraView .ep {
+#extraView .xv-picker { margin: 18px 0 4px; }
+#extraView .xv-picker-head { font-size: 13px; color: var(--ex-ink-soft); margin-bottom: 8px; }
+#extraView .xv-eps { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 6px; }
+#extraView .xv-ep {
   display: flex; gap: 8px; align-items: baseline;
   background: transparent; border: 1px solid var(--ex-line); border-radius: var(--ex-radius);
   color: var(--ex-ink); font: inherit; font-size: 13px; text-align: left;
   padding: 7px 8px; cursor: pointer;
 }
-#extraView .ep:hover { border-color: var(--ex-ink-soft); }
-#extraView .ep b { font-variant-numeric: tabular-nums; color: var(--ex-ink-soft); font-weight: 700; font-size: 12px; }
-#extraView .ep.on { background: var(--ex-teal); border-color: var(--ex-teal); color: #fff; }
-#extraView .ep.on b { color: rgba(255, 255, 255, 0.72); }
-#extraView .ep-all { grid-column: 1 / -1; justify-content: center; font-weight: 600; }
-#extraView .ep-all.on { background: var(--ex-magenta); border-color: var(--ex-magenta); color: #fff; }
+#extraView .xv-ep:hover { border-color: var(--ex-ink-soft); }
+#extraView .xv-ep b { font-variant-numeric: tabular-nums; color: var(--ex-ink-soft); font-weight: 700; font-size: 12px; }
+#extraView .xv-ep.xv-on { background: var(--ex-teal); border-color: var(--ex-teal); color: #fff; }
+#extraView .xv-ep.xv-on b { color: rgba(255, 255, 255, 0.72); }
+#extraView .xv-ep-all { grid-column: 1 / -1; justify-content: center; font-weight: 600; }
+#extraView .xv-ep-all.xv-on { background: var(--ex-magenta); border-color: var(--ex-magenta); color: #fff; }
 #extraView button:focus-visible, #extraView #ex-card:focus-visible { outline: 3px solid var(--ex-mustard); outline-offset: 2px; }
 
-#extraView .stage { margin: 22px 0 14px; }
+#extraView .xv-stage { margin: 22px 0 14px; }
 #extraView #ex-card {
   background: var(--ex-card); border: 1px solid var(--ex-line);
   border-top: 6px solid var(--ex-teal); border-radius: var(--ex-radius);
@@ -73,50 +73,50 @@
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   text-align: center; cursor: pointer;
 }
-#extraView #ex-card.rev { border-top-color: var(--ex-magenta); cursor: default; }
-#extraView #ex-card.idle { cursor: default; }
-#extraView .term { font-size: 29px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
-#extraView .term.small { font-size: 23px; }
-#extraView .answer { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--ex-line); width: 100%; max-width: 460px; }
-#extraView .gloss { font-size: 20px; color: var(--ex-teal); font-weight: 600; }
-#extraView .ex { margin-top: 12px; font-size: 15px; color: var(--ex-ink-soft); font-style: italic; line-height: 1.45; }
-#extraView .ex-en { margin-top: 5px; font-size: 14px; color: var(--ex-ink-soft); opacity: 0.82; line-height: 1.4; }
-#extraView .hint { margin-top: 20px; font-size: 13px; color: var(--ex-ink-soft); }
-#extraView .tag { margin-top: 16px; font-size: 12px; color: var(--ex-ink-soft); }
+#extraView #ex-card.xv-rev { border-top-color: var(--ex-magenta); cursor: default; }
+#extraView #ex-card.xv-idle { cursor: default; }
+#extraView .xv-term { font-size: 29px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.2; }
+#extraView .xv-term.xv-small { font-size: 23px; }
+#extraView .xv-answer { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--ex-line); width: 100%; max-width: 460px; }
+#extraView .xv-gloss { font-size: 20px; color: var(--ex-teal); font-weight: 600; }
+#extraView .xv-ex { margin-top: 12px; font-size: 15px; color: var(--ex-ink-soft); font-style: italic; line-height: 1.45; }
+#extraView .xv-ex-en { margin-top: 5px; font-size: 14px; color: var(--ex-ink-soft); opacity: 0.82; line-height: 1.4; }
+#extraView .xv-hint { margin-top: 20px; font-size: 13px; color: var(--ex-ink-soft); }
+#extraView .xv-tag { margin-top: 16px; font-size: 12px; color: var(--ex-ink-soft); }
 
-#extraView .gradehead { margin-bottom: 7px; font-size: 13.5px; font-weight: 600; color: var(--ex-ink-soft); }
-#extraView .grades { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-#extraView .grades button {
+#extraView .xv-gradehead { margin-bottom: 7px; font-size: 13.5px; font-weight: 600; color: var(--ex-ink-soft); }
+#extraView .xv-grades { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+#extraView .xv-grades button {
   font: inherit; font-size: 16px; font-weight: 600; padding: 14px 6px; cursor: pointer;
   border: 1px solid var(--ex-line); border-radius: var(--ex-radius);
   background: var(--ex-card); color: var(--ex-ink);
 }
-#extraView .grades button:hover { border-color: var(--ex-ink-soft); }
-#extraView .grades button small { display: block; margin-top: 3px; font-weight: 400; font-size: 11px; color: var(--ex-ink-soft); font-variant-numeric: tabular-nums; }
-#extraView .grades button kbd { display: inline-block; font: inherit; font-size: 10px; padding: 0 3px; margin-right: 5px; border: 1px solid var(--ex-line); border-radius: 2px; opacity: 0.7; }
-#extraView .g0 { border-bottom: 3px solid var(--ex-magenta); }
-#extraView .g1 { border-bottom: 3px solid var(--ex-teal); }
-#extraView .flipbar button {
+#extraView .xv-grades button:hover { border-color: var(--ex-ink-soft); }
+#extraView .xv-grades button small { display: block; margin-top: 3px; font-weight: 400; font-size: 11px; color: var(--ex-ink-soft); font-variant-numeric: tabular-nums; }
+#extraView .xv-grades button kbd { display: inline-block; font: inherit; font-size: 10px; padding: 0 3px; margin-right: 5px; border: 1px solid var(--ex-line); border-radius: 2px; opacity: 0.7; }
+#extraView .xv-g0 { border-bottom: 3px solid var(--ex-magenta); }
+#extraView .xv-g1 { border-bottom: 3px solid var(--ex-teal); }
+#extraView .xv-flipbar button {
   width: 100%; font: inherit; font-size: 15px; font-weight: 600; padding: 13px; cursor: pointer;
   background: var(--ex-teal); color: #fff; border: 0; border-radius: var(--ex-radius);
 }
 
-#extraView .tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--ex-line); }
-#extraView .tools button {
+#extraView .xv-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--ex-line); }
+#extraView .xv-tools button {
   font: inherit; font-size: 13px; padding: 7px 11px; cursor: pointer;
   background: transparent; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); color: var(--ex-ink);
 }
-#extraView .tools button:hover { border-color: var(--ex-ink-soft); }
-#extraView .tools .spacer { margin-left: auto; }
-#extraView #ex-reset.armed { border-color: var(--ex-magenta); color: var(--ex-magenta); font-weight: 600; }
-#extraView .stats { margin-top: 10px; font-size: 12.5px; color: var(--ex-ink-soft); font-variant-numeric: tabular-nums; }
-#extraView .panel { margin-top: 14px; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); padding: 12px; background: var(--ex-card); }
-#extraView .panel textarea { width: 100%; height: 170px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); background: var(--ex-paper); color: var(--ex-ink); padding: 8px; }
-#extraView .panel p { margin: 0 0 8px; font-size: 13px; color: var(--ex-ink-soft); }
-#extraView .panel button { font: inherit; font-size: 13px; padding: 6px 10px; cursor: pointer; background: transparent; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); color: var(--ex-ink); }
-#extraView .empty { color: var(--ex-ink-soft); padding: 40px 10px; line-height: 1.6; }
+#extraView .xv-tools button:hover { border-color: var(--ex-ink-soft); }
+#extraView .xv-tools .xv-spacer { margin-left: auto; }
+#extraView #ex-reset.xv-armed { border-color: var(--ex-magenta); color: var(--ex-magenta); font-weight: 600; }
+#extraView .xv-stats { margin-top: 10px; font-size: 12.5px; color: var(--ex-ink-soft); font-variant-numeric: tabular-nums; }
+#extraView .xv-panel { margin-top: 14px; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); padding: 12px; background: var(--ex-card); }
+#extraView .xv-panel textarea { width: 100%; height: 170px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); background: var(--ex-paper); color: var(--ex-ink); padding: 8px; }
+#extraView .xv-panel p { margin: 0 0 8px; font-size: 13px; color: var(--ex-ink-soft); }
+#extraView .xv-panel button { font: inherit; font-size: 13px; padding: 6px 10px; cursor: pointer; background: transparent; border: 1px solid var(--ex-line); border-radius: var(--ex-radius); color: var(--ex-ink); }
+#extraView .xv-empty { color: var(--ex-ink-soft); padding: 40px 10px; line-height: 1.6; }
 @media (max-width: 520px) {
-  #extraView .term { font-size: 24px; }
+  #extraView .xv-term { font-size: 24px; }
 }
 
 /* Menu entry — sits above the deck list and reads as a different kind of

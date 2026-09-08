@@ -5,13 +5,21 @@
   "color": "#06b6d4",
   "description": "Perfekt (haben/sein + Partizip II) and Futur I (werden + infinitive) for common verbs.",
   "pools": {
-    "aux_finite_haben": {
+    "aux_finite_perfekt": {
       "category": "aux_verb",
-      "items": ["habe", "hast", "hat", "haben", "habt"]
+      "items": ["habe", "hast", "hat", "haben", "habt", "bin", "bist", "ist", "sind", "seid"]
     },
-    "aux_finite_sein": {
+    "partizip_perfekt": {
+      "category": "partizip_2",
+      "items": ["gegangen", "gewesen", "gehabt", "gemacht", "gekommen", "gefahren", "gefunden", "gesehen", "gelesen", "geschrieben", "gegessen", "getrunken", "gearbeitet", "gelernt", "geholfen"]
+    },
+    "werden_finite": {
       "category": "aux_verb",
-      "items": ["bin", "bist", "ist", "sind", "seid"]
+      "items": ["werde", "wirst", "wird", "werden", "werdet"]
+    },
+    "infinitiv_common": {
+      "category": "verb_form_nonfinite",
+      "items": ["gehen", "sein", "haben", "machen", "kommen", "fahren", "finden", "sehen", "lesen", "schreiben", "essen", "trinken", "arbeiten", "lernen", "helfen"]
     }
   },
   "items": [
@@ -20,8 +28,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} gestern zur Schule {1}.",
       "blanks": [
-        { "answer": "bin", "alts": [], "topic": "aux_sein_1sg" },
-        { "answer": "gegangen", "alts": [], "topic": "partizip_gehen" }
+        { "answer": "bin", "alts": [], "topic": "aux_sein_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gegangen", "alts": [], "topic": "partizip_gehen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I went to school yesterday.",
       "explanation": "Perfekt of *gehen* (a verb of motion) uses *sein* as auxiliary plus partizip *gegangen* at the end of the clause."
@@ -31,8 +39,8 @@
       "kind": "cloze",
       "prompt": "Sie {0} nach Hause {1}.",
       "blanks": [
-        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg" },
-        { "answer": "gegangen", "alts": [], "topic": "partizip_gehen" }
+        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gegangen", "alts": [], "topic": "partizip_gehen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "She went home.",
       "explanation": "Perfekt of *gehen* (a verb of motion) takes *sein*; partizip *gegangen* is the strong form and goes at the end."
@@ -42,8 +50,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} in Wien {1}.",
       "blanks": [
-        { "answer": "bin", "alts": [], "topic": "aux_sein_1sg" },
-        { "answer": "gewesen", "alts": [], "topic": "partizip_sein" }
+        { "answer": "bin", "alts": [], "topic": "aux_sein_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gewesen", "alts": [], "topic": "partizip_sein", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I was in Vienna.",
       "explanation": "Perfekt of *sein* uses *sein* itself as auxiliary plus the irregular partizip *gewesen*."
@@ -53,8 +61,8 @@
       "kind": "cloze",
       "prompt": "Er {0} krank {1}.",
       "blanks": [
-        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg" },
-        { "answer": "gewesen", "alts": [], "topic": "partizip_sein" }
+        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gewesen", "alts": [], "topic": "partizip_sein", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He was sick.",
       "explanation": "Perfekt of *sein* takes *sein* as auxiliary plus the irregular partizip *gewesen* at the end."
@@ -64,8 +72,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} keine Zeit {1}.",
       "blanks": [
-        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg" },
-        { "answer": "gehabt", "alts": [], "topic": "partizip_haben" }
+        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gehabt", "alts": [], "topic": "partizip_haben", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I had no time.",
       "explanation": "Perfekt of *haben* takes *haben* as auxiliary plus partizip *gehabt* (regular *ge- + stem + -t*)."
@@ -75,8 +83,8 @@
       "kind": "cloze",
       "prompt": "Er {0} Glück {1}.",
       "blanks": [
-        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg" },
-        { "answer": "gehabt", "alts": [], "topic": "partizip_haben" }
+        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gehabt", "alts": [], "topic": "partizip_haben", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He had luck.",
       "explanation": "Perfekt of *haben* uses *haben* as auxiliary; partizip is *gehabt* (regular *ge- + stem + -t*)."
@@ -86,8 +94,8 @@
       "kind": "cloze",
       "prompt": "Er {0} das Essen {1}.",
       "blanks": [
-        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg" },
-        { "answer": "gemacht", "alts": [], "topic": "partizip_machen" }
+        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gemacht", "alts": [], "topic": "partizip_machen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He made the food.",
       "explanation": "Perfekt of *machen* takes *haben*; partizip is *gemacht* (regular *ge- + stem + -t*)."
@@ -97,8 +105,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} meine Hausaufgaben {1}.",
       "blanks": [
-        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg" },
-        { "answer": "gemacht", "alts": [], "topic": "partizip_machen" }
+        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gemacht", "alts": [], "topic": "partizip_machen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I did my homework.",
       "explanation": "Perfekt of *machen* takes *haben*; partizip is *gemacht* (regular *ge- + stem + -t*)."
@@ -108,8 +116,8 @@
       "kind": "cloze",
       "prompt": "Er {0} gestern spät {1}.",
       "blanks": [
-        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg" },
-        { "answer": "gekommen", "alts": [], "topic": "partizip_kommen" }
+        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gekommen", "alts": [], "topic": "partizip_kommen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He came late yesterday.",
       "explanation": "Perfekt of *kommen* (a verb of motion) takes *sein* plus the strong partizip *gekommen* at the end."
@@ -119,8 +127,8 @@
       "kind": "cloze",
       "prompt": "Die Gäste {0} schon {1}.",
       "blanks": [
-        { "answer": "sind", "alts": [], "topic": "aux_sein_3pl" },
-        { "answer": "gekommen", "alts": [], "topic": "partizip_kommen" }
+        { "answer": "sind", "alts": [], "topic": "aux_sein_3pl", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gekommen", "alts": [], "topic": "partizip_kommen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "The guests already came.",
       "explanation": "Perfekt of *kommen* (a verb of motion) uses *sein* as auxiliary plus the strong partizip *gekommen*."
@@ -130,8 +138,8 @@
       "kind": "cloze",
       "prompt": "Wir {0} nach Berlin {1}.",
       "blanks": [
-        { "answer": "sind", "alts": [], "topic": "aux_sein_1pl" },
-        { "answer": "gefahren", "alts": [], "topic": "partizip_fahren" }
+        { "answer": "sind", "alts": [], "topic": "aux_sein_1pl", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gefahren", "alts": [], "topic": "partizip_fahren", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "We drove to Berlin.",
       "explanation": "Perfekt of *fahren* (a verb of motion) takes *sein* plus the strong partizip *gefahren* at the end."
@@ -141,8 +149,8 @@
       "kind": "cloze",
       "prompt": "Der Zug {0} pünktlich {1}.",
       "blanks": [
-        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg" },
-        { "answer": "gefahren", "alts": [], "topic": "partizip_fahren" }
+        { "answer": "ist", "alts": [], "topic": "aux_sein_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gefahren", "alts": [], "topic": "partizip_fahren", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "The train ran on time.",
       "explanation": "Perfekt of *fahren* (a verb of motion) uses *sein* plus the strong partizip *gefahren*."
@@ -152,8 +160,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} meinen Schlüssel {1}.",
       "blanks": [
-        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg" },
-        { "answer": "gefunden", "alts": [], "topic": "partizip_finden" }
+        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gefunden", "alts": [], "topic": "partizip_finden", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I found my key.",
       "explanation": "Perfekt of *finden* (transitive) takes *haben*; partizip is the strong form *gefunden*."
@@ -163,8 +171,8 @@
       "kind": "cloze",
       "prompt": "Wir {0} den Film {1}.",
       "blanks": [
-        { "answer": "haben", "alts": [], "topic": "aux_haben_1pl" },
-        { "answer": "gesehen", "alts": [], "topic": "partizip_sehen" }
+        { "answer": "haben", "alts": [], "topic": "aux_haben_1pl", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gesehen", "alts": [], "topic": "partizip_sehen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "We watched the movie.",
       "explanation": "Perfekt of *sehen* (transitive) takes *haben*; partizip is the strong form *gesehen*."
@@ -174,8 +182,8 @@
       "kind": "cloze",
       "prompt": "Wir {0} das Buch {1}.",
       "blanks": [
-        { "answer": "haben", "alts": [], "topic": "aux_haben_1pl" },
-        { "answer": "gelesen", "alts": [], "topic": "partizip_lesen" }
+        { "answer": "haben", "alts": [], "topic": "aux_haben_1pl", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gelesen", "alts": [], "topic": "partizip_lesen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "We read the book.",
       "explanation": "Perfekt of *lesen* (transitive) takes *haben*; partizip is the strong form *gelesen*."
@@ -185,8 +193,8 @@
       "kind": "cloze",
       "prompt": "Sie {0} einen Brief {1}.",
       "blanks": [
-        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg" },
-        { "answer": "geschrieben", "alts": [], "topic": "partizip_schreiben" }
+        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "geschrieben", "alts": [], "topic": "partizip_schreiben", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "She wrote a letter.",
       "explanation": "Perfekt of *schreiben* (transitive) takes *haben*; partizip is the strong form *geschrieben*."
@@ -196,8 +204,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} Pizza {1}.",
       "blanks": [
-        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg" },
-        { "answer": "gegessen", "alts": [], "topic": "partizip_essen" }
+        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gegessen", "alts": [], "topic": "partizip_essen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I ate pizza.",
       "explanation": "Perfekt of *essen* (transitive) takes *haben*; partizip is the irregular strong form *gegessen*."
@@ -207,8 +215,8 @@
       "kind": "cloze",
       "prompt": "Er {0} Kaffee {1}.",
       "blanks": [
-        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg" },
-        { "answer": "getrunken", "alts": [], "topic": "partizip_trinken" }
+        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "getrunken", "alts": [], "topic": "partizip_trinken", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He drank coffee.",
       "explanation": "Perfekt of *trinken* (transitive) takes *haben*; partizip is the strong form *getrunken*."
@@ -218,8 +226,8 @@
       "kind": "cloze",
       "prompt": "Er {0} den ganzen Tag {1}.",
       "blanks": [
-        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg" },
-        { "answer": "gearbeitet", "alts": [], "topic": "partizip_arbeiten" }
+        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gearbeitet", "alts": [], "topic": "partizip_arbeiten", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He worked all day.",
       "explanation": "Perfekt of *arbeiten* takes *haben* (no change of location/state); partizip is *gearbeitet* (regular *ge- + stem + -t*)."
@@ -229,8 +237,8 @@
       "kind": "cloze",
       "prompt": "Ich {0} Deutsch {1}.",
       "blanks": [
-        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg" },
-        { "answer": "gelernt", "alts": [], "topic": "partizip_lernen" }
+        { "answer": "habe", "alts": [], "topic": "aux_haben_1sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "gelernt", "alts": [], "topic": "partizip_lernen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "I learned German.",
       "explanation": "Perfekt of *lernen* takes *haben*; partizip is *gelernt* (regular *ge- + stem + -t*)."
@@ -240,8 +248,8 @@
       "kind": "cloze",
       "prompt": "Er {0} mir {1}.",
       "blanks": [
-        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg" },
-        { "answer": "geholfen", "alts": [], "topic": "partizip_helfen" }
+        { "answer": "hat", "alts": [], "topic": "aux_haben_3sg", "scaffoldPool": "aux_finite_perfekt" },
+        { "answer": "geholfen", "alts": [], "topic": "partizip_helfen", "scaffoldPool": "partizip_perfekt" }
       ],
       "translation": "He helped me.",
       "explanation": "Perfekt of *helfen* takes *haben* (no change of location/state); partizip is the strong form *geholfen*."
@@ -251,8 +259,8 @@
       "kind": "cloze",
       "prompt": "Morgen {0} ich zur Schule {1}.",
       "blanks": [
-        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg" },
-        { "answer": "gehen", "alts": [], "topic": "futur_inf_gehen" }
+        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg", "scaffoldPool": "werden_finite" },
+        { "answer": "gehen", "alts": [], "topic": "futur_inf_gehen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "Tomorrow I will go to school.",
       "explanation": "Futur I uses conjugated *werden* (here *werde* for 1sg) plus the infinitive *gehen* at the end of the clause."
@@ -262,8 +270,8 @@
       "kind": "cloze",
       "prompt": "Nächste Woche {0} ich in Wien {1}.",
       "blanks": [
-        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg" },
-        { "answer": "sein", "alts": [], "topic": "futur_inf_sein" }
+        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg", "scaffoldPool": "werden_finite" },
+        { "answer": "sein", "alts": [], "topic": "futur_inf_sein", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "Next week I will be in Vienna.",
       "explanation": "Futur I uses conjugated *werden* (here *werde* for 1sg) plus the bare infinitive *sein* at the end."
@@ -273,8 +281,8 @@
       "kind": "cloze",
       "prompt": "Bald {0} er mehr Zeit {1}.",
       "blanks": [
-        { "answer": "wird", "alts": [], "topic": "futur_werden_3sg" },
-        { "answer": "haben", "alts": [], "topic": "futur_inf_haben" }
+        { "answer": "wird", "alts": [], "topic": "futur_werden_3sg", "scaffoldPool": "werden_finite" },
+        { "answer": "haben", "alts": [], "topic": "futur_inf_haben", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "Soon he will have more time.",
       "explanation": "Futur I uses conjugated *werden* (here *wird* for 3sg) plus the infinitive *haben* at the end of the clause."
@@ -284,8 +292,8 @@
       "kind": "cloze",
       "prompt": "Was {0} du heute Abend {1}?",
       "blanks": [
-        { "answer": "wirst", "alts": [], "topic": "futur_werden_2sg" },
-        { "answer": "machen", "alts": [], "topic": "futur_inf_machen" }
+        { "answer": "wirst", "alts": [], "topic": "futur_werden_2sg", "scaffoldPool": "werden_finite" },
+        { "answer": "machen", "alts": [], "topic": "futur_inf_machen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "What will you do tonight?",
       "explanation": "Futur I uses conjugated *werden* (here *wirst* for 2sg) plus the infinitive *machen* at the end."
@@ -295,8 +303,8 @@
       "kind": "cloze",
       "prompt": "Die Gäste {0} um acht Uhr {1}.",
       "blanks": [
-        { "answer": "werden", "alts": [], "topic": "futur_werden_3pl" },
-        { "answer": "kommen", "alts": [], "topic": "futur_inf_kommen" }
+        { "answer": "werden", "alts": [], "topic": "futur_werden_3pl", "scaffoldPool": "werden_finite" },
+        { "answer": "kommen", "alts": [], "topic": "futur_inf_kommen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "The guests will arrive at eight.",
       "explanation": "Futur I uses conjugated *werden* (here *werden* for 3pl) plus the infinitive *kommen* at the end."
@@ -306,8 +314,8 @@
       "kind": "cloze",
       "prompt": "Im Sommer {0} wir nach Berlin {1}.",
       "blanks": [
-        { "answer": "werden", "alts": [], "topic": "futur_werden_1pl" },
-        { "answer": "fahren", "alts": [], "topic": "futur_inf_fahren" }
+        { "answer": "werden", "alts": [], "topic": "futur_werden_1pl", "scaffoldPool": "werden_finite" },
+        { "answer": "fahren", "alts": [], "topic": "futur_inf_fahren", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "In summer we will travel to Berlin.",
       "explanation": "Futur I uses conjugated *werden* (here *werden* for 1pl) plus the infinitive *fahren* at the end."
@@ -317,8 +325,8 @@
       "kind": "cloze",
       "prompt": "Du {0} bestimmt eine Lösung {1}.",
       "blanks": [
-        { "answer": "wirst", "alts": [], "topic": "futur_werden_2sg" },
-        { "answer": "finden", "alts": [], "topic": "futur_inf_finden" }
+        { "answer": "wirst", "alts": [], "topic": "futur_werden_2sg", "scaffoldPool": "werden_finite" },
+        { "answer": "finden", "alts": [], "topic": "futur_inf_finden", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "You will surely find a solution.",
       "explanation": "Futur I uses conjugated *werden* (here *wirst* for 2sg) plus the infinitive *finden* at the end."
@@ -328,8 +336,8 @@
       "kind": "cloze",
       "prompt": "Wir {0} uns morgen {1}.",
       "blanks": [
-        { "answer": "werden", "alts": [], "topic": "futur_werden_1pl" },
-        { "answer": "sehen", "alts": [], "topic": "futur_inf_sehen" }
+        { "answer": "werden", "alts": [], "topic": "futur_werden_1pl", "scaffoldPool": "werden_finite" },
+        { "answer": "sehen", "alts": [], "topic": "futur_inf_sehen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "We will see each other tomorrow.",
       "explanation": "Futur I uses conjugated *werden* (here *werden* for 1pl) plus the infinitive *sehen* at the end."
@@ -339,8 +347,8 @@
       "kind": "cloze",
       "prompt": "Heute Abend {0} ich das Buch {1}.",
       "blanks": [
-        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg" },
-        { "answer": "lesen", "alts": [], "topic": "futur_inf_lesen" }
+        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg", "scaffoldPool": "werden_finite" },
+        { "answer": "lesen", "alts": [], "topic": "futur_inf_lesen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "Tonight I will read the book.",
       "explanation": "Futur I uses conjugated *werden* (here *werde* for 1sg) plus the infinitive *lesen* at the end."
@@ -350,8 +358,8 @@
       "kind": "cloze",
       "prompt": "Im Herbst {0} ich Spanisch {1}.",
       "blanks": [
-        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg" },
-        { "answer": "lernen", "alts": [], "topic": "futur_inf_lernen" }
+        { "answer": "werde", "alts": [], "topic": "futur_werden_1sg", "scaffoldPool": "werden_finite" },
+        { "answer": "lernen", "alts": [], "topic": "futur_inf_lernen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "In autumn I will learn Spanish.",
       "explanation": "Futur I uses conjugated *werden* (here *werde* for 1sg) plus the infinitive *lernen* at the end."
@@ -361,8 +369,8 @@
       "kind": "cloze",
       "prompt": "Sie {0} dir gerne {1}.",
       "blanks": [
-        { "answer": "wird", "alts": [], "topic": "futur_werden_3sg" },
-        { "answer": "helfen", "alts": [], "topic": "futur_inf_helfen" }
+        { "answer": "wird", "alts": [], "topic": "futur_werden_3sg", "scaffoldPool": "werden_finite" },
+        { "answer": "helfen", "alts": [], "topic": "futur_inf_helfen", "scaffoldPool": "infinitiv_common" }
       ],
       "translation": "She will gladly help you.",
       "explanation": "Futur I uses conjugated *werden* (here *wird* for 3sg) plus the infinitive *helfen* at the end."

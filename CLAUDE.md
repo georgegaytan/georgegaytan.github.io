@@ -19,7 +19,7 @@ A unified deck engine. Every deck is a JSON file conforming to a shared schema. 
 - `src/engine-ui.js` — DOM controller: renders menu, drill view, dashboard; commits outcomes through `Storage`.
 - `src/storage.js` — the single persistence seam. `loadDeck`, `saveDeck`, `loadGlobal`, `saveGlobal`, `listDeckIds`, `exportAll`, `importAll`. Backed by `localStorage` today; future swap to IndexedDB/OPFS replaces only this module.
 - `src/categories.json` + `src/morphology/*.json` — allowlist of pool categories and morphology tables used by the build-time content validator.
-- `build/validator.js` — Layer 1 content lints (C1–C19 including categorical purity for distractor pools and cross-deck gender consistency).
+- `build/validator.js` — Layer 1 content lints (C1–C21, including categorical purity for distractor pools, cross-deck gender consistency, and cloze chip-palette sufficiency).
 - `build/build.js` — runs the validator, inlines styles + decks + UMD modules into the template, writes `index.html`. Fails non-zero on any validator error.
 - `build/lint.js` — standalone lint command for fast author feedback without re-emitting HTML.
 - `build/snapshot.js` — Layer 3 helper that dumps every rendered question (prompt + answer + box-0/2/4 distractors) into `tests/snapshots/<deck>.txt`. The snapshot drift test fails on any unreviewed content change.
@@ -53,7 +53,7 @@ For `choice` items, two authoring modes:
 ## Testing
 
 Three layers, all run by `npm test` (which calls `node --test`):
-1. **Build-time content lints** (Layer 1, `build/validator.js`). 18 rules. Build fails on error.
+1. **Build-time content lints** (Layer 1, `build/validator.js`). 20 rules (C17 retired). Build fails on error; C20/C21 are warnings.
 2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`, `tests/extra-vocab.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
 3. **Snapshot + sampling + regression** (Layer 3, `tests/snapshot.test.js`, `tests/content.test.js`, `tests/known-issues.test.js`). Snapshots committed; content changes are visible diffs. Regression test seeded with past content scars.
 
