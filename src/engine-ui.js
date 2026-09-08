@@ -76,6 +76,21 @@
       el('div', { class: 'title' }, 'German Drills'),
       el('div', { class: 'subtitle' }, `${window.DECKS.length} deck${window.DECKS.length === 1 ? '' : 's'} · tap to start`)
     );
+    // The extr@ section is a standalone flashcard app, not a drill deck. It
+    // sits above the deck list behind its own divider so it doesn't read as
+    // one of them.
+    if (window.ExtraVocab) {
+      const s = window.ExtraVocab.menuSummary();
+      menu.appendChild(el('button', { class: 'extra-entry', type: 'button', onclick: openExtraVocab },
+        el('span', { class: 'mark' }, 'extr@'),
+        el('span', { class: 'body' },
+          el('div', { class: 'name' }, 'extr@ Vocab'),
+          el('div', { class: 'desc' }, `${s.total} cards · ${window.ExtraVocab.EPISODES.length} episodes · ${s.due} due`)
+        ),
+        el('span', { class: 'go' }, '→')
+      ));
+      menu.appendChild(el('div', { class: 'menu-divider' }, 'drills'));
+    }
     const list = el('div', { class: 'deck-list' });
     for (const d of window.DECKS) {
       const prog = getProgress(d.id);
@@ -115,6 +130,12 @@
     const fileInput = el('input', { type: 'file', id: 'importFile', accept: '.json', style: { display: 'none' }, onchange: handleImport });
     menu.appendChild(fileInput);
     root.appendChild(menu);
+  }
+
+  function openExtraVocab() {
+    // Progress lives under its own storage key; refresh the menu on the way
+    // out so the "due" count reflects the session that just happened.
+    window.ExtraVocab.open(renderMenu);
   }
 
   // ----- Daily Review (cross-deck) -----
@@ -693,7 +714,9 @@
         DRILL = null;
         document.body.classList.remove('drill-open');
         renderMenu();
+        return;
       }
+      if (window.ExtraVocab) window.ExtraVocab.handlePop();
     });
   }
 

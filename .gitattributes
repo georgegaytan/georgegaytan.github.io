@@ -1,0 +1,13 @@
+# tests/snapshot.test.js compares these byte-for-byte against what
+# build/snapshot.js writes (always LF). With core.autocrlf=true, git would hand
+# out CRLF copies on checkout and every fresh clone on Windows would fail the
+# snapshot test. Pin them to LF in the working tree.
+tests/snapshots/*.txt eol=lf
+
+# Same reasoning for the build's own inputs and output: build.js emits LF, so
+# keeping the working tree LF avoids phantom whole-file diffs.
+*.js eol=lf
+*.json eol=lf
+*.css eol=lf
+*.html eol=lf
+*.md eol=lf

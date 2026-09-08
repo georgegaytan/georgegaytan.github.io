@@ -23,7 +23,24 @@ A unified deck engine. Every deck is a JSON file conforming to a shared schema. 
 - `build/build.js` — runs the validator, inlines styles + decks + UMD modules into the template, writes `index.html`. Fails non-zero on any validator error.
 - `build/lint.js` — standalone lint command for fast author feedback without re-emitting HTML.
 - `build/snapshot.js` — Layer 3 helper that dumps every rendered question (prompt + answer + box-0/2/4 distractors) into `tests/snapshots/<deck>.txt`. The snapshot drift test fails on any unreviewed content change.
+- `src/extra-vocab.js` + `src/extra-vocab.css` — the **extr@ Vocab** section (see below).
 - `decks/*.json` — deck content. Authoring workflow: edit JSON → `node build/build.js` → commit both the JSON and the built `index.html`.
+
+## The extr@ Vocab section
+
+A standalone two-sided flashcard deck for the TV series *extr@ auf Deutsch*, reached from a
+separate entry above the drill list. It deliberately bypasses the deck engine: no
+cloze/text/choice primitives, no scaffolding ladder, no deck JSON, no validator, and no snapshot.
+Content lives as a flat array in `src/extra-vocab.js` (`[episode, de, en, example, translation]`),
+its CSS is scoped under `#extraView` so the two visual languages never collide, and it mounts as a
+fixed overlay on `document.body` rather than into `#root`.
+
+The one thing it shares with the rest of the app is the persistence seam: it writes through
+`Storage.saveDeck('extra-vocab', ...)`, so progress lands in IndexedDB and rides along in
+Export / Import backups without any special casing. Nothing iterates deck ids against
+`window.DECKS`, so the extra key is inert for the drill engine.
+
+Its scheduling/format logic is exported as pure functions and covered by `tests/extra-vocab.test.js`.
 
 ## Deck JSON authoring
 
@@ -37,7 +54,7 @@ For `choice` items, two authoring modes:
 
 Three layers, all run by `npm test` (which calls `node --test`):
 1. **Build-time content lints** (Layer 1, `build/validator.js`). 18 rules. Build fails on error.
-2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
+2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`, `tests/extra-vocab.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
 3. **Snapshot + sampling + regression** (Layer 3, `tests/snapshot.test.js`, `tests/content.test.js`, `tests/known-issues.test.js`). Snapshots committed; content changes are visible diffs. Regression test seeded with past content scars.
 
 ## Common commands

@@ -41,6 +41,8 @@ function build() {
   const template = read(path.join(SRC, 'index.html.template'));
   const styles = readIfExists(path.join(SRC, 'styles.css'));
   const storage = readIfExists(path.join(SRC, 'storage.js'));
+  const extraStyles = readIfExists(path.join(SRC, 'extra-vocab.css'));
+  const extraVocab = readIfExists(path.join(SRC, 'extra-vocab.js'));
   const engineCore = readIfExists(path.join(SRC, 'engine-core.js'));
   const engineUi = readIfExists(path.join(SRC, 'engine-ui.js'));
 
@@ -49,7 +51,9 @@ function build() {
   const html = template
     .replace('/*__STYLES__*/', () => styles)
     .replace('/*__DECKS__*/', () => decksJs)
+    .replace('/*__EXTRA_STYLES__*/', () => extraStyles)
     .replace('/*__STORAGE__*/', () => storage)
+    .replace('/*__EXTRA_VOCAB__*/', () => extraVocab)
     .replace('/*__ENGINE_CORE__*/', () => engineCore)
     .replace('/*__ENGINE_UI__*/', () => engineUi);
 

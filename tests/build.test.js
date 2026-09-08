@@ -15,6 +15,18 @@ test('build: produces index.html at the repo root', () => {
   assert.ok(html.includes('<title>German Drills</title>'));
   assert.ok(!html.includes('__STYLES__'), 'placeholder __STYLES__ should be replaced');
   assert.ok(!html.includes('__DECKS__'), 'placeholder __DECKS__ should be replaced');
+  assert.ok(!html.includes('__EXTRA_STYLES__'), 'placeholder __EXTRA_STYLES__ should be replaced');
+  assert.ok(!html.includes('__EXTRA_VOCAB__'), 'placeholder __EXTRA_VOCAB__ should be replaced');
+});
+
+test('build: index.html inlines the standalone extr@ section', () => {
+  const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+  assert.ok(html.includes('extr@ Vocab'), 'menu entry should be present');
+  assert.ok(html.includes('#extraView'), 'scoped styles should be present');
+  assert.ok(html.includes('Vokabelkarten zur Serie'), 'section shell should be present');
+  assert.ok(html.includes('Sams Ankunft'), 'episode list should be inlined');
+  // The section must not have been folded into the deck engine.
+  assert.ok(!html.includes('"id":"extra-vocab"'), 'extr@ must not be a drill deck');
 });
 
 test('build: fails non-zero on validator error', () => {

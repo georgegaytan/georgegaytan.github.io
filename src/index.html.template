@@ -6,11 +6,13 @@
 <meta name="color-scheme" content="dark">
 <title>German Drills</title>
 <style>/*__STYLES__*/</style>
+<style>/*__EXTRA_STYLES__*/</style>
 </head>
 <body>
 <div id="root"></div>
 <script>/*__DECKS__*/</script>
 <script>/*__STORAGE__*/</script>
+<script>/*__EXTRA_VOCAB__*/</script>
 <script>/*__ENGINE_CORE__*/</script>
 <script>/*__ENGINE_UI__*/</script>
 </body>
