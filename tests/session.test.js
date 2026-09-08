@@ -222,3 +222,61 @@ test('hashCode / shuffleDeterministic: stable for a seed, different across seeds
   assert.deepStrictEqual(x, y);
   assert.deepStrictEqual(x.slice().sort(), [1, 2, 3, 4, 5, 6, 7, 8]);
 });
+
+// ---------------------------------------------------------------------------
+// sessionMeta shape / cloze matching
+// ---------------------------------------------------------------------------
+
+test('initDeckState: sessionMeta carries only the fields something reads', () => {
+  // todayCount and firstTryCorrectToday were incremented and never read.
+  const s = EngineCore.initDeckState(null, deck('d', ['a']), T);
+  assert.deepStrictEqual(s.sessionMeta, { newToday: 0, todayDate: T });
+});
+
+function clozeItem(blanks, acceptAny) {
+  const it = { id: 'c', kind: 'cloze', prompt: blanks.map((_, i) => '{' + i + '}').join(' '), blanks };
+  if (acceptAny) it.acceptAny = acceptAny;
+  return it;
+}
+
+test('clozeAcceptedCombos: primary answers, plus any well-formed acceptAny combos', () => {
+  const it = clozeItem([{ answer: 'den' }, { answer: 'Hund' }], [['einen', 'Hund'], ['too', 'many', 'slots']]);
+  assert.deepStrictEqual(EngineCore.clozeAcceptedCombos(it), [['den', 'Hund'], ['einen', 'Hund']]);
+});
+
+test('clozeAcceptedCombos: an empty primary blank is never accepted as a combo', () => {
+  // acceptAny lets an author leave a primary blank empty (validator C13);
+  // accepting the primary combo then would make an empty submission correct.
+  const it = clozeItem([{ answer: '' }, { answer: 'Hund' }], [['einen', 'Hund'], ['den', 'Hund']]);
+  assert.deepStrictEqual(EngineCore.clozeAcceptedCombos(it), [['einen', 'Hund'], ['den', 'Hund']]);
+  assert.strictEqual(EngineCore.clozeMatches(it, ['', 'Hund']), false);
+  assert.strictEqual(EngineCore.clozeMatches(it, ['', '']), false);
+  assert.strictEqual(EngineCore.clozeMatches(it, ['den', 'Hund']), true);
+});
+
+test('clozeMatches: primary answers accept their alts and normalisation', () => {
+  const it = clozeItem([{ answer: 'für', alts: ['fuer'] }, { answer: 'dich' }]);
+  assert.strictEqual(EngineCore.clozeMatches(it, ['für', 'dich']), true);
+  assert.strictEqual(EngineCore.clozeMatches(it, ['fuer', 'dich']), true, 'authored alt');
+  assert.strictEqual(EngineCore.clozeMatches(it, ['FÜR', ' dich '], undefined), true, 'case/space normalised');
+  assert.strictEqual(EngineCore.clozeMatches(it, ['für', 'mich']), false);
+  assert.strictEqual(EngineCore.clozeMatches(it, ['für']), false, 'wrong arity');
+});
+
+test('clozeMatches: alts belong to the primary answer, not to whatever acceptAny puts in that slot', () => {
+  // Regression: the acceptAny path used to ignore alts entirely; and alts must
+  // not leak onto a different expected value in the same position.
+  const it = clozeItem(
+    [{ answer: 'den', alts: ['DEN'] }, { answer: 'Hund', alts: ['hund'] }],
+    [['einen', 'Hund']]
+  );
+  assert.strictEqual(EngineCore.clozeMatches(it, ['einen', 'Hund']), true, 'acceptAny combo');
+  assert.strictEqual(EngineCore.clozeMatches(it, ['einen', 'hund']), true, 'alt applies: slot 2 expects the primary "Hund"');
+  assert.strictEqual(EngineCore.clozeMatches(it, ['DEN', 'hund']), true, 'primary combo with both alts');
+  // "den" is the primary for slot 1, but this combo expects "einen" there, so
+  // den's alts do not apply to that slot.
+  const it2 = clozeItem([{ answer: 'den', alts: ['einem'] }, { answer: 'Hund' }], [['einen', 'Hund']]);
+  assert.strictEqual(EngineCore.clozeMatches(it2, ['einem', 'Hund']), true, 'via the primary combo');
+  const it3 = clozeItem([{ answer: '', alts: ['einem'] }, { answer: 'Hund' }], [['einen', 'Hund']]);
+  assert.strictEqual(EngineCore.clozeMatches(it3, ['einem', 'Hund']), false, 'no primary combo, so the alt has nothing to attach to');
+});

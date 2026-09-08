@@ -69,6 +69,43 @@
   EngineCore.normalizeAnswer = normalizeAnswer;
   EngineCore.answersMatch = answersMatch;
 
+  // The complete combos a cloze accepts: the primary per-blank answers, plus
+  // any authored acceptAny combos. The primary combo is included only when
+  // every blank has a non-empty answer - with acceptAny an author may leave a
+  // primary blank empty (validator C13's escape hatch), and an empty primary
+  // would otherwise make an empty submission "correct".
+  function clozeAcceptedCombos(item) {
+    const blanks = item.blanks || [];
+    const combos = [];
+    const primary = blanks.map(b => b.answer);
+    if (primary.length && primary.every(a => typeof a === 'string' && a.length > 0)) combos.push(primary);
+    if (Array.isArray(item.acceptAny)) {
+      for (const c of item.acceptAny) {
+        if (Array.isArray(c) && c.length === blanks.length) combos.push(c);
+      }
+    }
+    return combos;
+  }
+  EngineCore.clozeAcceptedCombos = clozeAcceptedCombos;
+
+  // Does a set of typed values satisfy a cloze? Any accepted combo may match,
+  // position by position. A blank's `alts` are alternatives for its *primary*
+  // answer, so they apply at a position only when the combo expects that
+  // primary answer there - not to whatever an acceptAny combo happens to put in
+  // that slot. (The old UI code passed no alts at all on the acceptAny path.)
+  function clozeMatches(item, values, opts) {
+    const blanks = item.blanks || [];
+    if (!Array.isArray(values) || values.length !== blanks.length) return false;
+    return clozeAcceptedCombos(item).some(combo =>
+      combo.every((expected, i) => {
+        const b = blanks[i];
+        const alts = (expected === b.answer && Array.isArray(b.alts)) ? b.alts : [];
+        return answersMatch(values[i], expected, alts, opts);
+      })
+    );
+  }
+  EngineCore.clozeMatches = clozeMatches;
+
   function levenshtein(a, b) {
     if (a === b) return 0;
     if (!a.length) return b.length;
@@ -289,8 +326,11 @@
     return { box: 0, ease: EASE_START, interval: 0, due: null, lapses: 0, lastSeen: null, seenCount: 0 };
   }
 
+  // newToday is the only counter anything reads. Saved states from before
+  // 2026-09 may still carry todayCount/firstTryCorrectToday; they were never
+  // read and fall away the next time the meta is reset for a new day.
   function freshSessionMeta(today) {
-    return { todayCount: 0, newToday: 0, todayDate: today, firstTryCorrectToday: 0 };
+    return { newToday: 0, todayDate: today };
   }
 
   // Bring a stored deck state up to date for `today`: create it if missing,

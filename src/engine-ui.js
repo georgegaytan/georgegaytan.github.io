@@ -372,23 +372,15 @@
   }
 
   function submitCloze(item, inputs) {
-    let allCorrect;
-    if (Array.isArray(item.acceptAny) && item.acceptAny.length > 0) {
-      const userValues = inputs.map(i => i.inp.value);
-      allCorrect = item.acceptAny.some(combo =>
-        combo.length === userValues.length &&
-        combo.every((expected, i) => EngineCore.answersMatch(userValues[i], expected, []))
-      );
-      for (const { inp, blank } of inputs) {
-        blank.classList.add(allCorrect ? 'correct' : 'wrong');
-      }
-    } else {
-      allCorrect = true;
-      for (const { inp, blank, def } of inputs) {
-        const ok = EngineCore.answersMatch(inp.value, def.answer, def.alts || []);
-        blank.classList.add(ok ? 'correct' : 'wrong');
-        if (!ok) allCorrect = false;
-      }
+    // One rule for every cloze (EngineCore.clozeMatches): primary answers with
+    // their alts, or any acceptAny combo. Per-blank highlighting follows the
+    // primary answers so the learner sees which slot was off; the verdict is
+    // the whole-combo match.
+    const values = inputs.map(i => i.inp.value);
+    const allCorrect = EngineCore.clozeMatches(item, values);
+    for (const { inp, blank, def } of inputs) {
+      const slotOk = allCorrect || EngineCore.answersMatch(inp.value, def.answer, def.alts || []);
+      blank.classList.add(slotOk ? 'correct' : 'wrong');
     }
     finalizeAttempt(item, allCorrect, inputs);
   }
@@ -490,10 +482,14 @@
       const corrInp = el('input', { type: 'text', class: 'blank filled', autocomplete: 'off', spellcheck: 'false', style: { fontSize: '16px', marginTop: '8px', minWidth: '300px' } });
       body.appendChild(corrInp);
       const advanceBtn = el('button', { class: 'btn-primary', style: { marginTop: '12px' }, onclick: () => {
+        // The learner is retyping the form shown above, so compare the joined
+        // string against every accepted combo (same source of truth as the
+        // initial check), not just acceptAny[0] or the primary.
         let ok;
-        if (item.kind === 'cloze' && Array.isArray(item.acceptAny) && item.acceptAny.length > 0) {
-          const normalized = EngineCore.normalizeAnswer(corrInp.value);
-          ok = item.acceptAny.some(combo => EngineCore.normalizeAnswer(combo.join(' ')) === normalized);
+        if (item.kind === 'cloze') {
+          const typed = EngineCore.normalizeAnswer(corrInp.value);
+          ok = EngineCore.clozeAcceptedCombos(item)
+            .some(combo => EngineCore.normalizeAnswer(combo.join(' ')) === typed);
         } else {
           ok = EngineCore.normalizeAnswer(corrInp.value) === EngineCore.normalizeAnswer(correctText);
         }
@@ -543,7 +539,6 @@
     DRILL.sessionSeen.push(prevItem.id);
     DRILL.lastTopics = EngineCore.topicsOf(prevItem);
     DRILL.sessionCount++;
-    DRILL.state.sessionMeta.todayCount++;
     Storage.saveDeck(DRILL.deckId, DRILL.state);
     advance();
   };
