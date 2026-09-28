@@ -15,7 +15,7 @@
    every navigation is answered with the cached shell, and the fonts are cached
    opportunistically as they are requested. */
 
-const BUILD = '872b08d55693';
+const BUILD = '2aa909daba92';
 const CACHE = 'german-drills-' + BUILD;
 
 // The shell is resolved against the worker's own scope, so it is correct
