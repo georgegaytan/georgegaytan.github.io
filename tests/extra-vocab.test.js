@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const EV = require('../src/extra-vocab.js');
-const { DATA, EPISODES, INTERVALS, DAY, keyOf, activeIndices, isDue, nextEntry, dueIndices, shuffle, summarize, toTSV } = EV;
+const { DATA, EPISODES, INTERVALS, DAY, A2_CORE, keyOf, activeIndices, isDue, nextEntry, dueIndices, shuffle, summarize, toTSV } = EV;
 
 const NOW = Date.UTC(2026, 0, 15);
 
@@ -93,6 +93,37 @@ test('activeIndices: all vs. episode selection', () => {
   assert.strictEqual(ep3and7.length, ep3.length + activeIndices(DATA, false, { 7: true }).length);
 
   assert.deepStrictEqual(activeIndices(DATA, false, {}), []);
+});
+
+test('data: every A2 tag names a card in the deck', () => {
+  // A tag with a typo matches no card, so the A2 card it meant stays visible
+  // when the learner asked to skip A2 words.
+  const heads = new Set(DATA.map(r => r[1]));
+  assert.ok(A2_CORE.size > 50, 'sanity: the A2 tag list should cover a real slice of the deck');
+  for (const h of A2_CORE) assert.ok(heads.has(h), `A2 tag has no card: ${h}`);
+});
+
+test('activeIndices: the hide set removes exactly the tagged cards', () => {
+  const all = activeIndices(DATA, true, {});
+  const hidden = activeIndices(DATA, true, {}, A2_CORE);
+  assert.strictEqual(hidden.length, all.length - A2_CORE.size);
+  assert.ok(hidden.every(i => !A2_CORE.has(DATA[i][1])));
+
+  // The hide set combines with the episode filter.
+  const ep4 = activeIndices(DATA, false, { 4: true });
+  const ep4hidden = activeIndices(DATA, false, { 4: true }, A2_CORE);
+  assert.strictEqual(ep4hidden.length, ep4.filter(i => !A2_CORE.has(DATA[i][1])).length);
+  assert.ok(ep4hidden.length < ep4.length, 'sanity: episode 4 has A2-tagged cards');
+
+  // No hide set (or null) keeps the old behaviour.
+  assert.deepStrictEqual(activeIndices(DATA, true, {}, null), all);
+});
+
+test('data: every episode keeps cards with the A2 filter on', () => {
+  for (let e = 1; e <= EPISODES.length; e++) {
+    const sel = {}; sel[e] = true;
+    assert.ok(activeIndices(DATA, false, sel, A2_CORE).length >= 20, `episode ${e} is too thin without A2 words`);
+  }
 });
 
 test('isDue: unseen cards are due, scheduled ones wait', () => {

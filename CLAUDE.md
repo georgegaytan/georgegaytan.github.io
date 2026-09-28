@@ -47,6 +47,13 @@ Export / Import backups without any special casing. Nothing iterates deck ids ag
 
 Its scheduling/format logic is exported as pure functions and covered by `tests/extra-vocab.test.js`.
 
+Cards come from the episode transcripts, not from the episode titles. Each card goes in the first
+episode that uses the word, and each word has only one card. The deck has no A1 words: a learner
+who starts the series is assumed to know A1 (Goethe-Institut A1 word list). `A2_CORE` lists the
+headwords that are core A2 vocabulary (Goethe-Institut A2 word list). The "A2-Wörter" toggle hides
+them, and the choice persists in the `extra-vocab` storage record as `hideA2`. Do not tag a card
+whose word is on the list but whose card teaches a different sense, an idiom, or a particle.
+
 ## Deck JSON authoring
 
 Every item is `cloze`, `text`, or `choice`. Prefer `cloze` (typed production in context) for grammar; `text` for vocabulary; `choice` only for genuinely categorical questions (gender, meaning ID).
