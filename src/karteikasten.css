@@ -1,0 +1,174 @@
+/* B1 Karteikasten — a self-contained section in its own visual language: one
+   centred column with the lesson picker, the lesson header, a ruled index card
+   (Karteikarte) with a red header line, then a thumb-reachable action bar.
+   Every selector is scoped under #kkView so it never collides with the drill
+   app or with extr@. */
+
+#kkView {
+  --kk-page: #e7ebf2;
+  --kk-card: #fdfdfb;
+  --kk-ink: #1c2230;
+  --kk-muted: #5a6377;
+  --kk-rule: #d6e0ef;
+  --kk-redline: #cf4a43;
+  --kk-accent: #1f4fb4;
+  --kk-accent-ink: #ffffff;
+  --kk-good: #23774a;
+  --kk-again: #a95a17;
+  --kk-chip: #f5f7fb;
+  --kk-line: #c8d0dd;
+  --kk-f-display: "Bitter", Georgia, "Times New Roman", serif;
+  --kk-f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --kk-f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --kk-radius: 10px;
+
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  color-scheme: light;
+  background: var(--kk-page);
+  color: var(--kk-ink);
+  font-family: var(--kk-f-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+@media (prefers-color-scheme: dark) {
+  #kkView {
+    --kk-page: #10141c; --kk-card: #1a202c; --kk-ink: #e7eaf1; --kk-muted: #9ca5b7; --kk-rule: #27324a;
+    --kk-redline: #cf645e; --kk-accent: #93acff; --kk-accent-ink: #0f1626; --kk-good: #5cc08a; --kk-again: #e39b5c;
+    --kk-chip: #1f2737; --kk-line: #313d55;
+    color-scheme: dark;
+  }
+}
+
+#kkView [hidden] { display: none !important; }
+#kkView .kk-wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  padding-block: 18px 28px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 18px;
+}
+#kkView button { font: inherit; color: inherit; cursor: pointer; }
+#kkView button:focus-visible, #kkView summary:focus-visible, #kkView .kk-card:focus-visible {
+  outline: 2px solid var(--kk-accent); outline-offset: 2px;
+}
+
+/* top */
+#kkView .kk-top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+#kkView .kk-menu {
+  align-self: center; background: transparent; border: 1px solid var(--kk-line); border-radius: 999px;
+  padding: 4px 11px; font-size: 0.85rem; color: var(--kk-ink);
+}
+#kkView .kk-top h1 { font-family: var(--kk-f-display); font-weight: 700; font-size: 1.35rem; margin: 0; letter-spacing: -0.01em; }
+#kkView .kk-top .kk-sub { color: var(--kk-muted); font-size: 0.85rem; }
+
+/* lesson picker */
+#kkView .kk-books { display: grid; gap: 12px; }
+#kkView .kk-book-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kk-muted); margin-bottom: 6px; }
+#kkView .kk-chips { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+#kkView .kk-chip {
+  background: var(--kk-chip); border: 1px solid var(--kk-line); border-radius: 8px;
+  padding: 6px 0 7px; display: grid; gap: 5px; justify-items: center;
+  font-family: var(--kk-f-mono); font-size: 0.95rem; font-variant-numeric: tabular-nums;
+}
+#kkView .kk-chip[aria-pressed="true"] { border-color: var(--kk-accent); box-shadow: inset 0 0 0 1px var(--kk-accent); color: var(--kk-accent); }
+#kkView .kk-chip .kk-bar { width: 70%; height: 3px; border-radius: 2px; background: var(--kk-line); overflow: hidden; }
+#kkView .kk-chip .kk-bar i { display: block; height: 100%; background: var(--kk-good); width: 0; }
+
+/* lesson head */
+#kkView .kk-lhead { display: grid; gap: 8px; }
+#kkView .kk-eyebrow { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kk-muted); }
+#kkView .kk-lhead h2 { font-family: var(--kk-f-display); font-weight: 700; font-size: 1.6rem; line-height: 1.15; margin: 0; text-wrap: balance; }
+#kkView .kk-meta { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 0.88rem; color: var(--kk-muted); font-variant-numeric: tabular-nums; }
+#kkView .kk-meta strong { color: var(--kk-good); font-weight: 700; }
+#kkView .kk-progress { height: 6px; border-radius: 3px; background: var(--kk-line); overflow: hidden; }
+#kkView .kk-progress i { display: block; height: 100%; width: 0; background: var(--kk-good); transition: width .3s ease; }
+#kkView .kk-tools { display: flex; gap: 8px; flex-wrap: wrap; }
+#kkView .kk-tool {
+  background: transparent; border: 1px solid var(--kk-line); border-radius: 999px;
+  padding: 5px 12px; font-size: 0.85rem; color: var(--kk-ink);
+}
+#kkView .kk-tool[aria-pressed="true"] { background: var(--kk-chip); border-color: var(--kk-accent); color: var(--kk-accent); }
+#kkView .kk-tool.kk-warn { border-color: var(--kk-again); color: var(--kk-again); }
+
+/* the index card */
+#kkView .kk-stage { perspective: 1400px; }
+#kkView .kk-card { display: grid; transition: transform .45s cubic-bezier(.3,.7,.3,1); transform-style: preserve-3d; cursor: pointer; border-radius: var(--kk-radius); }
+#kkView .kk-card.kk-flipped { transform: rotateY(180deg); }
+#kkView .kk-card.kk-no-anim { transition: none; }
+#kkView .kk-face {
+  grid-area: 1 / 1;
+  background: var(--kk-card);
+  border: 1px solid var(--kk-line);
+  border-radius: var(--kk-radius);
+  box-shadow: 0 1px 0 var(--kk-line), 0 10px 24px -18px rgba(20, 30, 50, .45);
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  display: grid; grid-template-rows: auto 1fr; min-height: 300px;
+}
+#kkView .kk-face.kk-back { transform: rotateY(180deg); }
+#kkView .kk-face-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 10px 18px 8px; border-bottom: 2px solid var(--kk-redline);
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--kk-muted);
+}
+#kkView .kk-badges { display: flex; gap: 6px; }
+#kkView .kk-badge {
+  font-family: var(--kk-f-mono); letter-spacing: 0; text-transform: none; font-size: 0.72rem;
+  border: 1px solid var(--kk-redline); color: var(--kk-redline); border-radius: 4px; padding: 0 5px;
+}
+#kkView .kk-face-body { padding: 18px 18px 22px; display: grid; align-content: center; gap: 14px; min-width: 0; }
+#kkView .kk-word { font-family: var(--kk-f-display); font-weight: 700; font-size: clamp(1.5rem, 6.2vw, 2.15rem); line-height: 1.2; margin: 0; overflow-wrap: anywhere; text-wrap: balance; }
+#kkView .kk-word.kk-en { font-weight: 500; }
+#kkView .kk-sentence {
+  margin: 0; font-size: 1.04rem; line-height: 28px;
+  background-image: repeating-linear-gradient(to bottom, transparent 0 27px, var(--kk-rule) 27px 28px);
+  overflow-wrap: anywhere;
+}
+#kkView .kk-sentence.kk-it { font-style: italic; }
+#kkView .kk-ref { font-size: 0.85rem; color: var(--kk-muted); margin: 0; }
+#kkView .kk-note { font-size: 0.85rem; color: var(--kk-muted); margin: 0; }
+#kkView .kk-note b { color: var(--kk-ink); font-weight: 700; }
+#kkView .kk-hint { text-align: center; font-size: 0.8rem; color: var(--kk-muted); margin-top: -6px; }
+
+/* actions */
+#kkView .kk-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-height: 52px; }
+#kkView .kk-btn {
+  border-radius: var(--kk-radius); padding: 13px 10px; font-weight: 700; font-size: 1rem;
+  border: 1.5px solid var(--kk-line); background: var(--kk-card);
+}
+#kkView .kk-btn.kk-flip { grid-column: 1 / -1; background: var(--kk-accent); color: var(--kk-accent-ink); border-color: var(--kk-accent); }
+#kkView .kk-btn.kk-again { border-color: var(--kk-again); color: var(--kk-again); }
+#kkView .kk-btn.kk-good { background: var(--kk-good); border-color: var(--kk-good); color: var(--kk-card); }
+#kkView .kk-btn small { display: block; font-weight: 400; font-size: 0.72rem; opacity: .8; font-family: var(--kk-f-mono); }
+
+/* done */
+#kkView .kk-done { background: var(--kk-card); border: 1px solid var(--kk-line); border-radius: var(--kk-radius); padding: 26px 20px; display: grid; gap: 12px; text-align: center; }
+#kkView .kk-done h3 { font-family: var(--kk-f-display); margin: 0; font-size: 1.35rem; }
+#kkView .kk-done p { margin: 0; color: var(--kk-muted); }
+#kkView .kk-done .kk-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* word list */
+#kkView details { border-top: 1px solid var(--kk-line); padding-top: 10px; }
+#kkView summary { cursor: pointer; color: var(--kk-muted); font-size: 0.9rem; }
+#kkView .kk-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; }
+#kkView .kk-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--kk-rule); font-size: 0.9rem; }
+#kkView .kk-list li .kk-k { color: var(--kk-good); }
+#kkView .kk-list li span:first-child { font-weight: 700; overflow-wrap: anywhere; }
+#kkView .kk-list li span:last-child { color: var(--kk-muted); overflow-wrap: anywhere; }
+
+@media (prefers-reduced-motion: reduce) {
+  #kkView .kk-card, #kkView .kk-progress i { transition: none; }
+}
+
+/* Menu entry — reuses the .extra-entry layout from extra-vocab.css and swaps
+   in the index card's red line. */
+.extra-entry + .extra-entry { margin-top: -12px; }
+.extra-entry.kk-entry { border-left-color: #cf4a43; }
+.extra-entry.kk-entry:hover { border-left-color: #cf4a43; }
+.extra-entry.kk-entry .mark { font-family: "Bitter", Georgia, "Times New Roman", serif; color: #e8817b; min-width: 2.7em; text-align: center; }

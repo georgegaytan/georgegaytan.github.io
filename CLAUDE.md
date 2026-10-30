@@ -29,6 +29,7 @@ A unified deck engine. Every deck is a JSON file conforming to a shared schema. 
 - `build/lint.js` — standalone lint command for fast author feedback without re-emitting HTML.
 - `build/snapshot.js` — Layer 3 helper that dumps every rendered question (prompt + answer + box-0/2/4 distractors) into `tests/snapshots/<deck>.txt`. The snapshot drift test fails on any unreviewed content change.
 - `src/extra-vocab.js` + `src/extra-vocab.css` — the **extr@ Vocab** section (see below).
+- `src/karteikasten.js` + `src/karteikasten.css` — the **B1 Karteikasten** section (see below).
 - `decks/*.json` — deck content. Authoring workflow: edit JSON → `node build/build.js` → commit both the JSON and the built `index.html`.
 
 ## The extr@ Vocab section
@@ -54,6 +55,24 @@ headwords that are core A2 vocabulary (Goethe-Institut A2 word list). The "A2-W�
 them, and the choice persists in the `extra-vocab` storage record as `hideA2`. Do not tag a card
 whose word is on the list but whose card teaches a different sense, an idiom, or a particle.
 
+## The B1 Karteikasten section
+
+A second standalone flashcard section, for the lesson word lists of the textbook *Schritte plus
+Neu B1, Ausgabe Schweiz* (14 lessons in two books, B1.1 and B1.2). It follows the extr@ pattern:
+it bypasses the deck engine, its CSS is scoped under `#kkView`, it mounts as a fixed overlay, and
+it writes through `Storage.saveDeck('b1-karteikasten', ...)`. Its webfonts load only when the
+section opens.
+
+It has no spaced repetition, by design. The learner picks a lesson and marks each card "Gewusst"
+or "Nochmal". A known card stays out of that lesson's rounds until the learner starts the lesson
+again. Progress keys on the German headword (`card[0]`), not on the card's position, so cards can
+be added or reordered without a loss of progress.
+
+Content lives in `LESSONS` in `src/karteikasten.js`. Each card is
+`[de, en, example, translation, note, ch]`. The German text uses Swiss spelling (no ß). The note
+can quote the standard-German form ("DE: zu Fuß"). `ch` is `1` for a Swiss word and shows a CH
+badge. The pure functions and the data rules are covered by `tests/karteikasten.test.js`.
+
 ## Deck JSON authoring
 
 Every item is `cloze`, `text`, or `choice`. Prefer `cloze` (typed production in context) for grammar; `text` for vocabulary; `choice` only for genuinely categorical questions (gender, meaning ID).
@@ -66,7 +85,7 @@ For `choice` items, two authoring modes:
 
 Three layers, all run by `npm test` (which calls `node --test`):
 1. **Build-time content lints** (Layer 1, `build/validator.js`). 20 rules (C17 retired). Build fails on error; C20/C21 are warnings.
-2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/session.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`, `tests/extra-vocab.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
+2. **Engine unit tests** (Layer 2, `tests/engine-core.test.js`, `tests/session.test.js`, `tests/storage.test.js`, `tests/validator.test.js`, `tests/build.test.js`, `tests/extra-vocab.test.js`, `tests/karteikasten.test.js`). Pure Node, no jsdom, no npm. Local-storage shim in `tests/_helpers/localStorageShim.js`.
 3. **Snapshot + sampling + regression** (Layer 3, `tests/snapshot.test.js`, `tests/content.test.js`, `tests/known-issues.test.js`). Snapshots committed; content changes are visible diffs. Regression test seeded with past content scars.
 
 ## Common commands

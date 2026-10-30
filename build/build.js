@@ -45,6 +45,8 @@ function build() {
   const storage = readIfExists(path.join(SRC, 'storage.js'));
   const extraStyles = readIfExists(path.join(SRC, 'extra-vocab.css'));
   const extraVocab = readIfExists(path.join(SRC, 'extra-vocab.js'));
+  const kkStyles = readIfExists(path.join(SRC, 'karteikasten.css'));
+  const karteikasten = readIfExists(path.join(SRC, 'karteikasten.js'));
   const engineCore = readIfExists(path.join(SRC, 'engine-core.js'));
   const engineUi = readIfExists(path.join(SRC, 'engine-ui.js'));
 
@@ -60,6 +62,8 @@ function build() {
     .replace('/*__EXTRA_STYLES__*/', () => extraStyles)
     .replace('/*__STORAGE__*/', () => storage)
     .replace('/*__EXTRA_VOCAB__*/', () => extraVocab)
+    .replace('/*__KK_STYLES__*/', () => kkStyles)
+    .replace('/*__KARTEIKASTEN__*/', () => karteikasten)
     .replace('/*__ENGINE_CORE__*/', () => engineCore)
     .replace('/*__ENGINE_UI__*/', () => engineUi);
 

@@ -17,6 +17,8 @@ test('build: produces index.html at the repo root', () => {
   assert.ok(!html.includes('__DECKS__'), 'placeholder __DECKS__ should be replaced');
   assert.ok(!html.includes('__EXTRA_STYLES__'), 'placeholder __EXTRA_STYLES__ should be replaced');
   assert.ok(!html.includes('__EXTRA_VOCAB__'), 'placeholder __EXTRA_VOCAB__ should be replaced');
+  assert.ok(!html.includes('__KK_STYLES__'), 'placeholder __KK_STYLES__ should be replaced');
+  assert.ok(!html.includes('__KARTEIKASTEN__'), 'placeholder __KARTEIKASTEN__ should be replaced');
 });
 
 test('build: index.html inlines the standalone extr@ section', () => {
@@ -27,6 +29,18 @@ test('build: index.html inlines the standalone extr@ section', () => {
   assert.ok(html.includes('Sams Ankunft'), 'episode list should be inlined');
   // The section must not have been folded into the deck engine.
   assert.ok(!html.includes('"id":"extra-vocab"'), 'extr@ must not be a drill deck');
+});
+
+test('build: index.html inlines the standalone B1 Karteikasten section', () => {
+  const html = fs.readFileSync(path.join(REPO, 'index.html'), 'utf8');
+  assert.ok(html.includes("'B1 Karteikasten'"), 'menu entry should be present');
+  assert.ok(html.includes('#kkView'), 'scoped styles should be present');
+  assert.ok(html.includes('Schritte plus Neu · Ausgabe Schweiz'), 'section shell should be present');
+  assert.ok(html.includes('Glück im Alltag'), 'lesson data should be inlined');
+  assert.ok(!html.includes('"id":"b1-karteikasten"'), 'the Karteikasten must not be a drill deck');
+  // Its webfonts load when the section opens, never as part of first paint.
+  assert.ok(!html.includes('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson'),
+    'the section fonts must not be a static stylesheet link');
 });
 
 test('build: fails non-zero on validator error', () => {

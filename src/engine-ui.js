@@ -44,9 +44,9 @@
       el('div', { class: 'title' }, 'German Drills'),
       el('div', { class: 'subtitle' }, `${window.DECKS.length} deck${window.DECKS.length === 1 ? '' : 's'} · tap to start`)
     );
-    // The extr@ section is a standalone flashcard app, not a drill deck. It
-    // sits above the deck list behind its own divider so it doesn't read as
-    // one of them.
+    // The extr@ and B1 Karteikasten sections are standalone flashcard apps,
+    // not drill decks. They sit above the deck list behind their own divider
+    // so they don't read as one of them.
     if (window.ExtraVocab) {
       const s = window.ExtraVocab.menuSummary();
       menu.appendChild(el('button', { class: 'extra-entry', type: 'button', onclick: openExtraVocab },
@@ -57,6 +57,19 @@
         ),
         el('span', { class: 'go' }, '→')
       ));
+    }
+    if (window.Karteikasten) {
+      const s = window.Karteikasten.menuSummary();
+      menu.appendChild(el('button', { class: 'extra-entry kk-entry', type: 'button', onclick: openKarteikasten },
+        el('span', { class: 'mark' }, 'B1'),
+        el('span', { class: 'body' },
+          el('div', { class: 'name' }, 'B1 Karteikasten'),
+          el('div', { class: 'desc' }, `${s.total} cards · ${s.lessons} lessons · ${s.known} known`)
+        ),
+        el('span', { class: 'go' }, '→')
+      ));
+    }
+    if (window.ExtraVocab || window.Karteikasten) {
       menu.appendChild(el('div', { class: 'menu-divider' }, 'drills'));
     }
     const list = el('div', { class: 'deck-list' });
@@ -104,6 +117,11 @@
     // Progress lives under its own storage key; refresh the menu on the way
     // out so the "due" count reflects the session that just happened.
     window.ExtraVocab.open(renderMenu);
+  }
+
+  function openKarteikasten() {
+    // Refresh the menu on the way out so the "known" count is current.
+    window.Karteikasten.open(renderMenu);
   }
 
   // ----- Daily Review (cross-deck) -----
@@ -608,7 +626,8 @@
         renderMenu();
         return;
       }
-      if (window.ExtraVocab) window.ExtraVocab.handlePop();
+      if (window.ExtraVocab && window.ExtraVocab.handlePop()) return;
+      if (window.Karteikasten) window.Karteikasten.handlePop();
     });
   }
 

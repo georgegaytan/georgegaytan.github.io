@@ -1111,6 +1111,11 @@
     levelLabel();
     build();
     next();
+    // Move focus into the section. Otherwise focus stays on the menu button
+    // behind the overlay, and Space presses that button instead of flipping
+    // the card.
+    const c = $x('ex-card');
+    (c.hasAttribute('tabindex') ? c : $x('ex-back')).focus({ preventScroll: true });
   }
 
   function close() {
